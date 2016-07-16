@@ -1,12 +1,12 @@
-package viking_api.framework.script;
+package viking.framework.script;
 
 import java.awt.Graphics2D;
 import java.util.Queue;
 
 import org.osbot.rs07.script.Script;
 
-import viking_api.framework.mission.Mission;
-import viking_api.framework.paint.VikingPaint;
+import viking.framework.mission.Mission;
+import viking.framework.paint.VikingPaint;
 
 /**
  * This is the base class that all Viking scripts will extend from. The purpose

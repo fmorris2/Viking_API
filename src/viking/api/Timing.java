@@ -1,4 +1,4 @@
-package viking_api.api;
+package viking.api;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

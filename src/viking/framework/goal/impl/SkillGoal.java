@@ -1,9 +1,9 @@
-package viking_api.framework.goal.impl;
+package viking.framework.goal.impl;
 
 import org.osbot.rs07.api.Skills;
 import org.osbot.rs07.api.ui.Skill;
 
-import viking_api.framework.goal.Goal;
+import viking.framework.goal.Goal;
 
 /**
  * This class represents a skill-based goal, where we are trying to achieve

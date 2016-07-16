@@ -1,6 +1,6 @@
-package viking_api.framework.goal.impl;
+package viking.framework.goal.impl;
 
-import viking_api.framework.goal.Goal;
+import viking.framework.goal.Goal;
 
 /**
  * This class represents a goal that will never end

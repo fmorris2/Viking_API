@@ -1,8 +1,8 @@
-package viking_api.framework.paint;
+package viking.framework.paint;
 
 import java.awt.Graphics2D;
 
-import viking_api.framework.script.VikingScript;
+import viking.framework.script.VikingScript;
 
 /**
  * This is the base class we'll use for all of our paint systems.

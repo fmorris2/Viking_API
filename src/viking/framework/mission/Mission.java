@@ -1,6 +1,6 @@
-package viking_api.framework.mission;
+package viking.framework.mission;
 
-import viking_api.framework.goal.GoalList;
+import viking.framework.goal.GoalList;
 
 /**
  * This is the interface that represents a "mission", which is essentially

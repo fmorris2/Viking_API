@@ -1,8 +1,8 @@
-package viking_api.framework.goal.impl;
+package viking.framework.goal.impl;
 
 
-import viking_api.api.Timing;
-import viking_api.framework.goal.Goal;
+import viking.api.Timing;
+import viking.framework.goal.Goal;
 
 /**
  * This class represents a time-based goal, where we are aiming

@@ -1,9 +1,9 @@
-package viking_api.framework.paint.impl;
+package viking.framework.paint.impl;
 
 import java.awt.Graphics2D;
 
-import viking_api.framework.paint.VikingPaint;
-import viking_api.framework.script.VikingScript;
+import viking.framework.paint.VikingPaint;
+import viking.framework.script.VikingScript;
 
 /**
  * BasicVikingPaint is the most simple flavour of a VikingPaint. It pretty much

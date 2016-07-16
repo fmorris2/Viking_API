@@ -1,9 +1,9 @@
-package viking_api.framework.goal;
+package viking.framework.goal;
 
 import java.util.ArrayList;
 
-import viking_api.framework.goal.impl.ResourceGoal;
-import viking_api.framework.goal.impl.TimeGoal;
+import viking.framework.goal.impl.ResourceGoal;
+import viking.framework.goal.impl.TimeGoal;
 
 /**
  * This is an extension of the ArrayList class, which provides

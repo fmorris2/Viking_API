@@ -1,4 +1,4 @@
-package viking_api.framework.goal;
+package viking.framework.goal;
 
 /**
  * This is the interface that represents what a goal is. A goal is
