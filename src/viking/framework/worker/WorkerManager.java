@@ -15,7 +15,7 @@ public abstract class WorkerManager<T extends Mission>
 	protected T mission;
 	protected Worker<T> current;
 	
-	public WorkerManager(T mission, Worker<T> root)
+	public WorkerManager(T mission)
 	{
 		this.mission = mission;
 		current = decide();
