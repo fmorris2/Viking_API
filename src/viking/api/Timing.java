@@ -21,7 +21,6 @@ public class Timing
 	 */
 	public static long timeFromMark(long mark)
 	{
-		System.out.println("Testy");
 		return System.currentTimeMillis() - mark;
 	}
 	
