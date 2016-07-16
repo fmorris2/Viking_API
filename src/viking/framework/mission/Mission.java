@@ -1,6 +1,7 @@
 package viking.framework.mission;
 
 import viking.framework.goal.GoalList;
+import viking.framework.script.VikingScript;
 
 /**
  * This is the interface that represents a "mission", which is essentially
@@ -8,28 +9,41 @@ import viking.framework.goal.GoalList;
  * 
  * @author The Viking
  */
-public interface Mission
+public abstract class Mission
 {
+	protected VikingScript script;
+	
+	/**
+	 * Primary constructor for Mission - Takes in the VikingScript
+	 * relating to this mission
+	 * 
+	 * @param script The VikingScript driving this mission
+	 */
+	public Mission(VikingScript script)
+	{
+		this.script = script;
+	}
+	
 	/**
 	 * This method determines whether or not the mission can end
 	 * 
 	 * @return true if the mission can end, false if it needs to continue
 	 */
-	public boolean canEnd();
+	public abstract boolean canEnd();
 	
 	/**
 	 * This method gets the mission name
 	 * 
 	 * @return A String representing the name of this mission
 	 */
-	public String getMissionName();
+	public abstract String getMissionName();
 	
 	/**
 	 * This method gets the current task name
 	 * 
 	 * @return A String representing the name of the current task
 	 */
-	public String getCurrentTaskName();
+	public abstract String getCurrentTaskName();
 	
 	/**
 	 * This method gets the message that should be displayed on the end
@@ -37,7 +51,7 @@ public interface Mission
 	 * 
 	 * @return A String representing the end message
 	 */
-	public String getEndMessage();
+	public abstract String getEndMessage();
 	
 	/**
 	 * Generates the goals for this mission
@@ -45,7 +59,7 @@ public interface Mission
 	 * @return A GoalList object containing the goals for this mission, or null
 	 * if there are no goals for this mission
 	 */
-	public GoalList getGoals();
+	public abstract GoalList getGoals();
 	
 	/**
 	 * Generates the mission-specific paint Strings for this mission
@@ -55,17 +69,25 @@ public interface Mission
 	 * @return An array of Strings representing the mission specific paint info,
 	 * or null if there is none
 	 */
-	public String[] getMissionPaint();
+	public abstract String[] getMissionPaint();
 	
 	/**
 	 * This is the main method for the mission. Essentially the same as onLoop(),
 	 * but for a mission
+	 * 
+	 * @return the sleep time for this cycle
 	 */
-	public void execute();
+	public abstract int execute();
 	
 	/**
 	 * Resets the mission specific paint info
 	 */
-	public void resetPaint();
+	public abstract void resetPaint();
+	
+	//Getters & Setters
+	public VikingScript getScript()
+	{
+		return script;
+	}
 	
 }
