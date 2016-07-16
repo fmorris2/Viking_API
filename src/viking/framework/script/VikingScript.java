@@ -5,7 +5,6 @@ import java.util.Queue;
 
 import org.osbot.rs07.script.Script;
 
-import viking.api.ScriptUtils;
 import viking.framework.mission.Mission;
 import viking.framework.mission.MissionHandler;
 import viking.framework.paint.VikingPaint;
@@ -32,7 +31,7 @@ public abstract class VikingScript extends Script
 	public VikingScript()
 	{
 		vikingPaint = getVikingPaint();
-		missionHandler = new MissionHandler(generateMissions());
+		missionHandler = new MissionHandler(this, generateMissions());
 	}
 	
 	/**
@@ -58,6 +57,17 @@ public abstract class VikingScript extends Script
 	 */
 	public abstract VikingPaint<?> getVikingPaint();
 	
+	/**
+	 * Utility method to log a message to the console, with the class name from where it is called displayed along with it
+	 * 
+	 * @param c The object from which we're calling this method
+	 * @param message The message to log
+	 */
+	public void log(Object c, String message)
+	{
+		log(c.getClass().getSimpleName() + ": " + message);
+	}
+	
 	@Override
 	public int onLoop()
 	{
@@ -67,13 +77,13 @@ public abstract class VikingScript extends Script
 	@Override
 	public void onStart()
 	{
-		ScriptUtils.log(this, "Started " + getName() + " v" + getVersion() + " by " + getAuthor());
+		log(this, "Started " + getName() + " v" + getVersion() + " by " + getAuthor());
 	}
 
 	@Override
 	public void onExit()
 	{
-		ScriptUtils.log(this, "Ended " + getName() + " v" + getVersion() + " by " + getAuthor());
+		log(this, "Ended " + getName() + " v" + getVersion() + " by " + getAuthor());
 	}
 
 	@Override

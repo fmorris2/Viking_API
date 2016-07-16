@@ -2,7 +2,7 @@ package viking.framework.mission;
 
 import java.util.Queue;
 
-import viking.api.ScriptUtils;
+import viking.framework.script.VikingScript;
 
 /**
  * This class will handle the execution / flow of missions for any
@@ -12,16 +12,19 @@ import viking.api.ScriptUtils;
  */
 public class MissionHandler
 {
+	private VikingScript script;
 	private Queue<Mission> missions;
 	
 	/**
 	 * Primary constructor for MissionHandler. Takes in a queue of missions
 	 * to initially add to the mission queue
 	 * 
+	 * @param script the VikingScript relating to this mission handler
 	 * @param missions the initial queue of missions to add
 	 */
-	public MissionHandler(Queue<Mission> missions)
+	public MissionHandler(VikingScript script, Queue<Mission> missions)
 	{
+		this.script = script;
 		this.missions = missions;
 	}
 	
@@ -35,7 +38,7 @@ public class MissionHandler
 		//if mission queue is null or empty, end the script
 		if(missions == null || missions.isEmpty())
 		{
-			ScriptUtils.log(this, "No more missions... Ending");
+			script.log(this, "No more missions... Ending");
 			return -1;
 		}
 		
@@ -44,8 +47,8 @@ public class MissionHandler
 		//if the current mission is over, move on to the next one
 		if(current.canEnd())
 		{
-			ScriptUtils.log(this, current.getMissionName() + " can end... moving on to next mission");
-			ScriptUtils.log(this, current.getEndMessage());
+			script.log(this, current.getMissionName() + " can end... moving on to next mission");
+			script.log(this, current.getEndMessage());
 			missions.poll();
 			return 10;
 		}
