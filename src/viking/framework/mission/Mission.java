@@ -12,6 +12,7 @@ import viking.framework.script.VikingScript;
 public abstract class Mission
 {
 	protected VikingScript script;
+	protected GoalList goals;
 	
 	/**
 	 * Primary constructor for Mission - Takes in the VikingScript
@@ -22,6 +23,7 @@ public abstract class Mission
 	public Mission(VikingScript script)
 	{
 		this.script = script;
+		goals = getGoals();
 	}
 	
 	/**

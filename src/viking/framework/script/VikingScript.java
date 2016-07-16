@@ -65,7 +65,7 @@ public abstract class VikingScript extends Script
 	 */
 	public void log(Object c, String message)
 	{
-		log(c.getClass().getSimpleName() + ": " + message);
+		log("["+c.getClass().getSimpleName()+"]" + ": " + message);
 	}
 	
 	@Override
