@@ -2,6 +2,7 @@ package viking.api.location;
 
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
+import org.osbot.rs07.api.model.Entity;
 
 /**
  * The Location class represents any location in the game that the
@@ -43,6 +44,19 @@ public abstract class Location
 	 * @return Position object which defines where the deposit box is, or null if there isn't one
 	 */
 	public abstract Position constructDepositBoxTile();
+	
+	
+	//Utility methods
+	/**
+	 * Utility method for determining if an entity is in the location
+	 * 
+	 * @param e entity to check
+	 * @return true if entity is in location, false if otherwise
+	 */
+	public boolean isIn(Entity e)
+	{
+		return area.contains(e);
+	}
 	
 	
 	//Getters

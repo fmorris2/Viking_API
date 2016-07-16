@@ -79,7 +79,7 @@ public abstract class VikingScript extends Script
 	{
 		if(!condition)
 		{
-			log(this, "[ASSERTION]" + msg);
+			log(this, "[ASSERTION] " + msg);
 			stop();
 		}
 	}
