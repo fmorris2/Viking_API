@@ -46,7 +46,7 @@ public abstract class WorkerManager<T extends Mission>
 		if(current == null)
 		{
 			mission.getScript().log(this, "assert not working");
-			throw new AssertionError();
+			throw new NullPointerException();
 		}
 		
 		current = current.needsRepeat() ? current : decide();
