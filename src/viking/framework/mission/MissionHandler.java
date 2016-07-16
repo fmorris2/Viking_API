@@ -39,7 +39,8 @@ public class MissionHandler
 		if(missions == null || missions.isEmpty())
 		{
 			script.log(this, "No more missions... Ending");
-			return -1;
+			script.stop();
+			return 10;
 		}
 		
 		Mission current = missions.peek();
