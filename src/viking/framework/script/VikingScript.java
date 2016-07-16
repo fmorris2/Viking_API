@@ -5,7 +5,9 @@ import java.util.Queue;
 
 import org.osbot.rs07.script.Script;
 
+import viking.api.ScriptUtils;
 import viking.framework.mission.Mission;
+import viking.framework.mission.MissionHandler;
 import viking.framework.paint.VikingPaint;
 
 /**
@@ -19,8 +21,7 @@ import viking.framework.paint.VikingPaint;
 public abstract class VikingScript extends Script
 {
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
-	private Mission currentMission; //The current mission we're executing. There can potentially be other missions behind this one, in the queue
-	private Queue<Mission> missionQueue; //The mission queue, of missions to execute after the current mission
+	private MissionHandler missionHandler; //Handles / drives the missions for the script
 	
 	/**
 	 * Primary VikingScript constructor which takes in the essential
@@ -31,7 +32,7 @@ public abstract class VikingScript extends Script
 	public VikingScript()
 	{
 		vikingPaint = getVikingPaint();
-		missionQueue = generateMissions();
+		missionHandler = new MissionHandler(generateMissions());
 	}
 	
 	/**
@@ -57,32 +58,22 @@ public abstract class VikingScript extends Script
 	 */
 	public abstract VikingPaint<?> getVikingPaint();
 	
-	/**
-	 * This method is overridden by the script implementation,
-	 * it essentially is the same as onLoop(), except this class
-	 * has its own code that is needed in onLoop(), so the scripts
-	 * can't simply override it.
-	 * 
-	 * @return the main logic loop for the script implementation, returns the sleep time for this cycle
-	 */
-	public abstract int mainLogic();
-	
 	@Override
 	public int onLoop()
 	{
-		return 1000;
+		return missionHandler.execute();
 	}
 
 	@Override
 	public void onStart()
 	{
-		log("Started " + getName() + " v" + getVersion() + " by " + getAuthor());
+		ScriptUtils.log(this, "Started " + getName() + " v" + getVersion() + " by " + getAuthor());
 	}
 
 	@Override
 	public void onExit()
 	{
-		log("Ended " + getName() + " v" + getVersion() + " by " + getAuthor());
+		ScriptUtils.log(this, "Ended " + getName() + " v" + getVersion() + " by " + getAuthor());
 	}
 
 	@Override

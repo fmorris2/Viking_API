@@ -60,8 +60,10 @@ public interface Mission
 	/**
 	 * This is the main method for the mission. Essentially the same as onLoop(),
 	 * but for a mission
+	 * 
+	 * @return the sleep time for this cycle
 	 */
-	public void execute();
+	public int execute();
 	
 	/**
 	 * Resets the mission specific paint info
