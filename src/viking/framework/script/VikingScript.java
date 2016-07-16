@@ -68,6 +68,22 @@ public abstract class VikingScript extends Script
 		log("["+c.getClass().getSimpleName()+"]" + ": " + message);
 	}
 	
+	/**
+	 * Due to the assert statement not currently working with OSBot, I have to make my own.
+	 * This method will stop the script if the condition is false
+	 * 
+	 * @param condition condition to check
+	 * @param msg message to send if condition fails
+	 */
+	public void assertion(boolean condition, String msg)
+	{
+		if(!condition)
+		{
+			log(this, "[ASSERTION]" + msg);
+			stop();
+		}
+	}
+	
 	@Override
 	public int onLoop()
 	{

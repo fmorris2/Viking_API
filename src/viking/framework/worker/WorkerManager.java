@@ -41,13 +41,7 @@ public abstract class WorkerManager<T extends Mission>
 	 */
 	public void work()
 	{
-		assert current != null; //Current worker should NEVER be null
-		
-		if(current == null)
-		{
-			mission.getScript().log(this, "assert not working");
-			throw new NullPointerException();
-		}
+		mission.getScript().assertion(current != null, "Current worker is null)"); //Current worker should NEVER be null
 		
 		current = current.needsRepeat() ? current : decide();
 		current.work();
