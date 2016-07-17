@@ -21,7 +21,7 @@ public abstract class WorkerManager<T extends Mission> extends MethodProvider
 	public WorkerManager(T mission)
 	{
 		this.mission = mission;
-		this.initializeContext(mission.getBot());
+		this.exchangeContext(mission.getBot());
 	}
 	
 	/**
