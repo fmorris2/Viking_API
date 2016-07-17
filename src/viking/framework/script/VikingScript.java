@@ -52,7 +52,7 @@ public abstract class VikingScript extends Script
 	 * 
 	 * @return true if the script is in the testing phase, false otherwise
 	 */
-	public abstract boolean isTestBuild();
+	protected abstract boolean isDevBuild();
 	
 	/**
 	 * Utility method to log a message to the console, with the class name from where it is called displayed along with it
@@ -63,7 +63,7 @@ public abstract class VikingScript extends Script
 	 */
 	public void log(Object c, boolean debug, String message)
 	{
-		if(!debug || isTestBuild())
+		if(!debug || isDevBuild())
 			log("["+c.getClass().getSimpleName()+"]" + ": " + message);
 	}
 	
