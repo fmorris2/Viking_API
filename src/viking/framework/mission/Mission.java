@@ -27,7 +27,7 @@ public abstract class Mission extends MethodProvider
 	{
 		this.script = script;
 		goals = getGoals();
-		this.initializeContext(script.bot);
+		this.exchangeContext(script.bot);
 	}
 	
 	/**
