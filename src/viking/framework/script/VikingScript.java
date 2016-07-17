@@ -22,17 +22,6 @@ public abstract class VikingScript extends Script
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
 	private MissionHandler missionHandler; //Handles / drives the missions for the script
 	
-	/**
-	 * Primary VikingScript constructor which takes in the essential
-	 * parameters to run a VikingScript.
-	 * 
-	 * @param vikingPaint the VikingPaint object which will drive the paint system for this script
-	 */
-	public VikingScript()
-	{
-		vikingPaint = getVikingPaint();
-		missionHandler = new MissionHandler(this, generateMissions());
-	}
 	
 	/**
 	 * This method will be provided by the script implementation.
@@ -94,6 +83,8 @@ public abstract class VikingScript extends Script
 	public void onStart()
 	{
 		log(this, "Started " + getName() + " v" + getVersion() + " by " + getAuthor());
+		missionHandler = new MissionHandler(this, generateMissions());
+		vikingPaint = getVikingPaint();
 	}
 
 	@Override
