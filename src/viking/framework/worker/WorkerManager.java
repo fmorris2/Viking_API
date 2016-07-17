@@ -18,7 +18,6 @@ public abstract class WorkerManager<T extends Mission>
 	public WorkerManager(T mission)
 	{
 		this.mission = mission;
-		current = decide();
 	}
 	
 	/**
@@ -41,6 +40,9 @@ public abstract class WorkerManager<T extends Mission>
 	 */
 	public void work()
 	{
+		if(current == null)
+			current = decide();
+		
 		mission.getScript().assertion(current != null, "Current worker is null)"); //Current worker should NEVER be null
 		
 		current = current.needsRepeat() ? current : decide();
