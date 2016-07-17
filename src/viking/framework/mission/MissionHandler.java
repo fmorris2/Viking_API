@@ -38,7 +38,7 @@ public class MissionHandler
 		//if mission queue is null or empty, end the script
 		if(missions == null || missions.isEmpty())
 		{
-			script.log(this, "No more missions... Ending");
+			script.log(this, false, "No more missions... Ending");
 			script.stop();
 			return 10;
 		}
@@ -50,8 +50,8 @@ public class MissionHandler
 		//if the current mission is over, move on to the next one
 		if(current.canEnd())
 		{
-			script.log(this, current.getMissionName() + " can end... moving on to next mission");
-			script.log(this, current.getEndMessage());
+			script.log(this, false, current.getMissionName() + " can end... moving on to next mission");
+			script.log(this, false, current.getEndMessage());
 			missions.poll();
 			return 10;
 		}

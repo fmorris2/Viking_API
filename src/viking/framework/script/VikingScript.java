@@ -22,7 +22,6 @@ public abstract class VikingScript extends Script
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
 	private MissionHandler missionHandler; //Handles / drives the missions for the script
 	
-	
 	/**
 	 * This method will be provided by the script implementation.
 	 * The purpose of this is so that each script can define a
@@ -47,14 +46,24 @@ public abstract class VikingScript extends Script
 	public abstract VikingPaint<?> getVikingPaint();
 	
 	/**
+	 * This method defines whether or not the current Script is in the testing
+	 * phase
+	 * 
+	 * @return true if the script is in the testing phase, false otherwise
+	 */
+	public abstract boolean isTestBuild();
+	
+	/**
 	 * Utility method to log a message to the console, with the class name from where it is called displayed along with it
 	 * 
-	 * @param c The object from which we're calling this method
-	 * @param message The message to log
+	 * @param c the object from which we're calling this method
+	 * @param debug if this is a message specifically for testing builds of the script
+	 * @param message the message to log
 	 */
-	public void log(Object c, String message)
+	public void log(Object c, boolean debug, String message)
 	{
-		log("["+c.getClass().getSimpleName()+"]" + ": " + message);
+		if(!debug || isTestBuild())
+			log("["+c.getClass().getSimpleName()+"]" + ": " + message);
 	}
 	
 	/**
@@ -68,7 +77,7 @@ public abstract class VikingScript extends Script
 	{
 		if(!condition)
 		{
-			log(this, "[ASSERTION] " + msg);
+			log(this, true, "[ASSERTION] " + msg);
 			stop();
 		}
 	}
@@ -82,7 +91,7 @@ public abstract class VikingScript extends Script
 	@Override
 	public void onStart()
 	{
-		log(this, "Started " + getName() + " v" + getVersion() + " by " + getAuthor());
+		log(this, false, "Started " + getName() + " v" + getVersion() + " by " + getAuthor());
 		missionHandler = new MissionHandler(this, generateMissions());
 		vikingPaint = getVikingPaint();
 	}
@@ -90,7 +99,7 @@ public abstract class VikingScript extends Script
 	@Override
 	public void onExit()
 	{
-		log(this, "Ended " + getName() + " v" + getVersion() + " by " + getAuthor());
+		log(this, false, "Ended " + getName() + " v" + getVersion() + " by " + getAuthor());
 	}
 
 	@Override
