@@ -1,5 +1,7 @@
 package viking.framework.mission;
 
+import org.osbot.rs07.script.MethodProvider;
+
 import viking.framework.goal.GoalList;
 import viking.framework.script.VikingScript;
 
@@ -9,7 +11,7 @@ import viking.framework.script.VikingScript;
  * 
  * @author The Viking
  */
-public abstract class Mission
+public abstract class Mission extends MethodProvider
 {
 	protected VikingScript script;
 	protected GoalList goals;
@@ -20,10 +22,12 @@ public abstract class Mission
 	 * 
 	 * @param script The VikingScript driving this mission
 	 */
+	@SuppressWarnings("deprecation")
 	public Mission(VikingScript script)
 	{
 		this.script = script;
 		goals = getGoals();
+		this.initializeContext(script.bot);
 	}
 	
 	/**
