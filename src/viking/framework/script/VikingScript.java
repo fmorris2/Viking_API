@@ -21,6 +21,7 @@ public abstract class VikingScript extends Script
 {
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
 	private MissionHandler missionHandler; //Handles / drives the missions for the script
+	private ScriptUtils utils; //Holds the various script utilities for each Viking Script
 	
 	/**
 	 * This method will be provided by the script implementation.
@@ -94,6 +95,7 @@ public abstract class VikingScript extends Script
 		log(this, false, "Started " + getName() + " v" + getVersion() + " by " + getAuthor());
 		missionHandler = new MissionHandler(this, generateMissions());
 		vikingPaint = getVikingPaint();
+		utils = new ScriptUtils(this);
 	}
 
 	@Override
@@ -107,5 +109,10 @@ public abstract class VikingScript extends Script
 	{
 		vikingPaint.paint(g);
 	}
-
+	
+	//Gettters
+	public ScriptUtils getUtils()
+	{
+		return utils;
+	}
 }
