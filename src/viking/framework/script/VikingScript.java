@@ -93,9 +93,9 @@ public abstract class VikingScript extends Script
 	public void onStart()
 	{
 		log(this, false, "Started " + getName() + " v" + getVersion() + " by " + getAuthor());
+		utils = new ScriptUtils(this);
 		missionHandler = new MissionHandler(this, generateMissions());
 		vikingPaint = getVikingPaint();
-		utils = new ScriptUtils(this);
 	}
 
 	@Override
