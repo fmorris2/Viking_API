@@ -92,7 +92,10 @@ public abstract class VikingScript extends Script
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			StackTraceElement[] elements = e.getStackTrace();
+			for(StackTraceElement st : elements)
+				log(st.toString());
+				
 			stop();
 		}
 		
