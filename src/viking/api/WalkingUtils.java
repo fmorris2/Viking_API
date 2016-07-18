@@ -5,7 +5,6 @@ import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.event.Event;
 import org.osbot.rs07.event.WalkingEvent;
 import org.osbot.rs07.event.WebWalkEvent;
-import org.osbot.rs07.script.MethodProvider;
 
 import viking.api.condition.VCondition;
 import viking.framework.script.VikingScript;
@@ -60,7 +59,10 @@ public class WalkingUtils extends ScriptUtil
 		{
 			//execute the walk event
 			while(!walkEvent.hasFailed() && !walkEvent.hasFinished())
-				MethodProvider.sleep(walkEvent.execute());
+			{
+				script.log(this, true, "walkEvent executing!");
+				walkEvent.execute();
+			}
 		}
 		catch(InterruptedException e)
 		{
