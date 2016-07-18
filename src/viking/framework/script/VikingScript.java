@@ -86,7 +86,17 @@ public abstract class VikingScript extends Script
 	@Override
 	public int onLoop()
 	{
-		return missionHandler.execute();
+		try
+		{
+			return missionHandler.execute();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			stop();
+		}
+		
+		return 100;
 	}
 
 	@Override
