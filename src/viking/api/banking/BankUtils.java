@@ -45,6 +45,20 @@ public class BankUtils extends ScriptUtil
 		return BANKS.get(0).getArea();
 	}
 	
+	public boolean open()
+	{
+		try
+		{
+			return bank.open();
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * This is the comparator we use to sort our bank cache, and
 	 * push the best bank option to the front of the list
