@@ -56,7 +56,6 @@ public class WalkingUtils extends ScriptUtil
 		}
 		
 		//execute the walk event
-		script.log(this, true, "walkEvent == null: " + (walkEvent == null));
 		return execute(walkEvent).hasFinished()
 				&& waitCondition == null ? true : Timing.waitCondition(waitCondition, cycleTime, timeout);
 	}
