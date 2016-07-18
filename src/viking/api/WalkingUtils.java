@@ -55,18 +55,11 @@ public class WalkingUtils extends ScriptUtil
 				((WebWalkEvent)(walkEvent)).setBreakCondition(breakCondition);
 		}
 		
-		try
+		//execute the walk event
+		while(!walkEvent.hasFailed() && !walkEvent.hasFinished())
 		{
-			//execute the walk event
-			while(!walkEvent.hasFailed() && !walkEvent.hasFinished())
-			{
-				script.log(this, true, "walkEvent executing!");
-				walkEvent.execute();
-			}
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
+			script.log(this, true, "walkEvent executing!");
+			execute(walkEvent);
 		}
 		
 		//wait if necessary
