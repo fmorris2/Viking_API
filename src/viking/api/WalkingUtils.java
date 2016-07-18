@@ -91,8 +91,9 @@ public class WalkingUtils extends ScriptUtil
 	{
         int baseX = position.getX() - script.map.getBaseX();
         int baseY = position.getY() - script.map.getBaseY();
-        		
-        return baseX >= MIN_LOCAL_COORD && baseX <= MAX_LOCAL_COORD &&
-        		baseY >= MIN_LOCAL_COORD && baseY <= MAX_LOCAL_COORD;
+        boolean samePlane = position.getZ() == script.map.getPlane();
+        
+        return samePlane && (baseX >= MIN_LOCAL_COORD && baseX <= MAX_LOCAL_COORD &&
+        		baseY >= MIN_LOCAL_COORD && baseY <= MAX_LOCAL_COORD);
     }
 }
