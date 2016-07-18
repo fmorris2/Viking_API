@@ -1,7 +1,6 @@
 package viking.framework.worker;
 
-import org.osbot.rs07.script.MethodProvider;
-
+import viking.framework.VMethodProvider;
 import viking.framework.mission.Mission;
 
 /**
@@ -13,7 +12,7 @@ import viking.framework.mission.Mission;
  *
  * @param <T> The mission we're working for
  */
-public abstract class Worker<T extends Mission> extends MethodProvider
+public abstract class Worker<T extends Mission> extends VMethodProvider
 {
 	protected T mission;
 	
@@ -23,11 +22,10 @@ public abstract class Worker<T extends Mission> extends MethodProvider
 	 * 
 	 * @param mission the mission that is driving this worker
 	 */
-	@SuppressWarnings("deprecation")
 	public Worker(T mission)
 	{
 		this.mission = mission;
-		this.exchangeContext(mission.getBot());
+		exchangeContext(mission.getScript());
 	}
 	
 	/**
