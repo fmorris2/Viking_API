@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.osbot.rs07.api.map.Area;
 
+import viking.api.ScriptUtil;
 import viking.framework.script.VikingScript;
 
 /**
@@ -16,7 +17,7 @@ import viking.framework.script.VikingScript;
  * @author The Viking
  * 
  */
-public class BankUtils
+public class BankUtils extends ScriptUtil
 {
 	//Our bank cache, so we don't have to continue to load up the VikingBank value array
 	private static final List<VikingBank> BANKS = new ArrayList<>(Arrays.asList(VikingBank.values()));
@@ -24,11 +25,9 @@ public class BankUtils
 	//Our cached Comparator, so we don't have to create a new one every time we want to sort the banks
 	private final Comparator<VikingBank> BANK_COMPARATOR = bankComparator();
 	
-	private VikingScript script;
-	
 	public BankUtils(VikingScript script)
 	{
-		this.script = script;
+		super(script);
 	}
 	
 	/**

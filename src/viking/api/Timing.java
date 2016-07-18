@@ -4,6 +4,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.osbot.rs07.utility.ConditionalSleep;
+
+import viking.api.condition.VCondition;
+
 /**
  * Static utility class with various methods that are related
  * to time / timing.
@@ -46,5 +50,31 @@ public class Timing
 		Date date = new Date(ms);
 		DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
 		return formatter.format(date);
+	}
+	
+	/**
+	 * This method waits for a specific condition
+	 * to be true within a maximum amount of time. Your
+	 * basic conditional sleep.
+	 * 
+	 * @param condition the condition to wait for
+	 * @param cycleTime the time, in ms, between condition checks
+	 * @param timeout the maximum time to wait for the condition to be true
+	 * @return true if the condition was met within the threshold, or false if the timeout was exceeded
+	 * @throws InterruptedException
+	 */
+	public static boolean waitCondition(VCondition condition, int cycleTime, int timeout) throws InterruptedException
+	{
+		new ConditionalSleep(timeout, cycleTime)
+		{
+			@Override
+			public boolean condition() throws InterruptedException
+			{
+				return condition.evaluate();
+			}
+			
+		}.wait();
+		
+		return condition.evaluate();
 	}
 }
