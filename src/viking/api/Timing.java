@@ -65,23 +65,14 @@ public class Timing
 	 */
 	public static boolean waitCondition(VCondition condition, int cycleTime, int timeout)
 	{
-		try
+		return new ConditionalSleep(timeout, cycleTime)
 		{
-			new ConditionalSleep(timeout, cycleTime)
+			@Override
+			public boolean condition() throws InterruptedException
 			{
-				@Override
-				public boolean condition() throws InterruptedException
-				{
-					return condition.evaluate();
-				}
-				
-			}.wait();
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		
-		return condition.evaluate();
+				return condition.evaluate();
+			}
+			
+		}.sleep();
 	}
 }
