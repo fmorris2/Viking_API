@@ -2,6 +2,7 @@ package viking.api;
 
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
+import org.osbot.rs07.event.Event;
 import org.osbot.rs07.event.WalkingEvent;
 import org.osbot.rs07.event.WebWalkEvent;
 
@@ -43,21 +44,20 @@ public class WalkingUtils extends ScriptUtil
 	{
 		//determine if we'll use web walking or normal walking
 		final boolean IS_REGIONAL = isRegional(pos);
-		final WalkingEvent NORMAL_WALK = IS_REGIONAL ? new WalkingEvent(pos) : null;
-		final WebWalkEvent WEB_WALK = !IS_REGIONAL ? new WebWalkEvent(pos) : null;
-		//Event walkEvent = IS_REGIONAL ? new WalkingEvent(pos) : new WebWalkEvent(pos);
+		Event walkEvent = IS_REGIONAL ? new WalkingEvent(pos) : new WebWalkEvent(pos);
 		
 		//set the break condition if necessary
 		if(breakCondition != null)
 		{
 			if(IS_REGIONAL)
-				NORMAL_WALK.setBreakCondition(breakCondition);
+				((WalkingEvent)(walkEvent)).setBreakCondition(breakCondition);
 			else
-				WEB_WALK.setBreakCondition(breakCondition);
+				((WebWalkEvent)(walkEvent)).setBreakCondition(breakCondition);
 		}
 		
 		//execute the walk event
-		return execute(NORMAL_WALK == null ? WEB_WALK : NORMAL_WALK).hasFinished()
+		script.log(this, true, "walkEvent == null: " + (walkEvent == null));
+		return execute(walkEvent).hasFinished()
 				&& waitCondition == null ? true : Timing.waitCondition(waitCondition, cycleTime, timeout);
 	}
 	
