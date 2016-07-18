@@ -1,5 +1,6 @@
 package viking.api;
 
+import viking.framework.VMethodProvider;
 import viking.framework.script.VikingScript;
 
 /**
@@ -8,7 +9,7 @@ import viking.framework.script.VikingScript;
  * @author The Viking
  *
  */
-public class ScriptUtil
+public class ScriptUtil extends VMethodProvider
 {
 	protected VikingScript script;
 	

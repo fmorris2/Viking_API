@@ -1,5 +1,6 @@
 package viking.api;
 
+import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.event.Event;
 import org.osbot.rs07.event.WalkingEvent;
@@ -39,7 +40,7 @@ public class WalkingUtils extends ScriptUtil
 	 * @return true if we've successfully walked to the position, false otherwise
 	 * @throws InterruptedException 
 	 */
-	public boolean walkTo(Position pos, VCondition breakCondition, VCondition waitCondition, int cycleTime, int timeout) throws InterruptedException
+	public boolean walkTo(Position pos, VCondition breakCondition, VCondition waitCondition, int cycleTime, int timeout)
 	{
 		//determine if we'll use web walking or normal walking
 		final boolean IS_REGIONAL = isRegional(pos);
@@ -54,12 +55,39 @@ public class WalkingUtils extends ScriptUtil
 				((WebWalkEvent)(walkEvent)).setBreakCondition(breakCondition);
 		}
 		
-		//execute the walk event
-		while(!walkEvent.hasFailed() && !walkEvent.hasFinished())
-			VikingScript.sleep(walkEvent.execute());
+		try
+		{
+			//execute the walk event
+			while(!walkEvent.hasFailed() && !walkEvent.hasFinished())
+				VikingScript.sleep(walkEvent.execute());
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		
 		//wait if necessary
 		return waitCondition == null ? walkEvent.hasFinished() : Timing.waitCondition(waitCondition, cycleTime, timeout);
+	}
+	
+	/**
+	 * This method is the most basic walk method in this class. It calls upon
+	 * the general walk method, but doesn't make use of a break condition or wait
+	 * condition.
+	 * 
+	 * @param pos The position to walk to
+	 * @return true if we've successfully walked to the position, false otherwise
+	 * @throws InterruptedException
+	 */
+	public boolean walkTo(Position pos) throws InterruptedException
+	{
+		return walkTo(pos, null, null, -1, -1);
+	}
+	
+	public boolean walkToArea(Area a)
+	{
+		final VCondition IN_AREA = script.getUtils().getConditions().inAreaCondition(a);
+		return walkTo(a.getRandomPosition(), IN_AREA, IN_AREA, 600, 3500);
 	}
 	
 	/**

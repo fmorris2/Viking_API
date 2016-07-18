@@ -63,17 +63,24 @@ public class Timing
 	 * @return true if the condition was met within the threshold, or false if the timeout was exceeded
 	 * @throws InterruptedException
 	 */
-	public static boolean waitCondition(VCondition condition, int cycleTime, int timeout) throws InterruptedException
+	public static boolean waitCondition(VCondition condition, int cycleTime, int timeout)
 	{
-		new ConditionalSleep(timeout, cycleTime)
+		try
 		{
-			@Override
-			public boolean condition() throws InterruptedException
+			new ConditionalSleep(timeout, cycleTime)
 			{
-				return condition.evaluate();
-			}
-			
-		}.wait();
+				@Override
+				public boolean condition() throws InterruptedException
+				{
+					return condition.evaluate();
+				}
+				
+			}.wait();
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		
 		return condition.evaluate();
 	}
