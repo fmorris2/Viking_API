@@ -44,12 +44,9 @@ public abstract class WorkerManager<T extends Mission> extends MethodProvider
 	 */
 	public void work()
 	{
-		if(current == null)
-			current = decide();
+		current = current == null || !current.needsRepeat() ? decide() : current;
 		
 		mission.getScript().assertion(current != null, "Current worker is null)"); //Current worker should NEVER be null
-		
-		current = current.needsRepeat() ? current : decide();
 		current.work();
 	}
 }

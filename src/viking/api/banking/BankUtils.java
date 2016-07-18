@@ -45,6 +45,16 @@ public class BankUtils extends ScriptUtil
 		return BANKS.get(0).getArea();
 	}
 	
+	/**
+	 * This method opens the closest bank. The only reason
+	 * this method is here is due to the fact that bank.open()
+	 * throws an InterruptedException, so instead of adding
+	 * a try / catch block whenever we use it in our code,
+	 * we simply make this method and not have to worry about
+	 * it again
+	 * 
+	 * @return whether or not the bank was opened successfully
+	 */
 	public boolean open()
 	{
 		try
