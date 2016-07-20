@@ -24,6 +24,7 @@ public class ScriptUtils
 		bank = new BankUtils(script);
 		walk = new WalkingUtils(script);
 		conditions = new VConditions(script);
+		filters = new VFilters(script);
 	}
 	
 	//Getters
