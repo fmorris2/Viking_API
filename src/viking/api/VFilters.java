@@ -1,7 +1,7 @@
 package viking.api;
 
 import org.osbot.rs07.api.filter.Filter;
-import org.osbot.rs07.api.model.Character;
+import org.osbot.rs07.api.model.NPC;
 
 import viking.framework.script.VikingScript;
 
@@ -11,15 +11,17 @@ import viking.framework.script.VikingScript;
  * @author The Viking
  */
 public class VFilters extends ScriptUtil
-{	
+{
+	public final Filter<NPC> ABLE_TO_ATTACK_NPC = ableToAttack();
+	
 	public VFilters(VikingScript script)
 	{
 		super(script);
 	}
 	
 	
-	public Filter<? extends Character<?>> ableToAttack()
+	private Filter<NPC> ableToAttack()
 	{
-		return (Character<?> f) -> f.isUnderAttack() && !f.getInteracting().equals(myPlayer());
+		return (NPC f) -> f.isUnderAttack() && !f.getInteracting().equals(myPlayer());
 	}
 }
