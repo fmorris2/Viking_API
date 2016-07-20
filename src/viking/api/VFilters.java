@@ -11,16 +11,14 @@ import viking.framework.script.VikingScript;
  * @author The Viking
  */
 public class VFilters extends ScriptUtil
-{
-	public final Filter<Character<?>> ABLE_TO_ATTACK = ableToAttack();
-	
+{	
 	public VFilters(VikingScript script)
 	{
 		super(script);
 	}
 	
 	
-	private Filter<Character<?>> ableToAttack()
+	public Filter<? extends Character<?>> ableToAttack()
 	{
 		return (Character<?> f) -> f.isUnderAttack() && !f.getInteracting().equals(myPlayer());
 	}
