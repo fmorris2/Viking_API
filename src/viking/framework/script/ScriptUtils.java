@@ -1,5 +1,6 @@
 package viking.framework.script;
 
+import viking.api.VFilters;
 import viking.api.WalkingUtils;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
@@ -16,6 +17,7 @@ public class ScriptUtils
 	private BankUtils bank;
 	private WalkingUtils walk;
 	private VConditions conditions;
+	private VFilters filters;
 	
 	public ScriptUtils(VikingScript script)
 	{
@@ -38,5 +40,10 @@ public class ScriptUtils
 	public VConditions getConditions()
 	{
 		return conditions;
+	}
+	
+	public VFilters getFilters()
+	{
+		return filters;
 	}
 }

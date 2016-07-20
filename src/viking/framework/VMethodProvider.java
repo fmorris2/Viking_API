@@ -2,6 +2,7 @@ package viking.framework;
 
 import org.osbot.rs07.script.MethodProvider;
 
+import viking.api.VFilters;
 import viking.api.WalkingUtils;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
@@ -23,6 +24,7 @@ public class VMethodProvider extends MethodProvider
 	public BankUtils bankUtils;
 	public WalkingUtils walkUtils;
 	public VConditions conditions;
+	public VFilters filters;
 	
 	@SuppressWarnings("deprecation")
 	public void exchangeContext(VikingScript script)
@@ -33,5 +35,6 @@ public class VMethodProvider extends MethodProvider
 		bankUtils = script.getUtils().getBank();
 		walkUtils = script.getUtils().getWalk();
 		conditions = script.getUtils().getConditions();
+		filters = script.getUtils().getFilters();
 	}
 }
