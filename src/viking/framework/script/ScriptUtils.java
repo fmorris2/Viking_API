@@ -1,9 +1,9 @@
 package viking.framework.script;
 
-import viking.api.VFilters;
 import viking.api.WalkingUtils;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
+import viking.api.filter.VFilters;
 
 /**
  * Each VikingScript has a ScriptUtils object which hold various other

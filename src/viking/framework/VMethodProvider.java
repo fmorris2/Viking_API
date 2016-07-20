@@ -2,10 +2,10 @@ package viking.framework;
 
 import org.osbot.rs07.script.MethodProvider;
 
-import viking.api.VFilters;
 import viking.api.WalkingUtils;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
+import viking.api.filter.VFilters;
 import viking.framework.script.VikingScript;
 
 /**
