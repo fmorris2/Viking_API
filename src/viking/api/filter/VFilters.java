@@ -22,7 +22,7 @@ public class VFilters extends ScriptUtil
 		
 	private Filter<NPC> ableToAttack()
 	{
-		return (NPC f) -> f.isUnderAttack() && !f.getInteracting().equals(myPlayer());
+		return (NPC f) -> !f.isUnderAttack() && f.getInteracting() == null;
 	}
 	
 	/**
