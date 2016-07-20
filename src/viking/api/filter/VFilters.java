@@ -1,6 +1,5 @@
 package viking.api.filter;
 
-import org.osbot.T;
 import org.osbot.rs07.api.filter.Filter;
 import org.osbot.rs07.api.model.NPC;
 
@@ -33,7 +32,8 @@ public class VFilters extends ScriptUtil
 	 * @param o the other VFilter object to combine with this one
 	 * @return the new, combined VFilter object
 	 */
-	public static Filter<T> and(Filter<T> one, Filter<T> two)
+	@SuppressWarnings("rawtypes")
+	public static <T> Filter and(Filter<T> one, Filter<T> two)
 	{	
 		return new Filter<T>()
 		{
@@ -52,7 +52,8 @@ public class VFilters extends ScriptUtil
 	 * @param o the other VFilter object to combine with this one
 	 * @return the new, combined VFilter object
 	 */
-	public static Filter<T> or(Filter<T> one, Filter<T> two)
+	@SuppressWarnings("rawtypes")
+	public static <T> Filter or(Filter<T> one, Filter<T> two)
 	{	
 		return new Filter<T>()
 		{
