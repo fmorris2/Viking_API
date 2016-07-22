@@ -83,7 +83,7 @@ public class BankUtils extends ScriptUtil
 			@Override
 			public int compare(VikingBank one, VikingBank two)
 			{
-				final boolean IN_MEMBERS_WORLD = script.worlds.isMembersWorld();
+				final boolean IN_MEMBERS_WORLD = worlds.isMembersWorld();
 				
 				//Compare first by whether or not the banks are valid for the character in terms of membership
 				if(!IN_MEMBERS_WORLD)
@@ -94,7 +94,7 @@ public class BankUtils extends ScriptUtil
 				}
 				
 				//Compare second by distance to the player
-				return script.myPosition().distance(one.getArea().getRandomPosition()) - script.myPosition().distance(two.getArea().getRandomPosition());
+				return myPosition().distance(one.getArea().getRandomPosition()) - myPosition().distance(two.getArea().getRandomPosition());
 			}
 		};
 	}

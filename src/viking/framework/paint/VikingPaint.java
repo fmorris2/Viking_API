@@ -70,6 +70,7 @@ public abstract class VikingPaint<T extends VikingScript>
 			
 			g.setRenderingHints(rh);
 		}
+		
 		paintInfo(g);
 	}
 	
