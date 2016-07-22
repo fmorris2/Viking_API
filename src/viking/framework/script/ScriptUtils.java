@@ -4,6 +4,7 @@ import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
 import viking.api.travel.WalkingUtils;
+import viking.framework.averager.Averager;
 
 /**
  * Each VikingScript has a ScriptUtils object which hold various other
@@ -18,6 +19,7 @@ public class ScriptUtils
 	private WalkingUtils walk;
 	private VConditions conditions;
 	private VFilters filters;
+	private Averager avg;
 	
 	public ScriptUtils(VikingScript script)
 	{
@@ -25,6 +27,7 @@ public class ScriptUtils
 		walk = new WalkingUtils(script);
 		conditions = new VConditions(script);
 		filters = new VFilters(script);
+		avg = new Averager(script);
 	}
 	
 	//Getters
@@ -46,5 +49,10 @@ public class ScriptUtils
 	public VFilters getFilters()
 	{
 		return filters;
+	}
+	
+	public Averager getAverager()
+	{
+		return avg;
 	}
 }

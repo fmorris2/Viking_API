@@ -6,6 +6,7 @@ import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
 import viking.api.travel.WalkingUtils;
+import viking.framework.averager.Averager;
 import viking.framework.script.VikingScript;
 
 /**
@@ -25,6 +26,7 @@ public class VMethodProvider extends MethodProvider
 	public WalkingUtils walkUtils;
 	public VConditions conditions;
 	public VFilters filters;
+	public Averager avg;
 	
 	@SuppressWarnings("deprecation")
 	public void exchangeContext(VikingScript script)
@@ -36,5 +38,6 @@ public class VMethodProvider extends MethodProvider
 		walkUtils = script.getUtils().getWalk();
 		conditions = script.getUtils().getConditions();
 		filters = script.getUtils().getFilters();
+		avg = script.getUtils().getAverager();
 	}
 }
