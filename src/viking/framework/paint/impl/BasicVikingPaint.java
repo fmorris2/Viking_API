@@ -29,7 +29,7 @@ public abstract class BasicVikingPaint<T extends VikingScript> extends VikingPai
 	}
 	
 	@Override
-	public void paint(Graphics2D g)
+	public void paintInfo(Graphics2D g)
 	{
 		g.setColor(color);
 		
