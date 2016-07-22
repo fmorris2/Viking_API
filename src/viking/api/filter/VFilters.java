@@ -30,7 +30,7 @@ public class VFilters extends ScriptUtil
 	 */
 	private Filter<NPC> ableToAttack()
 	{
-		return (NPC f) -> !f.isUnderAttack() && f.getInteracting() == null && !f.isAnimating();
+		return (NPC f) -> !f.isUnderAttack() && f.getInteracting() == null && f.getHealthPercent() > 0;
 	}
 	
 	/**
