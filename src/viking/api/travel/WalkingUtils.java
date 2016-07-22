@@ -91,9 +91,12 @@ public class WalkingUtils extends ScriptUtil
 	 */
 	private boolean isRegional(Position position) 
 	{
-        int baseX = position.getX() - script.map.getBaseX();
-        int baseY = position.getY() - script.map.getBaseY();
-        boolean samePlane = position.getZ() == script.map.getPlane();
+		if(position == null)
+			return false;
+		
+        int baseX = position.getX() - map.getBaseX();
+        int baseY = position.getY() - map.getBaseY();
+        boolean samePlane = position.getZ() == map.getPlane();
         
         return samePlane && (baseX >= MIN_LOCAL_COORD && baseX <= MAX_LOCAL_COORD &&
         		baseY >= MIN_LOCAL_COORD && baseY <= MAX_LOCAL_COORD);
