@@ -71,7 +71,7 @@ public class WalkingUtils extends ScriptUtil
 	 * @return true if we've successfully walked to the position, false otherwise
 	 * @throws InterruptedException
 	 */
-	public boolean walkTo(Position pos) throws InterruptedException
+	public boolean walkTo(Position pos)
 	{
 		return walkTo(pos, null, null, -1, -1);
 	}

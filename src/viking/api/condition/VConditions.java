@@ -1,6 +1,7 @@
 package viking.api.condition;
 
 import org.osbot.rs07.api.map.Area;
+import org.osbot.rs07.api.model.Entity;
 
 import viking.api.ScriptUtil;
 import viking.framework.script.VikingScript;
@@ -30,6 +31,19 @@ public class VConditions extends ScriptUtil
 			public boolean evaluate()
 			{
 				return a.contains(script.myPosition());
+			}
+			
+		};
+	}
+	
+	public VCondition onScreenCondition(Entity e)
+	{
+		return new VCondition()
+		{
+			@Override
+			public boolean evaluate()
+			{
+				return e == null || e.isVisible();
 			}
 			
 		};

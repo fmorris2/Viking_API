@@ -4,6 +4,7 @@ import org.osbot.rs07.api.EntityAPI;
 import org.osbot.rs07.api.filter.Filter;
 import org.osbot.rs07.api.model.Entity;
 
+import viking.api.filter.VFilters;
 import viking.framework.VMethodProvider;
 
 /**
@@ -13,7 +14,7 @@ import viking.framework.VMethodProvider;
  * @author The Viking
  *
  */
-abstract class EntityInteraction<T extends Entity>
+public abstract class EntityInteraction<T extends Entity>
 {
 	protected T target;
 	protected EntityAPI<T> api;
@@ -23,13 +24,14 @@ abstract class EntityInteraction<T extends Entity>
 	protected VMethodProvider vmp;
 	private Filter<T> findFilter;
 	
+	@SuppressWarnings("unchecked")
 	public EntityInteraction(VMethodProvider vmp, String action, String name, int searchDistance)
 	{
 		this.action = action;
 		this.name = name;
 		this.searchDistance = searchDistance;
 		this.vmp = vmp;
-		findFilter = findFilter();
+		findFilter = VFilters.and(findFilter(), vmp.filters.distanceFilter(searchDistance));
 		api = getAPI();
 	}
 	
@@ -38,12 +40,11 @@ abstract class EntityInteraction<T extends Entity>
 		this.action = action;
 		this.target = target;
 		this.vmp = vmp;
-		findFilter = findFilter();
 		getAPI();
 	}
 	
 	protected abstract boolean interact();
-	protected abstract Filter<T> findFilter();
+	protected abstract Filter<Entity> findFilter();
 	protected abstract EntityAPI<T> getAPI();
 	
 	public boolean execute()
@@ -59,6 +60,8 @@ abstract class EntityInteraction<T extends Entity>
 	
 	protected boolean prepareInteraction()
 	{
-		return false;
+		return target.isVisible() 
+				|| vmp.camera.toEntity(target) 
+				|| vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target), null, -1, -1);
 	}
 }

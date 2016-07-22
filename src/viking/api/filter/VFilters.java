@@ -1,6 +1,7 @@
 package viking.api.filter;
 
 import org.osbot.rs07.api.filter.Filter;
+import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.model.NPC;
 
 import viking.api.ScriptUtil;
@@ -30,6 +31,18 @@ public class VFilters extends ScriptUtil
 	private Filter<NPC> ableToAttack()
 	{
 		return (NPC f) -> !f.isUnderAttack() && f.getInteracting() == null;
+	}
+	
+	/**
+	 * Filter for determining whether or not an NPC is within
+	 * a certain distance, inclusive
+	 * 
+	 * @param distance the maximum distance the npc can be away, inclusive
+	 * @return a filter which filters only NPCs that are within a certain distance
+	 */
+	public Filter<Entity> distanceFilter(int distance)
+	{
+		return (Entity e) -> myPosition().distance(e) <= distance;
 	}
 	
 	/**
