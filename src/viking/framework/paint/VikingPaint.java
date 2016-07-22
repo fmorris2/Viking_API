@@ -3,7 +3,6 @@ package viking.framework.paint;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-import viking.api.ScriptUtil;
 import viking.api.Timing;
 import viking.framework.script.VikingScript;
 
@@ -16,7 +15,7 @@ import viking.framework.script.VikingScript;
  * @author The Viking
  *
  */
-public abstract class VikingPaint<T extends VikingScript> extends ScriptUtil
+public abstract class VikingPaint<T extends VikingScript>
 {
 	protected T script;
 	protected long startTime;
@@ -28,7 +27,7 @@ public abstract class VikingPaint<T extends VikingScript> extends ScriptUtil
 	 */
 	public VikingPaint(T script)
 	{
-		super(script);
+		this.script = script;
 		startTime = Timing.currentMs();
 	}
 	
