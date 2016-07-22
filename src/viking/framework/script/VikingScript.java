@@ -115,6 +115,7 @@ public abstract class VikingScript extends Script
 	public void onExit()
 	{
 		log(this, false, "Ended " + getName() + " v" + getVersion() + " by " + getAuthor());
+		utils.getVCamera().stop();
 	}
 
 	@Override

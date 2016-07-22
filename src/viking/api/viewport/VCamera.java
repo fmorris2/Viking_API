@@ -14,6 +14,8 @@ import viking.framework.script.VikingScript;
  */
 public class VCamera extends ScriptUtil implements Runnable
 {
+	private boolean isRunning = true;
+	
 	public VCamera(VikingScript script)
 	{
 		super(script);
@@ -22,17 +24,37 @@ public class VCamera extends ScriptUtil implements Runnable
 	@Override
 	public void run()
 	{
-		while(script != null)
-		{
+		while(isRunning)
+		{			
 			script.log(this, true, "Is running..");
-			
-			try
-			{
-				Thread.sleep(1000);
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
+			waitForChange();
+		}
+		
+		script.log(this, true, "ended...");
+	}
+	
+	public synchronized boolean toTop()
+	{
+		//notifyAll();
+		return camera.toTop();
+	}
+	
+	public synchronized void stop()
+	{
+		isRunning = false;
+		notifyAll();
+	}
+	
+	private synchronized void waitForChange()
+	{
+		try
+		{
+			wait();
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+			script.log(this, true, "Interrupted exception in waitForChange()");
 		}
 	}
 
