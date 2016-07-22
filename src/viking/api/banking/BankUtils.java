@@ -23,11 +23,12 @@ public class BankUtils extends ScriptUtil
 	private static final List<VikingBank> BANKS = new ArrayList<>(Arrays.asList(VikingBank.values()));
 		
 	//Our cached Comparator, so we don't have to create a new one every time we want to sort the banks
-	private final Comparator<VikingBank> BANK_COMPARATOR = bankComparator();
+	private Comparator<VikingBank> bankComparator = bankComparator();
 	
 	public BankUtils(VikingScript script)
 	{
 		super(script);
+		bankComparator = bankComparator();
 	}
 	
 	/**
@@ -40,7 +41,7 @@ public class BankUtils extends ScriptUtil
 	 */
 	public Area getClosest()
 	{
-		Collections.sort(BANKS, BANK_COMPARATOR); //Sort cached banks list using comparator
+		Collections.sort(BANKS, bankComparator); //Sort cached banks list using comparator
 		script.log(this, true, "Closest bank: " + BANKS.get(0));
 		return BANKS.get(0).getArea();
 	}
