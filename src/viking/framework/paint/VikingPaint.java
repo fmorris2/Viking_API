@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import viking.api.Timing;
+import viking.framework.VMethodProvider;
 import viking.framework.script.VikingScript;
 
 /**
@@ -15,7 +16,7 @@ import viking.framework.script.VikingScript;
  * @author The Viking
  *
  */
-public abstract class VikingPaint<T extends VikingScript>
+public abstract class VikingPaint<T extends VikingScript> extends VMethodProvider
 {
 	protected T script;
 	protected long startTime;
@@ -25,9 +26,11 @@ public abstract class VikingPaint<T extends VikingScript>
 	 *
 	 * @param script The VikingScript associated with this paint
 	 */
+	@SuppressWarnings("deprecation")
 	public VikingPaint(T script)
 	{
 		this.script = script;
+		this.exchangeContext(script.bot);
 		startTime = Timing.currentMs();
 	}
 	
