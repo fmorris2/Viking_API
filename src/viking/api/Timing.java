@@ -1,8 +1,6 @@
 package viking.api;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.osbot.rs07.utility.ConditionalSleep;
 
@@ -47,9 +45,9 @@ public class Timing
 	 */
 	public static String msToString(long ms)
 	{
-		Date date = new Date(ms);
-		DateFormat formatter = new SimpleDateFormat("HH:mm:ss:SSS");
-		return formatter.format(date);
+		return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(ms),
+			    TimeUnit.MILLISECONDS.toMinutes(ms) % TimeUnit.HOURS.toMinutes(1),
+			    TimeUnit.MILLISECONDS.toSeconds(ms) % TimeUnit.MINUTES.toSeconds(1));
 	}
 	
 	/**
