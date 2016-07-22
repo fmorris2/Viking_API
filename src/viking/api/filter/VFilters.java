@@ -4,6 +4,7 @@ import org.osbot.rs07.api.filter.Filter;
 import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.model.NPC;
 
+
 import viking.api.ScriptUtil;
 import viking.framework.script.VikingScript;
 
@@ -15,6 +16,7 @@ import viking.framework.script.VikingScript;
 public class VFilters extends ScriptUtil
 {
 	public final Filter<NPC> ABLE_TO_ATTACK_NPC = ableToAttack();
+	public final Filter<Entity> ABLE_TO_REACH_ENTITY = ableToReach();
 	
 	public VFilters(VikingScript script)
 	{
@@ -31,6 +33,11 @@ public class VFilters extends ScriptUtil
 	private Filter<NPC> ableToAttack()
 	{
 		return (NPC f) -> !f.isUnderAttack() && f.getInteracting() == null && f.getHealthPercent() > 0;
+	}
+	
+	private Filter<Entity> ableToReach()
+	{
+		return (Entity e) -> map.canReach(e);
 	}
 	
 	/**

@@ -2,6 +2,7 @@ package viking.framework.paint;
 
 import java.awt.Graphics2D;
 
+import viking.api.Timing;
 import viking.framework.script.VikingScript;
 
 /**
@@ -16,6 +17,7 @@ import viking.framework.script.VikingScript;
 public abstract class VikingPaint<T extends VikingScript>
 {
 	protected T script;
+	protected long startTime;
 	
 	/**
 	 * Primary constructor for VikingPaint
@@ -25,6 +27,7 @@ public abstract class VikingPaint<T extends VikingScript>
 	public VikingPaint(T script)
 	{
 		this.script = script;
+		startTime = Timing.currentMs();
 	}
 	
 	/**
@@ -49,4 +52,9 @@ public abstract class VikingPaint<T extends VikingScript>
 	 * all tracked info to 0
 	 */
 	public abstract void reset();
+	
+	public long getTimeRan()
+	{
+		return Timing.currentMs() - startTime;
+	}
 }

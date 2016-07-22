@@ -1,8 +1,8 @@
 package viking.api.condition;
 
 import org.osbot.rs07.api.map.Area;
-import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.model.Character;
+import org.osbot.rs07.api.model.Entity;
 
 import viking.api.ScriptUtil;
 import viking.framework.script.VikingScript;
