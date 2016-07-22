@@ -1,4 +1,4 @@
-package viking.api;
+package viking.api.travel;
 
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
@@ -6,6 +6,8 @@ import org.osbot.rs07.event.Event;
 import org.osbot.rs07.event.WalkingEvent;
 import org.osbot.rs07.event.WebWalkEvent;
 
+import viking.api.ScriptUtil;
+import viking.api.Timing;
 import viking.api.condition.VCondition;
 import viking.framework.script.VikingScript;
 

@@ -19,7 +19,14 @@ public class VFilters extends ScriptUtil
 	{
 		super(script);
 	}
-		
+	
+	/**
+	 * Filter for determining whether or not an NPC is able to be attacked.
+	 * Checks if the npc is not under attack, and also not interacting with
+	 * any other character
+	 * 
+	 * @return a Filter which filters only NPCs that are viable for attacking
+	 */
 	private Filter<NPC> ableToAttack()
 	{
 		return (NPC f) -> !f.isUnderAttack() && f.getInteracting() == null;

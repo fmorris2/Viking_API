@@ -2,10 +2,11 @@ package viking.framework;
 
 import org.osbot.rs07.script.MethodProvider;
 
-import viking.api.WalkingUtils;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
+import viking.api.travel.WalkingUtils;
+import viking.api.viewport.VCamera;
 import viking.framework.script.VikingScript;
 
 /**
@@ -25,6 +26,7 @@ public class VMethodProvider extends MethodProvider
 	public WalkingUtils walkUtils;
 	public VConditions conditions;
 	public VFilters filters;
+	public VCamera vCamera;
 	
 	@SuppressWarnings("deprecation")
 	public void exchangeContext(VikingScript script)
@@ -36,5 +38,6 @@ public class VMethodProvider extends MethodProvider
 		walkUtils = script.getUtils().getWalk();
 		conditions = script.getUtils().getConditions();
 		filters = script.getUtils().getFilters();
+		vCamera = script.getUtils().getVCamera();
 	}
 }
