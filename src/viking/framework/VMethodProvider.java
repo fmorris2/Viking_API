@@ -32,8 +32,6 @@ public class VMethodProvider extends MethodProvider
 	public void exchangeContext(VikingScript script)
 	{
 		super.exchangeContext(script.bot);
-		
-		this.script = script;
 		bankUtils = script.getUtils().getBank();
 		walkUtils = script.getUtils().getWalk();
 		conditions = script.getUtils().getConditions();

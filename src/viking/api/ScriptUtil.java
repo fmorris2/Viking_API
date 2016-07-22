@@ -14,6 +14,7 @@ public class ScriptUtil extends VMethodProvider
 	@SuppressWarnings("deprecation")
 	public ScriptUtil(VikingScript script)
 	{
+		this.script = script;
 		exchangeContext(script.bot);
 	}
 }
