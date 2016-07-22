@@ -26,7 +26,7 @@ public class ClickNpc extends EntityInteraction<NPC>
 	@Override
 	protected boolean interact()
 	{
-		return false;
+		return target.interact(action);
 	}
 
 	@SuppressWarnings("unchecked")
