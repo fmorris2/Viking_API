@@ -11,12 +11,9 @@ import viking.framework.script.VikingScript;
  */
 public class ScriptUtil extends VMethodProvider
 {
-	protected VikingScript script;
-	
 	@SuppressWarnings("deprecation")
 	public ScriptUtil(VikingScript script)
 	{
-		this.script = script;
 		exchangeContext(script.bot);
 	}
 }
