@@ -18,6 +18,8 @@ import viking.framework.script.VikingScript;
  */
 public class VConditions extends ScriptUtil
 {
+	public final VCondition IN_COMBAT = inCombat();
+	
 	public VConditions(VikingScript script)
 	{
 		super(script);
@@ -44,6 +46,19 @@ public class VConditions extends ScriptUtil
 			public boolean evaluate()
 			{
 				return e == null || e.isVisible();
+			}
+			
+		};
+	}
+	
+	private VCondition inCombat()
+	{
+		return new VCondition()
+		{
+			@Override
+			public boolean evaluate()
+			{
+				return combat.isFighting() || myPlayer().isUnderAttack();
 			}
 			
 		};
