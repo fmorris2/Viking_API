@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import viking.api.Timing;
+import viking.framework.paint.mouse.VikingCursor;
 import viking.framework.script.VikingScript;
 
 /**
@@ -18,6 +19,7 @@ import viking.framework.script.VikingScript;
 public abstract class VikingPaint<T extends VikingScript>
 {
 	protected T script;
+	protected VikingCursor cursor;
 	protected long startTime;
 	
 	/**
@@ -28,6 +30,7 @@ public abstract class VikingPaint<T extends VikingScript>
 	public VikingPaint(T script)
 	{
 		this.script = script;
+		cursor = new VikingCursor();
 		startTime = Timing.currentMs();
 	}
 	
@@ -58,6 +61,7 @@ public abstract class VikingPaint<T extends VikingScript>
 	{
 		if(!script.bot.lowCpu())
 		{
+			//anti-aliasing and all that jazz
 			RenderingHints rh = new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			rh.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			rh.put(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
@@ -67,8 +71,10 @@ public abstract class VikingPaint<T extends VikingScript>
 			rh.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 			rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 			rh.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
-			
 			g.setRenderingHints(rh);
+			
+			//custom mouse cursor & trail
+			cursor.draw(g, script.mouse.getPosition());
 		}
 		
 		paintInfo(g);
