@@ -8,8 +8,8 @@ import viking.framework.paint.image.VImage;
 public class VikingCursor
 {
 	private static final String CURSOR_URL = "http://vikingscripts.io/script/cursor.png";
-	private static final int OFFSET_X = 0;
-	private static final int OFFSET_Y = 0;
+	private static final int OFFSET_X = 16;
+	private static final int OFFSET_Y = 16;
 	
 	private VImage cursorImage;
 	
@@ -20,6 +20,6 @@ public class VikingCursor
 	
 	public void draw(Graphics2D g, Point mousePos)
 	{
-		cursorImage.draw(g, mousePos.x + OFFSET_X, mousePos.y + OFFSET_Y);
+		cursorImage.draw(g, mousePos.x - OFFSET_X, mousePos.y - OFFSET_Y);
 	}
 }
