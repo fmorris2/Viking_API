@@ -42,7 +42,7 @@ public class VikingCursor
 		final int X = mousePos.x - OFFSET_X;
 		final int Y = mousePos.y - OFFSET_Y;
 		
-		g.rotate(ROTATION);
+		g.rotate(ROTATION, X/* + image.getImage().getWidth() / 2*/, Y /*+ image.getImage().getHeight() / 2*/);
 		image.draw(g, X, Y);
 		g.setTransform(old);
 	}
