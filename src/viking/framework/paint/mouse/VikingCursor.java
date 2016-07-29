@@ -40,7 +40,7 @@ public class VikingCursor
 		AffineTransform old = g.getTransform();
 		final double ROTATION = calcRotation(!clockwise);
 		
-		g.rotate(ROTATION, mousePos.x, mousePos.y);
+		g.rotate(ROTATION);
 		image.draw(g, mousePos.x - OFFSET_X, mousePos.y - OFFSET_Y);
 		g.setTransform(old);
 	}
