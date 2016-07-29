@@ -14,7 +14,7 @@ public class VikingCursor
 	private static final int OFFSET_X = 9;
 	private static final int OFFSET_Y = 9;
 	
-	private static final double ANGLE_CHANGE = 1;
+	private static final double ANGLE_CHANGE = 3;
 	
 	private VImage innerImage;
 	private VImage outerImage;
