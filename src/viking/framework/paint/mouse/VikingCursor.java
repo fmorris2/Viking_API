@@ -14,7 +14,7 @@ public class VikingCursor
 	private static final int OFFSET_X = 9;
 	private static final int OFFSET_Y = 9;
 	
-	private static final double ANGLE_CHANGE = 3;
+	private static final double ANGLE_CHANGE = 1;
 	
 	private VImage innerImage;
 	private VImage outerImage;
@@ -42,7 +42,7 @@ public class VikingCursor
 		final int X = mousePos.x - OFFSET_X;
 		final int Y = mousePos.y - OFFSET_Y;
 		
-		g.rotate(ROTATION, mousePos.x + OFFSET_X/* + image.getImage().getWidth() / 2*/, mousePos.y + OFFSET_Y/*+ image.getImage().getHeight() / 2*/);
+		g.rotate(ROTATION, X, Y);
 		image.draw(g, X, Y);
 		g.setTransform(old);
 	}
