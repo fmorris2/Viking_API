@@ -3,6 +3,7 @@ package viking.framework.paint.mouse;
 import java.awt.AlphaComposite;
 import java.awt.Composite;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 
 import viking.api.Timing;
@@ -20,9 +21,9 @@ public class VikingTrailElement
 	private long lastCycle;
 	private int alpha;
 	
-	public VikingTrailElement(int x, int y)
+	public VikingTrailElement(Point p)
 	{
-		shape = new Ellipse2D.Double(x, y, STARTING_SIZE_PX, STARTING_SIZE_PX);
+		shape = new Ellipse2D.Double(p.x, p.y, STARTING_SIZE_PX, STARTING_SIZE_PX);
 		startTime = Timing.currentMs();
 		alpha = 100;
 	}

@@ -31,7 +31,7 @@ public class VikingCursor
 		OUTER_CURSOR_URL = script.getVikingWebsite() + "/script/cursor_outer.png";
 		innerImage = new VImage(INNER_CURSOR_URL);
 		outerImage = new VImage(OUTER_CURSOR_URL);
-		trail = new VikingMouseTrail();
+		trail = new VikingMouseTrail(script);
 	}
 	
 	public void draw(Graphics2D g, Point mousePos)
