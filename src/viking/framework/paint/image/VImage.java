@@ -1,7 +1,7 @@
 package viking.framework.paint.image;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  */
 public class VImage
 {
-	private Image image;
+	private BufferedImage image;
 	
 	public VImage(String url)
 	{
@@ -48,5 +48,10 @@ public class VImage
 	{
 		if(image != null)
 			g.drawImage(image, x, y, null);
+	}
+	
+	public BufferedImage getImage()
+	{
+		return image;
 	}
 }
