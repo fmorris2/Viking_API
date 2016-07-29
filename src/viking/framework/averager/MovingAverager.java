@@ -39,8 +39,9 @@ public class MovingAverager
 	
 	public String getAvg(String key)
 	{
+		Queue<Double> queue = data.get(key);
 		Double total = dataTotals.get(key);	
-		return total == null ? "0.0" : format.format(total / TOTAL_SAMPLES);
+		return total == null ? "0.0" : format.format(total / queue.size());
 	}
 	
 }
