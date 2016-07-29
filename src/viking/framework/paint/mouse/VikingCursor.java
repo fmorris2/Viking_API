@@ -18,7 +18,6 @@ public class VikingCursor
 	
 	private VImage innerImage;
 	private VImage outerImage;
-	private AffineTransform transform;
 	private int angle;
 	
 	public VikingCursor()
@@ -29,26 +28,25 @@ public class VikingCursor
 	}
 	
 	public void draw(Graphics2D g, Point mousePos)
-	{
-		transform = g.getTransform();
-		
-		drawRotatingPart(g, transform, innerImage, mousePos, true);
-		drawRotatingPart(g, transform, outerImage, mousePos, false);
+	{	
+		drawRotatingPart(g, innerImage, mousePos, true);
+		drawRotatingPart(g, outerImage, mousePos, false);
 		
 		angle += ANGLE_CHANGE;
 	}
 	
-	private void drawRotatingPart(Graphics2D g, AffineTransform transform, VImage image, Point mousePos, boolean clockwise)
+	private void drawRotatingPart(Graphics2D g, VImage image, Point mousePos, boolean clockwise)
 	{
 		final double ROTATION = calcRotation(!clockwise);
+		AffineTransform transform = g.getTransform();
 		
 		transform.rotate(ROTATION);
 		image.draw(g, mousePos.x - OFFSET_X, mousePos.y - OFFSET_Y);
 		transform.rotate(ROTATION * -1);
 	}
 	
-	private double calcRotation(boolean inverse)
+	private double calcRotation(boolean clockwise)
 	{
-		return Math.toRadians(angle * (inverse ? -1 : 1));
+		return Math.toRadians(angle * (clockwise ? 1 : -1));
 	}
 }
