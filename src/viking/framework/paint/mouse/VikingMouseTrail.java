@@ -11,6 +11,8 @@ import viking.framework.script.VikingScript;
 public class VikingMouseTrail
 {
 	private static final int CYCLE_TIME = 200; //time between drawing new trail elements
+	private static final int MAX_SCREEN_X = 765;
+	private static final int MAX_SCREEN_Y = 503;
 	
 	private List<VikingTrailElement> trail;
 	
@@ -29,7 +31,7 @@ public class VikingMouseTrail
 		if(Timing.timeFromMark(lastCycle) < CYCLE_TIME || (lastPoint != null && p.equals(lastPoint))) //cycle time && mouse idle check
 			return;
 		
-		if(p.x < 0 || p.y < 0) //mouse out of bounds check
+		if(p.x < 0 || p.y < 0 || p.x > MAX_SCREEN_X || p.y > MAX_SCREEN_Y) //mouse out of bounds check
 			return;
 		
 		script.log(this, true, "Adding new TrailElement for Point " + p);
