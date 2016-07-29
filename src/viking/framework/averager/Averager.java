@@ -38,5 +38,9 @@ public class Averager extends ScriptUtil
 		DataPair dp = data.get(key);
 		return dp == null ? "0.0" : format.format(dp.calcAvg());		
 	}
-
+	
+	public String getMoving(String key)
+	{
+		return movingAverager.getAvg(key);
+	}
 }
