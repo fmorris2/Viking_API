@@ -19,6 +19,9 @@ import viking.framework.paint.VikingPaint;
  */
 public abstract class VikingScript extends Script
 {
+	private static final String DEVELOPMENT_SITE = "http://dev.vikingscripts.io";
+	private static final String PRODUCTION_SITE = "http://vikingscripts.io";
+	
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
 	private MissionHandler missionHandler; //Handles / drives the missions for the script
 	private ScriptUtils utils; //Holds the various script utilities for each Viking Script
@@ -127,5 +130,10 @@ public abstract class VikingScript extends Script
 	public ScriptUtils getUtils()
 	{
 		return utils;
+	}
+	
+	public String getVikingWebsite()
+	{
+		return isDevBuild() ? DEVELOPMENT_SITE : PRODUCTION_SITE;
 	}
 }
