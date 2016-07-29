@@ -13,6 +13,7 @@ public class VikingMouseTrail
 	private static final int CYCLE_TIME = 200; //time between drawing new trail elements
 	
 	private List<VikingTrailElement> trail;
+	
 	private VikingScript script;
 	private Point lastPoint;
 	private long lastCycle;
@@ -25,7 +26,6 @@ public class VikingMouseTrail
 	
 	public void processNewMovement(Point p)
 	{
-		script.log(this, true, "processNewMovement for Point " + p);
 		if(Timing.timeFromMark(lastCycle) < CYCLE_TIME || (lastPoint != null && p.equals(lastPoint)))
 			return;
 		
@@ -50,6 +50,5 @@ public class VikingMouseTrail
 			if(e.process(g))
 				trail.remove(i);
 		}
-				
 	}
 }
