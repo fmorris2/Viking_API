@@ -38,11 +38,10 @@ public class VikingCursor
 	private void drawRotatingPart(Graphics2D g, VImage image, Point mousePos, boolean clockwise)
 	{
 		final double ROTATION = calcRotation(!clockwise);
-		AffineTransform transform = g.getTransform();
 		
-		transform.rotate(ROTATION);
+		g.rotate(ROTATION);
 		image.draw(g, mousePos.x - OFFSET_X, mousePos.y - OFFSET_Y);
-		transform.rotate(ROTATION * -1);
+		g.rotate(ROTATION * -1);
 	}
 	
 	private double calcRotation(boolean clockwise)
