@@ -11,8 +11,8 @@ import viking.framework.script.VikingScript;
 
 public class VikingCursor
 {	
-	private static final int OFFSET_X = 10;
-	private static final int OFFSET_Y = 10;
+	private static final int OFFSET_X = 9;
+	private static final int OFFSET_Y = 9;
 	private static final double ANGLE_CHANGE = 5;
 	private static final float CURSOR_ALPHA = 0.80F;
 	private static final Composite ALPHA_COMPOSITE = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, CURSOR_ALPHA);
