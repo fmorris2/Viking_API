@@ -17,6 +17,7 @@ public class VikingTrailElement
 	
 	private Ellipse2D.Double shape;
 	private long startTime;
+	private long lastCycle;
 	private int alpha;
 	
 	public VikingTrailElement(int x, int y)
@@ -31,18 +32,23 @@ public class VikingTrailElement
 		if(Timing.timeFromMark(startTime) > TIME_TO_LIVE) //this element is done with its cycle
 			return true;
 		
-		//draw shape
-		Composite oldComp = g.getComposite();
-		Composite newComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
-		
-		g.setComposite(newComp);
-		g.fill(shape);
-		g.setComposite(oldComp);
-		
-		//modify next size / alpha
-		alpha -= ALPHA_FADE_AMT;
-		shape.height -= SIZE_FADE_AMT;
-		shape.width -= SIZE_FADE_AMT;
+		if(Timing.timeFromMark(lastCycle) >= FADE_INTERVAL)
+		{
+			//draw shape
+			Composite oldComp = g.getComposite();
+			Composite newComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+			
+			g.setComposite(newComp);
+			g.fill(shape);
+			g.setComposite(oldComp);
+			
+			//modify next size / alpha
+			alpha -= ALPHA_FADE_AMT;
+			shape.height -= SIZE_FADE_AMT;
+			shape.width -= SIZE_FADE_AMT;
+			
+			lastCycle = Timing.currentMs();
+		}
 		
 		return false;
 	}
