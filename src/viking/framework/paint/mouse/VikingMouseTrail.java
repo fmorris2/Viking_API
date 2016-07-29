@@ -31,7 +31,7 @@ public class VikingMouseTrail
 		
 		script.log(this, true, "Adding new TrailElement for Point " + p);
 		
-		trail.add(new VikingTrailElement(p));
+		trail.add(new VikingTrailElement(script, p));
 		
 		lastPoint = p;
 		lastCycle = Timing.currentMs();
@@ -42,7 +42,6 @@ public class VikingMouseTrail
 		if(trail.isEmpty())
 			return;
 		
-		script.log(this, true, "Trail not empty, processing...");
 		for(int i = trail.size() - 1; i >= 0; i--)
 		{
 			VikingTrailElement e = trail.get(i);
