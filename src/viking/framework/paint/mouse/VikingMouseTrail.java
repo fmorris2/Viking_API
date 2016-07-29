@@ -26,7 +26,10 @@ public class VikingMouseTrail
 	
 	public void processNewMovement(Point p)
 	{
-		if(Timing.timeFromMark(lastCycle) < CYCLE_TIME || (lastPoint != null && p.equals(lastPoint)))
+		if(Timing.timeFromMark(lastCycle) < CYCLE_TIME || (lastPoint != null && p.equals(lastPoint))) //cycle time && mouse idle check
+			return;
+		
+		if(p.x < 0 || p.y < 0) //mouse out of bounds check
 			return;
 		
 		script.log(this, true, "Adding new TrailElement for Point " + p);
