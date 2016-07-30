@@ -31,16 +31,16 @@ public class VikingCursor
 		OUTER_CURSOR_URL = script.getVikingWebsite() + "/script/cursor_outer.png";
 		innerImage = new VImage(INNER_CURSOR_URL);
 		outerImage = new VImage(OUTER_CURSOR_URL);
-		trail = new VikingMouseTrail(script);
+		trail = new VikingMouseTrail();
 	}
 	
 	public void draw(Graphics2D g, Point mousePos)
 	{	
-		drawRotatingPart(g, innerImage, mousePos, true);
-		drawRotatingPart(g, outerImage, mousePos, false);
 		trail.processNewMovement(mousePos);
 		trail.processTrail(g);
 		
+		drawRotatingPart(g, innerImage, mousePos, true);
+		drawRotatingPart(g, outerImage, mousePos, false);
 		angle += ANGLE_CHANGE;
 	}
 	
