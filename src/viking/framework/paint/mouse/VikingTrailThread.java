@@ -49,7 +49,7 @@ public class VikingTrailThread extends Thread
 		if(p.x < 0 || p.y < 0 || p.x > MAX_SCREEN_X || p.y > MAX_SCREEN_Y) //mouse out of bounds check
 			return;
 		
-		trail.add(new VikingTrailElement(script, p));
+		trail.add(new VikingTrailElement(p));
 		
 		lastPoint = p;
 	}
