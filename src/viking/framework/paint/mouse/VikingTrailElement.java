@@ -61,7 +61,7 @@ public class VikingTrailElement
 	
 	private Color calculateColor()
 	{
-		double percent = (getTimeLeft() / TIME_TO_LIVE) * 100;
+		double percent = getTimeLeft() / TIME_TO_LIVE;
 		int red = (int)Math.round(RGB_RANGE[0].calculateByPercent(percent));
 		int green = (int)Math.round(RGB_RANGE[1].calculateByPercent(percent));
 		int blue = (int)Math.round(RGB_RANGE[2].calculateByPercent(percent));
