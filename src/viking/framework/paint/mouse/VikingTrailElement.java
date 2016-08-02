@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 
+import viking.api.Range;
 import viking.api.Timing;
 
 public class VikingTrailElement
@@ -15,15 +16,11 @@ public class VikingTrailElement
 	private final static double STARTING_SIZE_PX = 7;
 	private final static double OFFSET = STARTING_SIZE_PX / 2;
 	private final static float STARTING_ALPHA = 0.7F;
-	private final static int COLOR_CHANGES = 25;
 	
-	private final static Color ORANGE_RED = new Color(237, 61, 0);
-	private final static long COLOR_CHANGE_TIME = TIME_TO_LIVE / COLOR_CHANGES;
-	
+	private final static Range[] RGB_RANGE = {new Range(237, 255), new Range(61, 16), new Range(0, 0)};
 
 	private Ellipse2D.Double shape;
 	private long startTime;
-	private long lastColorChange;
 	private float alpha;
 	private Color color;
 	
@@ -32,7 +29,6 @@ public class VikingTrailElement
 		shape = new Ellipse2D.Double(p.x - OFFSET, p.y - OFFSET, STARTING_SIZE_PX, STARTING_SIZE_PX);
 		startTime = Timing.currentMs();
 		alpha = STARTING_ALPHA;
-		color = new Color(ORANGE_RED.getRGB());
 	}
 	
 	public boolean process(Graphics2D g)
@@ -42,6 +38,7 @@ public class VikingTrailElement
 		
 		//modify next size / alpha
 		alpha = calculateAlpha();
+		color = calculateColor();
 		shape.height = calculateSize();
 		shape.width = shape.height;
 		
@@ -54,19 +51,22 @@ public class VikingTrailElement
 		g.fill(shape);
 		g.setComposite(oldComp);
 		
-		//modify color
-		if(Timing.timeFromMark(lastColorChange) >= COLOR_CHANGE_TIME)
-		{
-			color = color.darker();
-			lastColorChange = Timing.currentMs();
-		}
-		
 		return false;
 	}
 	
 	private float calculateAlpha()
 	{
 		return getTimeLeft() * STARTING_ALPHA / TIME_TO_LIVE;
+	}
+	
+	private Color calculateColor()
+	{
+		double percent = (getTimeLeft() / TIME_TO_LIVE) * 100;
+		int red = (int)Math.round(RGB_RANGE[0].calculateByPercent(percent));
+		int green = (int)Math.round(RGB_RANGE[1].calculateByPercent(percent));
+		int blue = (int)Math.round(RGB_RANGE[2].calculateByPercent(percent));
+		
+		return new Color(red, green, blue);
 	}
 	
 	private double calculateSize()
