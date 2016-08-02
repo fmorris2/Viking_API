@@ -12,6 +12,7 @@ public class VikingMouseTrail
 	public VikingMouseTrail(VikingScript script)
 	{
 		trailThread = new VikingTrailThread(script);
+		trailThread.start();
 	}
 	
 	public void processTrail(Graphics2D g)

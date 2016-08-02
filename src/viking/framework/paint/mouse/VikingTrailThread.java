@@ -25,15 +25,18 @@ public class VikingTrailThread extends Thread
 	
 	public void run()
 	{
-		try
+		while(script.bot.getScriptExecutor().isRunning())
 		{
-			processNewMovement(script.mouse.getPosition());
-			sleep(CYCLE_TIME);
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
-			script.log(this, true, "Thread interrupted");
+			try
+			{
+				processNewMovement(script.mouse.getPosition());
+				sleep(CYCLE_TIME);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+				script.log(this, true, "Thread interrupted");
+			}
 		}
 	}
 	
