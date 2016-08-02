@@ -15,16 +15,19 @@ public class VikingTrailElement
 	private final static double STARTING_SIZE_PX = 7;
 	private final static double OFFSET = STARTING_SIZE_PX / 2;
 	private final static float STARTING_ALPHA = 0.7F;
+	private final static Color ORANGE_RED = new Color(237, 61, 0);
 
 	private Ellipse2D.Double shape;
 	private long startTime;
 	private float alpha;
+	private Color color;
 	
 	public VikingTrailElement(Point p)
 	{
 		shape = new Ellipse2D.Double(p.x - OFFSET, p.y - OFFSET, STARTING_SIZE_PX, STARTING_SIZE_PX);
 		startTime = Timing.currentMs();
 		alpha = STARTING_ALPHA;
+		color = new Color(ORANGE_RED.getRGB());
 	}
 	
 	public boolean process(Graphics2D g)
@@ -42,9 +45,12 @@ public class VikingTrailElement
 		Composite newComp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 		
 		g.setComposite(newComp);
-		g.setColor(Color.GREEN);
+		g.setColor(color);
 		g.fill(shape);
 		g.setComposite(oldComp);
+		
+		//modify color
+		color = color.darker();
 		
 		return false;
 	}
