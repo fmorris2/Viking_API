@@ -15,10 +15,15 @@ public class VikingTrailElement
 	private final static double STARTING_SIZE_PX = 7;
 	private final static double OFFSET = STARTING_SIZE_PX / 2;
 	private final static float STARTING_ALPHA = 0.7F;
+	private final static int COLOR_CHANGES = 25;
+	
 	private final static Color ORANGE_RED = new Color(237, 61, 0);
+	private final static long COLOR_CHANGE_TIME = TIME_TO_LIVE / COLOR_CHANGES;
+	
 
 	private Ellipse2D.Double shape;
 	private long startTime;
+	private long lastColorChange;
 	private float alpha;
 	private Color color;
 	
@@ -50,7 +55,11 @@ public class VikingTrailElement
 		g.setComposite(oldComp);
 		
 		//modify color
-		color = color.darker();
+		if(Timing.timeFromMark(lastColorChange) >= COLOR_CHANGE_TIME)
+		{
+			color = color.darker();
+			lastColorChange = Timing.currentMs();
+		}
 		
 		return false;
 	}
