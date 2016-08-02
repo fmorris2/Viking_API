@@ -9,6 +9,7 @@ import java.awt.geom.Ellipse2D;
 
 import viking.api.Range;
 import viking.api.Timing;
+import viking.framework.script.VikingScript;
 
 public class VikingTrailElement
 {
@@ -23,9 +24,11 @@ public class VikingTrailElement
 	private long startTime;
 	private float alpha;
 	private Color color;
+	private VikingScript script;
 	
-	public VikingTrailElement(Point p)
+	public VikingTrailElement(VikingScript script, Point p)
 	{
+		this.script = script;
 		shape = new Ellipse2D.Double(p.x - OFFSET, p.y - OFFSET, STARTING_SIZE_PX, STARTING_SIZE_PX);
 		startTime = Timing.currentMs();
 		alpha = STARTING_ALPHA;
@@ -61,10 +64,14 @@ public class VikingTrailElement
 	
 	private Color calculateColor()
 	{
-		double percent = getTimeLeft() / TIME_TO_LIVE;
+		double percent = (double)getTimeLeft() / TIME_TO_LIVE;
+		script.log(this, true, "Percent: " + percent);
+		
 		int red = (int)Math.round(RGB_RANGE[0].calculateByPercent(percent));
 		int green = (int)Math.round(RGB_RANGE[1].calculateByPercent(percent));
 		int blue = (int)Math.round(RGB_RANGE[2].calculateByPercent(percent));
+		
+		script.log(this, true, "Red: " + red + ", Green: " + green + ", Blue: " + blue);
 		
 		return new Color(red, green, blue);
 	}
