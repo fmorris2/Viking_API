@@ -12,7 +12,7 @@ import viking.api.Timing;
 public class VikingTrailElement
 {
 	private final static long TIME_TO_LIVE = 2500; //How long the bubble stays alive for
-	private final static double STARTING_SIZE_PX = 8;
+	private final static double STARTING_SIZE_PX = 7;
 	private final static double OFFSET = STARTING_SIZE_PX / 2;
 	private final static float STARTING_ALPHA = 0.7F;
 

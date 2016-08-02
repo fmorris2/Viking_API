@@ -10,7 +10,7 @@ public class VikingTrailThread extends Thread
 {
 	private static final int MAX_SCREEN_X = 765;
 	private static final int MAX_SCREEN_Y = 503;
-	private static final int CYCLE_TIME = 5;
+	private static final int CYCLE_TIME = 3;
 	
 	private VikingScript script;
 	
