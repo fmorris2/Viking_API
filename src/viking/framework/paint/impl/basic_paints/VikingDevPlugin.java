@@ -11,12 +11,12 @@ import viking.framework.script.VikingScript;
 
 import com.sun.management.OperatingSystemMXBean;
 
-public class VikingDevPlugin<T extends VikingScript> extends BasicVikingPlugin<T>
+public class VikingDevPlugin extends BasicVikingPlugin
 {
 	private OperatingSystemMXBean bean;
 	private Averager avg;
 	
-	public VikingDevPlugin(T script, VikingPaint<T> p, Color color, float alpha, int x, int bottomY, int space)
+	public VikingDevPlugin(VikingScript script, VikingPaint<?> p, Color color, float alpha, int x, int bottomY, int space)
 	{
 		super(script, p, color, alpha, x, bottomY, space);
 		bean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();

@@ -5,13 +5,13 @@ import java.awt.Graphics2D;
 import viking.framework.script.VikingScript;
 
 
-public abstract class VikingPaintPlugin<T extends VikingScript>
+public abstract class VikingPaintPlugin
 {	
-	protected T script;
-	protected VikingPaint<T> paint;
+	protected VikingScript script;
+	protected VikingPaint<?> paint;
 	protected boolean isVisible;
 	
-	public VikingPaintPlugin(T script, VikingPaint<T> paint)
+	public VikingPaintPlugin(VikingScript script, VikingPaint<?> paint)
 	{
 		this.script = script;
 		this.paint = paint;

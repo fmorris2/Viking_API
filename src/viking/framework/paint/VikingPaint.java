@@ -19,7 +19,7 @@ import viking.framework.script.VikingScript;
 public abstract class VikingPaint<T extends VikingScript>
 {
 	protected T script;
-	protected VikingPaintPlugin<T>[] plugins;
+	protected VikingPaintPlugin[] plugins;
 	protected VikingCursor cursor;
 	protected long startTime;
 	
@@ -36,7 +36,7 @@ public abstract class VikingPaint<T extends VikingScript>
 		startTime = Timing.currentMs();
 	}
 	
-	protected abstract VikingPaintPlugin<T>[] generatePlugins(T script);
+	protected abstract VikingPaintPlugin[] generatePlugins(T script);
 	
 	/**
 	 * Main paint method - Draws our paint on the screen
@@ -63,7 +63,7 @@ public abstract class VikingPaint<T extends VikingScript>
 			cursor.draw(g, script.mouse.getPosition());
 		}
 		
-		for(VikingPaintPlugin<T> plugin : plugins)
+		for(VikingPaintPlugin plugin : plugins)
 			if(plugin.isVisible())
 				plugin.draw(g);
 	}
@@ -76,7 +76,7 @@ public abstract class VikingPaint<T extends VikingScript>
 	public void reset()
 	{
 		startTime = Timing.currentMs();
-		for(VikingPaintPlugin<T> plugin : plugins)
+		for(VikingPaintPlugin plugin : plugins)
 			plugin.reset();
 	}
 }
