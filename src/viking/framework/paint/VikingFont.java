@@ -27,7 +27,7 @@ public class VikingFont
 		try
 		{
 			URL fontUrl = new URL(BASE_URL + url);
-			return Font.createFont(Font.TRUETYPE_FONT, fontUrl.openStream());
+			return Font.createFont(Font.TRUETYPE_FONT, fontUrl.openStream()).deriveFont(Font.PLAIN, 11);
 		}
 		catch(FontFormatException | IOException e)
 		{
