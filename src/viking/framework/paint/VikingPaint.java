@@ -32,6 +32,7 @@ public abstract class VikingPaint<T extends VikingScript>
 	public VikingPaint(T script)
 	{
 		this.script = script;
+		font = new VikingFont(script);
 		plugins = generatePlugins(script);
 		cursor = new VikingCursor(script);
 		startTime = Timing.currentMs();
