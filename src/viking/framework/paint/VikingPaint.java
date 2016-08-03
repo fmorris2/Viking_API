@@ -1,6 +1,7 @@
 package viking.framework.paint;
 
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 
 import viking.api.Timing;
@@ -62,6 +63,8 @@ public abstract class VikingPaint<T extends VikingScript>
 			g.setRenderingHints(rh);
 			
 			//fonts
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(font.NORMAL);
 			g.setFont(font.NORMAL);
 			
 			//custom mouse cursor & trail
