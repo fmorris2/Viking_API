@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 
-import viking.api.Range;
+import viking.api.ColorUtils;
 import viking.api.Timing;
 
 public class VikingTrailElement
@@ -16,9 +16,8 @@ public class VikingTrailElement
 	private final static double STARTING_SIZE_PX = 7;
 	private final static double OFFSET = STARTING_SIZE_PX / 2;
 	private final static float STARTING_ALPHA = 0.7F;
-	private final static double COLOR_CHANGE_MOD = 0.5;
-	
-	private final static Range[] RGB_RANGE = {new Range(237, 255), new Range(61, 16), new Range(0, 0)};
+	private final static Color START_COLOR = new Color(255, 216, 0);
+	private final static Color END_COLOR = new Color(237, 61, 0);
 
 	private Ellipse2D.Double shape;
 	private long startTime;
@@ -62,13 +61,9 @@ public class VikingTrailElement
 	
 	private Color calculateColor()
 	{
-		double percent = ((double)getTimeLeft() / TIME_TO_LIVE) * COLOR_CHANGE_MOD;
+		double percent = ((double)getTimeLeft() / TIME_TO_LIVE);
 		
-		int red = (int)Math.round(RGB_RANGE[0].calculateByPercent(percent));
-		int green = (int)Math.round(RGB_RANGE[1].calculateByPercent(percent));
-		int blue = (int)Math.round(RGB_RANGE[2].calculateByPercent(percent));
-		
-		return new Color(red, green, blue);
+		return ColorUtils.blend(START_COLOR, END_COLOR, percent);
 	}
 	
 	private double calculateSize()
