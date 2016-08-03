@@ -19,6 +19,7 @@ import viking.framework.script.VikingScript;
 public abstract class VikingPaint<T extends VikingScript>
 {
 	protected T script;
+	protected VikingPaintPlugin<T>[] plugins;
 	protected VikingCursor cursor;
 	protected long startTime;
 	
@@ -30,27 +31,12 @@ public abstract class VikingPaint<T extends VikingScript>
 	public VikingPaint(T script)
 	{
 		this.script = script;
+		plugins = generatePlugins();
 		cursor = new VikingCursor(script);
 		startTime = Timing.currentMs();
 	}
 	
-	protected abstract void paintInfo(Graphics2D g);
-	
-	/**
-	 * This method will grab the appropriate info to
-	 * paint to the screen. For example, logs chopped,
-	 * coins gained, etc etc
-	 * 
-	 * @return The paint info that we need to display
-	 */
-	public abstract String[] getInfo();
-	
-	/**
-	 * This method resets the paint display. For example,
-	 * when the user clicks the reset button, it will reset
-	 * all tracked info to 0
-	 */
-	public abstract void reset();
+	protected abstract VikingPaintPlugin<T>[] generatePlugins();
 	
 	/**
 	 * Main paint method - Draws our paint on the screen
@@ -77,11 +63,20 @@ public abstract class VikingPaint<T extends VikingScript>
 			cursor.draw(g, script.mouse.getPosition());
 		}
 		
-		paintInfo(g);
+		for(VikingPaintPlugin<T> plugin : plugins)
+			if(plugin.isVisible())
+				plugin.draw(g);
 	}
 	
 	public long getTimeRan()
 	{
 		return Timing.currentMs() - startTime;
+	}
+	
+	public void reset()
+	{
+		startTime = Timing.currentMs();
+		for(VikingPaintPlugin<T> plugin : plugins)
+			plugin.reset();
 	}
 }

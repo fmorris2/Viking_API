@@ -43,4 +43,10 @@ public class Averager extends ScriptUtil
 	{
 		return movingAverager.getAvg(key);
 	}
+	
+	public void reset()
+	{
+		data.clear();
+		movingAverager = new MovingAverager(format);
+	}
 }
