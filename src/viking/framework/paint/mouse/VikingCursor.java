@@ -27,12 +27,11 @@ public class VikingCursor
 	
 	public VikingCursor(VikingScript script)
 	{
-		INNER_CURSOR_URL = script.getVikingWebsite() + "/script/cursor_inner.png";
-		OUTER_CURSOR_URL = script.getVikingWebsite() + "/script/cursor_outer.png";
+		INNER_CURSOR_URL = script.getVikingWebsite() + "/script/cursor/default_inner.png";
+		OUTER_CURSOR_URL = script.getVikingWebsite() + "/script/cursor/default_outer.png";
 		innerImage = new VImage(INNER_CURSOR_URL);
 		outerImage = new VImage(OUTER_CURSOR_URL);
 		trail = new VikingMouseTrail(script);
-		script.mouse.setDefaultPaintEnabled(false);
 	}
 	
 	public void draw(Graphics2D g, Point mousePos)

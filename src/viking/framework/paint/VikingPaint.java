@@ -19,6 +19,7 @@ import viking.framework.script.VikingScript;
 public abstract class VikingPaint<T extends VikingScript>
 {
 	protected T script;
+	protected VikingFont font;
 	protected VikingPaintPlugin[] plugins;
 	protected VikingCursor cursor;
 	protected long startTime;
@@ -58,6 +59,9 @@ public abstract class VikingPaint<T extends VikingScript>
 			rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 			rh.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
 			g.setRenderingHints(rh);
+			
+			//fonts
+			g.setFont(font.NORMAL);
 			
 			//custom mouse cursor & trail
 			cursor.draw(g, script.mouse.getPosition());
