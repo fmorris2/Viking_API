@@ -16,9 +16,8 @@ public class VikingTrailElement
 	private final static double STARTING_SIZE_PX = 7;
 	private final static double OFFSET = STARTING_SIZE_PX / 2;
 	private final static float STARTING_ALPHA = 0.7F;
-	private final static double COLOR_CHANGE_MOD = 0.5;
-	private final static Color START_COLOR = new Color(255, 216, 0);
-	private final static Color END_COLOR = new Color(237, 61, 0);
+	private final static Color START_COLOR = new Color(255, 228, 0);
+	private final static Color END_COLOR = new Color(228, 0, 0);
 
 	private Ellipse2D.Double shape;
 	private long startTime;
@@ -62,7 +61,7 @@ public class VikingTrailElement
 	
 	private Color calculateColor()
 	{
-		double percent = ((double)getTimeLeft() / TIME_TO_LIVE) * COLOR_CHANGE_MOD;
+		double percent = (double)getTimeLeft() / TIME_TO_LIVE;
 		
 		return ColorUtils.blend(START_COLOR, END_COLOR, percent);
 	}
