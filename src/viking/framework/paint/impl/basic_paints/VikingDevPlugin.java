@@ -6,17 +6,17 @@ import java.lang.management.ManagementFactory;
 import viking.api.Timing;
 import viking.framework.averager.Averager;
 import viking.framework.paint.VikingPaint;
-import viking.framework.paint.impl.BasicVikingPaint;
+import viking.framework.paint.impl.BasicVikingPlugin;
 import viking.framework.script.VikingScript;
 
 import com.sun.management.OperatingSystemMXBean;
 
-public class VikingDevPaint<T extends VikingScript> extends BasicVikingPaint<T>
+public class VikingDevPlugin<T extends VikingScript> extends BasicVikingPlugin<T>
 {
 	private OperatingSystemMXBean bean;
 	private Averager avg;
 	
-	public VikingDevPaint(T script, VikingPaint<T> p, Color color, float alpha, int x, int bottomY, int space)
+	public VikingDevPlugin(T script, VikingPaint<T> p, Color color, float alpha, int x, int bottomY, int space)
 	{
 		super(script, p, color, alpha, x, bottomY, space);
 		bean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();

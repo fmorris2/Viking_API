@@ -17,7 +17,7 @@ import viking.framework.script.VikingScript;
  *
  * @param <T> The type of VikingScript this paint is representing
  */
-public abstract class BasicVikingPaint<T extends VikingScript> extends VikingPaintPlugin<T>
+public abstract class BasicVikingPlugin<T extends VikingScript> extends VikingPaintPlugin<T>
 {
 	private final int PAINT_X; //The x coordinate for the paint text
 	private final int PAINT_BOT_Y; //The y coordinate for the paint string on the bottom
@@ -26,7 +26,7 @@ public abstract class BasicVikingPaint<T extends VikingScript> extends VikingPai
 	
 	private Color color;
 	
-	public BasicVikingPaint(T script, VikingPaint<T> paint, Color color, float alpha, int x, int bottomY, int space)
+	public BasicVikingPlugin(T script, VikingPaint<T> paint, Color color, float alpha, int x, int bottomY, int space)
 	{
 		super(script, paint);
 		this.color = color;
