@@ -31,13 +31,12 @@ public class VikingDevPlugin extends BasicVikingPlugin
 		return new String[]
 		{
 			"Time ran: " + Timing.msToString(paint.getTimeRan()),
-			"CPU usage: " + avg.getAvg("cpu") + "%",
 			"Moving CPU usage: " + avg.getMoving("cpu") + "%",
 			"Available cores: " + bean.getAvailableProcessors(),
-			"RAM usage: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 + "Mb",
-			"Heap size: " + bean.getCommittedVirtualMemorySize() / 1000000 + "Mb",
-			"Free physical memory: " + bean.getFreePhysicalMemorySize() / 1000000 + "Mb",
-			"Total physical memory: " + bean.getTotalPhysicalMemorySize() / 1000000 + "Mb",
+			"RAM usage: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000000 
+				+ "/" + bean.getCommittedVirtualMemorySize() / 1000000 + "Mb",
+			"Physical memory usage: " + bean.getFreePhysicalMemorySize() / 1000000
+				+ "/" + bean.getTotalPhysicalMemorySize() / 1000000 + "Mb",
 		};
 	}
 
