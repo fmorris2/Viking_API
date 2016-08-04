@@ -21,6 +21,8 @@ import viking.framework.script.VikingScript;
  */
 public abstract class BasicVikingPlugin extends VikingPaintPlugin
 {
+	private final static int SPACE_PADDING = 2; //Space in pixels, between the lines of text on our paint
+	
 	private final int PAINT_X; //The x coordinate for the paint text
 	private final int PAINT_BOT_Y; //The y coordinate for the paint string on the bottom
 	private final Composite ALPHA_COMPOSITE;
@@ -44,15 +46,14 @@ public abstract class BasicVikingPlugin extends VikingPaintPlugin
 		Font f = paint.getFont().getCurrent();
 		FontMetrics metrics = g.getFontMetrics(f);
 		
-		script.log(this, true, "Font height: " + metrics.getHeight());
-		return metrics.getHeight() + 2;
+		return metrics.getHeight() + SPACE_PADDING;
 	}
 	
 	@Override
 	public void draw(Graphics2D g)
 	{
 		if(paintSpace == -1) //Calculate space between lines if needed
-			calculateSpace(g);
+			paintSpace = calculateSpace(g);
 		
 		Composite oldComposite = g.getComposite();
 		
