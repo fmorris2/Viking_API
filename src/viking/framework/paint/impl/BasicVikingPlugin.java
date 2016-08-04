@@ -21,7 +21,7 @@ import viking.framework.script.VikingScript;
  */
 public abstract class BasicVikingPlugin extends VikingPaintPlugin
 {
-	private final static int SPACE_PADDING = 2; //Space in pixels, between the lines of text on our paint
+	private final static int SPACE_PADDING = -2; //Padding for space between lines of text in the paint
 	
 	private final int PAINT_X; //The x coordinate for the paint text
 	private final int PAINT_BOT_Y; //The y coordinate for the paint string on the bottom
