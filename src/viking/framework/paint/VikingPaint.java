@@ -64,8 +64,8 @@ public abstract class VikingPaint<T extends VikingScript>
 			
 			//fonts
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(font.NORMAL);
-			g.setFont(font.NORMAL);
+			ge.registerFont(font.getCurrent());
+			g.setFont(font.getCurrent());
 			
 			//custom mouse cursor & trail
 			cursor.draw(g, script.mouse.getPosition());
