@@ -44,6 +44,7 @@ public abstract class BasicVikingPlugin extends VikingPaintPlugin
 		Font f = paint.getFont().getCurrent();
 		FontMetrics metrics = g.getFontMetrics(f);
 		
+		script.log(this, true, "Font height: " + metrics.getHeight());
 		return metrics.getHeight() + 2;
 	}
 	
