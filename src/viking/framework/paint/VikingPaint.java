@@ -87,4 +87,9 @@ public abstract class VikingPaint<T extends VikingScript>
 		for(VikingPaintPlugin plugin : plugins)
 			plugin.reset();
 	}
+	
+	public VikingFont getFont()
+	{
+		return font;
+	}
 }

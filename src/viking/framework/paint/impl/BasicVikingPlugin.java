@@ -3,6 +3,8 @@ package viking.framework.paint.impl;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
 import viking.framework.paint.VikingPaint;
@@ -21,26 +23,36 @@ public abstract class BasicVikingPlugin extends VikingPaintPlugin
 {
 	private final int PAINT_X; //The x coordinate for the paint text
 	private final int PAINT_BOT_Y; //The y coordinate for the paint string on the bottom
-	private final int PAINT_SPACE; //The space between paint fields		
 	private final Composite ALPHA_COMPOSITE;
 	
 	private Color color;
+	private int paintSpace = -1;
 	
-	public BasicVikingPlugin(VikingScript script, VikingPaint<?> paint, Color color, float alpha, int x, int bottomY, int space)
+	public BasicVikingPlugin(VikingScript script, VikingPaint<?> paint, Color color, float alpha, int x, int bottomY)
 	{
 		super(script, paint);
 		this.color = color;
 		PAINT_X = x;
 		PAINT_BOT_Y = bottomY;
-		PAINT_SPACE = space;
 		ALPHA_COMPOSITE = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 	}
 	
 	protected abstract String[] getInfo();
 	
+	private int calculateSpace(Graphics2D g)
+	{
+		Font f = paint.getFont().getCurrent();
+		FontMetrics metrics = g.getFontMetrics(f);
+		
+		return metrics.getHeight() + 2;
+	}
+	
 	@Override
 	public void draw(Graphics2D g)
 	{
+		if(paintSpace == -1) //Calculate space between lines if needed
+			calculateSpace(g);
+		
 		Composite oldComposite = g.getComposite();
 		
 		g.setColor(color);
@@ -49,7 +61,7 @@ public abstract class BasicVikingPlugin extends VikingPaintPlugin
 		String[] info = getInfo();
 		
 		for(int index = 0; index < info.length; index++)
-			g.drawString(info[index], PAINT_X, PAINT_BOT_Y - (PAINT_SPACE * (info.length - (index + 1))));
+			g.drawString(info[index], PAINT_X, PAINT_BOT_Y - (paintSpace * (info.length - (index + 1))));
 		
 		g.setComposite(oldComposite);
 	}

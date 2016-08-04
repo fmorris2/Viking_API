@@ -16,9 +16,9 @@ public class VikingDevPlugin extends BasicVikingPlugin
 	private OperatingSystemMXBean bean;
 	private Averager avg;
 	
-	public VikingDevPlugin(VikingScript script, VikingPaint<?> p, Color color, float alpha, int x, int bottomY, int space)
+	public VikingDevPlugin(VikingScript script, VikingPaint<?> p, Color color, float alpha, int x, int bottomY)
 	{
-		super(script, p, color, alpha, x, bottomY, space);
+		super(script, p, color, alpha, x, bottomY);
 		bean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 		avg = script.getUtils().getAverager();
 	}

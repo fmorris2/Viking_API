@@ -10,8 +10,10 @@ import viking.framework.script.VikingScript;
 
 public class VikingFont
 {
-	private final String BASE_URL;
 	public final Font NORMAL, BOLD, ITALIC, BOLD_ITALIC;
+	
+	private final String BASE_URL;
+	private Font current;
 	
 	public VikingFont(VikingScript script)
 	{
@@ -20,6 +22,7 @@ public class VikingFont
 		BOLD = downloadFont("TrebuchetMSBold.ttf");
 		ITALIC = downloadFont("TrebuchetMSItalic.ttf");
 		BOLD_ITALIC = downloadFont("TrebuchetMSBoldItalic.ttf");
+		current = NORMAL;
 	}
 	
 	private Font downloadFont(String url)
@@ -35,5 +38,15 @@ public class VikingFont
 		}
 		
 		return Font.getFont("Verdana");
+	}
+	
+	public void switchFont(Font f)
+	{
+		current = f;
+	}
+	
+	public Font getCurrent()
+	{
+		return current;
 	}
 }
