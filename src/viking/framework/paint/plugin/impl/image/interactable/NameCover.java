@@ -2,11 +2,13 @@ package viking.framework.paint.plugin.impl.image.interactable;
 
 import java.awt.event.MouseEvent;
 
+import org.osbot.rs07.input.mouse.BotMouseListener;
+
 import viking.framework.paint.VikingPaint;
 import viking.framework.paint.plugin.impl.image.InteractableImagePlugin;
 import viking.framework.script.VikingScript;
 
-public class NameCover extends InteractableImagePlugin
+public class NameCover extends InteractableImagePlugin implements BotMouseListener
 {
 	private static final String IMAGE_URL = "/script/paint/_default/name_cover.png";
 	private static final int X = 7;
