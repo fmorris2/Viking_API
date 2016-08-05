@@ -67,14 +67,14 @@ public abstract class VikingPaint<T extends VikingScript>
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(font.getCurrent());
 			g.setFont(font.getCurrent());
+			
+			//custom mouse cursor & trail
+			cursor.draw(g, script.mouse.getPosition());
 		}
 		
 		for(VikingPaintPlugin plugin : plugins)
 			if(plugin.isVisible())
 				plugin.draw(g);
-		
-		if(!script.bot.lowCpu()) //draw the cursor over all of the plugins
-			cursor.draw(g, script.mouse.getPosition());
 	}
 	
 	public long getTimeRan()
