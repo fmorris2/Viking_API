@@ -1,4 +1,4 @@
-package viking.framework.paint.impl.basic_paints;
+package viking.framework.paint.plugin.impl.basic_paints;
 
 import java.awt.Color;
 import java.lang.management.ManagementFactory;
@@ -6,7 +6,7 @@ import java.lang.management.ManagementFactory;
 import viking.api.Timing;
 import viking.framework.averager.Averager;
 import viking.framework.paint.VikingPaint;
-import viking.framework.paint.impl.BasicVikingPlugin;
+import viking.framework.paint.plugin.impl.BasicVikingPlugin;
 import viking.framework.script.VikingScript;
 
 import com.sun.management.OperatingSystemMXBean;

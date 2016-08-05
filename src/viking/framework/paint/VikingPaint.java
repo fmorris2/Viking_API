@@ -6,6 +6,7 @@ import java.awt.RenderingHints;
 
 import viking.api.Timing;
 import viking.framework.paint.mouse.VikingCursor;
+import viking.framework.paint.plugin.VikingPaintPlugin;
 import viking.framework.script.VikingScript;
 
 /**

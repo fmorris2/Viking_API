@@ -1,7 +1,8 @@
-package viking.framework.paint;
+package viking.framework.paint.plugin;
 
 import java.awt.Graphics2D;
 
+import viking.framework.paint.VikingPaint;
 import viking.framework.script.VikingScript;
 
 

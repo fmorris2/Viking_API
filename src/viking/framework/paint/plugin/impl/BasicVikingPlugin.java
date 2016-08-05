@@ -1,4 +1,4 @@
-package viking.framework.paint.impl;
+package viking.framework.paint.plugin.impl;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -8,7 +8,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
 import viking.framework.paint.VikingPaint;
-import viking.framework.paint.VikingPaintPlugin;
+import viking.framework.paint.plugin.VikingPaintPlugin;
 import viking.framework.script.VikingScript;
 
 /**
