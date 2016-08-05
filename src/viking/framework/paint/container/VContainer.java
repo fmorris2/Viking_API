@@ -33,22 +33,19 @@ public abstract class VContainer extends VikingPaintPlugin
 	public void draw(Graphics2D g)
 	{
 		if(image.getImage() != null)
-		{
-			if(width == -1)
+		{		
+			image.draw(g, x, y);
+			
+			if(width == -1 && image.getBounds() != null)
 			{
 				width = image.getBounds().width;
 				height = image.getBounds().height;
 			}
 			
-			script.log(this, true, "Container image is not null");
-			image.draw(g, x, y);
-			
 			for(VComponent c : components)
 				if(c.isVisible())
 					c.draw(g);
 		}
-		else
-			script.log(this, true, "Container image is null");
 	}
 
 	@Override
