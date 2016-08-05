@@ -1,6 +1,7 @@
 package viking.framework.paint.image;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +21,7 @@ import javax.imageio.ImageIO;
 public class VImage
 {
 	private BufferedImage image;
+	private Rectangle bounds;
 	
 	public VImage(String url)
 	{
@@ -47,11 +49,21 @@ public class VImage
 	public void draw(Graphics2D g, int x, int y)
 	{
 		if(image != null)
+		{
+			if(bounds == null)
+				bounds = new Rectangle(x, y, image.getWidth(), image.getHeight());
+				
 			g.drawImage(image, x, y, null);
+		}
 	}
 	
 	public BufferedImage getImage()
 	{
 		return image;
+	}
+	
+	public Rectangle getBounds()
+	{
+		return bounds;
 	}
 }
