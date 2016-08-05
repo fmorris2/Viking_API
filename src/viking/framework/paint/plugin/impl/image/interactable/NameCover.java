@@ -1,5 +1,6 @@
 package viking.framework.paint.plugin.impl.image.interactable;
 
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
 import org.osbot.rs07.input.mouse.BotMouseListener;
@@ -20,28 +21,30 @@ public class NameCover extends InteractableImagePlugin implements BotMouseListen
 	{
 		super(script, paint, script.getVikingWebsite() + IMAGE_URL, X, Y);
 	}
+	
+	public void draw(Graphics2D g)
+	{
+		if(isMouseOnImage())
+			alpha = isHiding ? 0.66F : 0.33F;
+		else
+			alpha = isHiding ? 1.00F : 0.00F;
+		
+		super.draw(g);
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		isHiding = !isHiding;
+		script.log(this, true, "Mouse clicked at " + e.getX() + ", " + e.getY());
+		if(isMouseOnImage())
+			isHiding = !isHiding;
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e)
-	{
-		script.log(this, true, "Mouse entered: " + e.getX() + ", " + e.getY());
-		if(isMouseOnImage())
-			alpha = isHiding ? 0.66F : 0.33F;
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e)
-	{
-		script.log(this, true, "Mouse exited: " + e.getX() + ", " + e.getY());
-		if(isMouseOnImage())
-			alpha = isHiding ? 1.00F : 0.00F;
-	}
+	public void mouseExited(MouseEvent e) {}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {}
