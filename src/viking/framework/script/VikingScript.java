@@ -55,7 +55,7 @@ public abstract class VikingScript extends Script
 	 * 
 	 * @return true if the script is in the testing phase, false otherwise
 	 */
-	protected abstract boolean isDevBuild();
+	public abstract boolean isDevBuild();
 	
 	/**
 	 * Utility method to log a message to the console, with the class name from where it is called displayed along with it

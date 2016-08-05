@@ -19,7 +19,7 @@ import viking.framework.script.VikingScript;
  *
  */
 public abstract class VikingPaint<T extends VikingScript>
-{
+{	
 	protected T script;
 	protected VikingFont font;
 	protected VikingPaintPlugin[] plugins;
