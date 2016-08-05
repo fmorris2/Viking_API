@@ -18,11 +18,13 @@ public abstract class VContainer extends VikingPaintPlugin
 	private int height = -1;
 	private List<VComponent> components;
 	
-	public VContainer(VikingScript script, VikingPaint<?> paint, String imageUrl)
+	public VContainer(VikingScript script, VikingPaint<?> paint, String imageUrl, int x, int y)
 	{
 		super(script, paint);
 		image = new VImage(imageUrl);
 		components = initComponents();
+		this.x = x;
+		this.y = y;
 	}
 	
 	protected abstract List<VComponent> initComponents();
