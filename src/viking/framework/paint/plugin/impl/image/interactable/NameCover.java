@@ -8,7 +8,7 @@ import viking.framework.script.VikingScript;
 
 public class NameCover extends InteractableImagePlugin
 {
-	private static final String IMAGE_URL = "/script/paint/_general/name_cover.png";
+	private static final String IMAGE_URL = "/script/paint/_default/name_cover.png";
 	private static final int X = 7;
 	private static final int Y = 459;
 	
