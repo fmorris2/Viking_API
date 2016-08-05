@@ -20,9 +20,7 @@ public abstract class InteractableImagePlugin extends ImagePlugin implements Mou
 	
 	@Override
 	public void mouseMoved(MouseEvent e)
-	{
-		script.log(this, true, "Mouse moved: " + e.getPoint());
-		
+	{	
 		if(image.getBounds() != null && image.getBounds().contains(e.getPoint()))
 			isMouseOnImage = true;
 		else

@@ -36,7 +36,6 @@ public class NameCover extends InteractableImagePlugin implements MouseListener,
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		script.log(this, true, "Mouse clicked at " + e.getX() + ", " + e.getY());
 		if(isMouseOnImage)
 			isHiding = !isHiding;
 	}
