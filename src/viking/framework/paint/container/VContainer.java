@@ -40,13 +40,14 @@ public abstract class VContainer extends VikingPaintPlugin
 				height = image.getBounds().height;
 			}
 			
-			script.log(this, true, "Drawing container image at " + x + ", " + y);
 			image.draw(g, x, y);
 			
 			for(VComponent c : components)
 				if(c.isVisible())
 					c.draw(g);
 		}
+		else
+			script.log(this, true, "Container image is null");
 	}
 
 	@Override

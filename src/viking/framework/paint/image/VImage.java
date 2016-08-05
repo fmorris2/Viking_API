@@ -38,7 +38,8 @@ public class VImage
 				try
 				{
 					image = ImageIO.read(new URL(url));
-				} catch (IOException e)
+				} 
+				catch (IOException e)
 				{
 					e.printStackTrace();
 				}
