@@ -24,7 +24,8 @@ public class ImagePlugin extends VikingPaintPlugin
 	@Override
 	public void draw(Graphics2D g)
 	{
-		g.drawImage(image.getImage(), x, y, null);
+		if(image.getImage() != null)
+			g.drawImage(image.getImage(), x, y, null);
 	}
 
 	@Override
