@@ -1,13 +1,11 @@
 package viking.framework.paint.plugin.impl.image;
 
-import java.awt.Point;
-
-import org.osbot.rs07.input.mouse.BotMouseListener;
+import java.awt.event.MouseListener;
 
 import viking.framework.paint.VikingPaint;
 import viking.framework.script.VikingScript;
 
-public abstract class InteractableImagePlugin extends ImagePlugin implements BotMouseListener
+public abstract class InteractableImagePlugin extends ImagePlugin implements MouseListener
 {
 	
 	public InteractableImagePlugin(VikingScript script, VikingPaint<?> paint,
@@ -15,15 +13,6 @@ public abstract class InteractableImagePlugin extends ImagePlugin implements Bot
 	{
 		super(script, paint, imageUrl, x, y);
 		script.bot.addMouseListener(this);
-	}
-
-	@Override
-	public boolean blockInput(Point p)
-	{
-		if(image.getImage() == null)
-			return false;
-	
-		return isMouseOnImage();
 	}
 	
 	protected boolean isMouseOnImage()
