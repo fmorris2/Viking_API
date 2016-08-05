@@ -28,13 +28,15 @@ public class NameCover extends InteractableImagePlugin
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
-		alpha = isHiding ? 0.66F : 0.33F;
+		if(isMouseOnImage())
+			alpha = isHiding ? 0.66F : 0.33F;
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e)
 	{
-		alpha = isHiding ? 1.00F : 0.00F;
+		if(isMouseOnImage())
+			alpha = isHiding ? 1.00F : 0.00F;
 	}
 	
 	@Override

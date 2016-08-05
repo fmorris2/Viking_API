@@ -20,9 +20,14 @@ public abstract class InteractableImagePlugin extends ImagePlugin implements Bot
 	@Override
 	public boolean blockInput(Point p)
 	{
-		if(image.getImage() == null || image.getBounds() == null)
+		if(image.getImage() == null)
 			return false;
 		
-		return image.getBounds().contains(p);
+		return isMouseOnImage();
+	}
+	
+	protected boolean isMouseOnImage()
+	{
+		return image.getBounds() != null && image.getBounds().contains(script.mouse.getPosition());
 	}
 }
