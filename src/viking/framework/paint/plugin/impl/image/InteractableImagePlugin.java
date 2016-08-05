@@ -23,7 +23,6 @@ public abstract class InteractableImagePlugin extends ImagePlugin implements Bot
 		if(image.getImage() == null)
 			return false;
 	
-		script.log(this, true, "blockInput: " + p.getX() + ", " + p.getY());
 		return isMouseOnImage();
 	}
 	

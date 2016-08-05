@@ -15,13 +15,14 @@ public class NameCover extends InteractableImagePlugin implements BotMouseListen
 	private static final int X = 7;
 	private static final int Y = 459;
 	
-	private boolean isHiding; //whether or not the name cover is visible
+	private boolean isHiding = true; //whether or not the name cover is visible
 	
 	public NameCover(VikingScript script, VikingPaint<?> paint)
 	{
 		super(script, paint, script.getVikingWebsite() + IMAGE_URL, X, Y);
 	}
 	
+	@Override
 	public void draw(Graphics2D g)
 	{
 		if(isMouseOnImage())

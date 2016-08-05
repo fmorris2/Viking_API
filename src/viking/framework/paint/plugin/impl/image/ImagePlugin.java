@@ -35,7 +35,7 @@ public class ImagePlugin extends VikingPaintPlugin
 		g.setComposite(alphaComposite);
 		
 		if(image.getImage() != null)
-			g.drawImage(image.getImage(), x, y, null);
+			image.draw(g, x, y);
 		
 		g.setComposite(oldComposite);
 	}
