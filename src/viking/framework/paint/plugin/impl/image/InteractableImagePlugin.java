@@ -1,12 +1,15 @@
 package viking.framework.paint.plugin.impl.image;
 
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import viking.framework.paint.VikingPaint;
 import viking.framework.script.VikingScript;
 
-public abstract class InteractableImagePlugin extends ImagePlugin implements MouseListener
+public abstract class InteractableImagePlugin extends ImagePlugin implements MouseListener, MouseMotionListener
 {
+	protected boolean isMouseOnImage;
 	
 	public InteractableImagePlugin(VikingScript script, VikingPaint<?> paint,
 			String imageUrl, int x, int y)
@@ -15,8 +18,17 @@ public abstract class InteractableImagePlugin extends ImagePlugin implements Mou
 		script.bot.addMouseListener(this);
 	}
 	
-	protected boolean isMouseOnImage()
+	@Override
+	public void mouseMoved(MouseEvent e)
 	{
-		return image.getBounds() != null && image.getBounds().contains(script.mouse.getPosition());
+		script.log(this, true, "Mouse moved: " + e.getPoint());
+		
+		if(image.getBounds() != null && image.getBounds().contains(e.getPoint()))
+			isMouseOnImage = true;
+		else
+			isMouseOnImage = false;
 	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e){}
 }

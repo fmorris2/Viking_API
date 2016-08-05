@@ -3,12 +3,13 @@ package viking.framework.paint.plugin.impl.image.interactable;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import viking.framework.paint.VikingPaint;
 import viking.framework.paint.plugin.impl.image.InteractableImagePlugin;
 import viking.framework.script.VikingScript;
 
-public class NameCover extends InteractableImagePlugin implements MouseListener
+public class NameCover extends InteractableImagePlugin implements MouseListener, MouseMotionListener
 {
 	private static final String IMAGE_URL = "/script/paint/_default/name_cover.png";
 	private static final int X = 7;
@@ -24,7 +25,7 @@ public class NameCover extends InteractableImagePlugin implements MouseListener
 	@Override
 	public void draw(Graphics2D g)
 	{
-		if(isMouseOnImage())
+		if(isMouseOnImage)
 			alpha = isHiding ? 0.33F : 0.66F;
 		else
 			alpha = isHiding ? 1.00F : 0.00F;
@@ -36,7 +37,7 @@ public class NameCover extends InteractableImagePlugin implements MouseListener
 	public void mouseClicked(MouseEvent e)
 	{
 		script.log(this, true, "Mouse clicked at " + e.getX() + ", " + e.getY());
-		if(isMouseOnImage())
+		if(isMouseOnImage)
 			isHiding = !isHiding;
 	}
 
