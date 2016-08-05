@@ -28,6 +28,7 @@ public class NameCover extends InteractableImagePlugin
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{
+		script.log(this, true, "Mouse entered: " + e.getX() + ", " + e.getY());
 		if(isMouseOnImage())
 			alpha = isHiding ? 0.66F : 0.33F;
 	}
@@ -35,6 +36,7 @@ public class NameCover extends InteractableImagePlugin
 	@Override
 	public void mouseExited(MouseEvent e)
 	{
+		script.log(this, true, "Mouse exited: " + e.getX() + ", " + e.getY());
 		if(isMouseOnImage())
 			alpha = isHiding ? 1.00F : 0.00F;
 	}
