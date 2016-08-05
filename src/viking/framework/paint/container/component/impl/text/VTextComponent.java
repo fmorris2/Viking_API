@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import viking.framework.paint.container.UpdateableText;
+import viking.framework.paint.container.VContainer;
 import viking.framework.paint.container.component.VComponent;
 
 public class VTextComponent extends VComponent
@@ -11,8 +12,9 @@ public class VTextComponent extends VComponent
 	protected Font font;
 	protected UpdateableText text;
 	
-	public VTextComponent(UpdateableText text, Font font)
+	public VTextComponent(VContainer container, UpdateableText text, Font font)
 	{
+		super(container);
 		this.text = text;
 		this.font = font;
 	}

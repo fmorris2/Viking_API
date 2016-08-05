@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import viking.framework.paint.container.VContainer;
 import viking.framework.paint.container.component.VComponent;
 
 public class VComponentList<T extends VComponent> extends VComponent
@@ -12,8 +13,9 @@ public class VComponentList<T extends VComponent> extends VComponent
 	private List<T> components;
 	
 	@SuppressWarnings("unchecked")
-	public VComponentList(T... components)
+	public VComponentList(VContainer container, T... components)
 	{
+		super(container);
 		this.components = new ArrayList<>(Arrays.asList(components));
 	}
 	

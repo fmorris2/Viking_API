@@ -2,6 +2,7 @@ package viking.framework.paint.container.component.impl.tab;
 
 import java.awt.Graphics2D;
 
+import viking.framework.paint.container.VContainer;
 import viking.framework.paint.container.component.VComponent;
 
 public class VTab extends VComponent
@@ -13,6 +14,11 @@ public class VTab extends VComponent
 	private int width;
 	private int height;
 	private VComponent content;
+	
+	public VTab(VContainer container)
+	{
+		super(container);
+	}
 	
 	@Override
 	public void draw(Graphics2D g)

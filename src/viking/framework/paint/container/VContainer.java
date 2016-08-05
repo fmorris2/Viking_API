@@ -5,30 +5,52 @@ import java.util.List;
 
 import viking.framework.paint.VikingPaint;
 import viking.framework.paint.container.component.VComponent;
+import viking.framework.paint.image.VImage;
 import viking.framework.paint.plugin.VikingPaintPlugin;
 import viking.framework.script.VikingScript;
 
-public class VContainer extends VikingPaintPlugin
+public abstract class VContainer extends VikingPaintPlugin
 {
+	private VImage image;
 	private int x;
 	private int y;
-	private int width;
-	private int height;
+	private int width = -1;
+	private int height = -1;
 	private List<VComponent> components;
 	
-	public VContainer(VikingScript script, VikingPaint<?> paint)
+	public VContainer(VikingScript script, VikingPaint<?> paint, String imageUrl)
 	{
 		super(script, paint);
+		image = new VImage(imageUrl);
+		components = initComponents();
 	}
+	
+	protected abstract List<VComponent> initComponents();
 
 	@Override
 	public void draw(Graphics2D g)
 	{
+		if(image.getImage() != null)
+		{
+			if(width == -1)
+			{
+				width = image.getBounds().width;
+				height = image.getBounds().height;
+			}
+			
+			image.draw(g, x, y);
+			
+			for(VComponent c : components)
+				if(c.isVisible())
+					c.draw(g);
+		}
 	}
 
 	@Override
 	public void reset()
 	{
+		for(VComponent c : components)
+			c.reset();
 	}
 
 }
