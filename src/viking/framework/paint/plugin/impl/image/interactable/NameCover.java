@@ -25,7 +25,7 @@ public class NameCover extends InteractableImagePlugin implements MouseListener
 	public void draw(Graphics2D g)
 	{
 		if(isMouseOnImage())
-			alpha = isHiding ? 0.66F : 0.33F;
+			alpha = isHiding ? 0.33F : 0.66F;
 		else
 			alpha = isHiding ? 1.00F : 0.00F;
 		
