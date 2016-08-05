@@ -13,12 +13,15 @@ import com.sun.management.OperatingSystemMXBean;
 
 public class VikingDevPlugin extends BasicVikingPlugin
 {
+	private static final int PAINT_X = 4;
+	private static final int PAINT_BOT_Y = 336;
+	
 	private OperatingSystemMXBean bean;
 	private Averager avg;
 	
-	public VikingDevPlugin(VikingScript script, VikingPaint<?> p, Color color, float alpha, int x, int bottomY)
+	public VikingDevPlugin(VikingScript script, VikingPaint<?> p)
 	{
-		super(script, p, color, alpha, x, bottomY);
+		super(script, p, Color.WHITE, 0.8F, PAINT_X, PAINT_BOT_Y);
 		bean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 		avg = script.getUtils().getAverager();
 		isVisible = script.isDevBuild();

@@ -8,12 +8,15 @@ import viking.framework.script.VikingScript;
 
 public class NameCover extends InteractableImagePlugin
 {
+	private static final String IMAGE_URL = "/script/_general/name_cover.png";
+	private static final int X = 7;
+	private static final int Y = 459;
+	
 	private boolean isHiding; //whether or not the name cover is visible
 	
-	public NameCover(VikingScript script, VikingPaint<?> paint,
-			String imageUrl, int x, int y)
+	public NameCover(VikingScript script, VikingPaint<?> paint)
 	{
-		super(script, paint, imageUrl, x, y);
+		super(script, paint, script.getVikingWebsite() + IMAGE_URL, X, Y);
 	}
 
 	@Override
