@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import viking.framework.script.VikingScript;
@@ -19,6 +20,7 @@ public class VFont
 	
 	public VFont(VikingScript script, String url)
 	{
+		sizes = new HashMap<>();
 		BASE_URL = script.getVikingWebsite() + "/script/font/";
 		defaultFont = downloadFont(url);
 	}
