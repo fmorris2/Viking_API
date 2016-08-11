@@ -16,7 +16,13 @@ public abstract class VComponent
 		this.container = container;
 	}
 	
-	public abstract void draw(Graphics2D g);
+	public void handle(Graphics2D g)
+	{
+		if(isVisible)
+			draw(g);
+	}
+	
+	protected abstract void draw(Graphics2D g);
 	public abstract void reset();
 	
 	//getters & serrers

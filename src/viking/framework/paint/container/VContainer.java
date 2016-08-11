@@ -43,8 +43,7 @@ public abstract class VContainer extends VikingPaintPlugin
 			}
 			
 			for(VComponent c : components)
-				if(c.isVisible())
-					c.draw(g);
+				c.handle(g);
 		}
 	}
 

@@ -23,8 +23,7 @@ public class VComponentList<T extends VComponent> extends VComponent
 	public void draw(Graphics2D g)
 	{
 		for(T t : components)
-			if(t.isVisible())
-				t.draw(g);
+			t.handle(g);
 	}
 
 	@Override
