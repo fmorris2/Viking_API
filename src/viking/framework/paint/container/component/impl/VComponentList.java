@@ -10,12 +10,12 @@ import viking.framework.paint.container.component.VComponent;
 
 public class VComponentList<T extends VComponent> extends VComponent
 {
-	private List<T> components;
+	private List<T> components;	
 	
 	@SuppressWarnings("unchecked")
 	public VComponentList(VContainer container, T... components)
 	{
-		super(container);
+		super(container, null);
 		this.components = new ArrayList<>(Arrays.asList(components));
 	}
 	

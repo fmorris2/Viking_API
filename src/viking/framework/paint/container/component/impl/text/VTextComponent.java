@@ -9,14 +9,12 @@ import viking.framework.paint.container.component.VComponent;
 
 public class VTextComponent extends VComponent
 {
-	protected Font font;
 	protected UpdateableText text;
 	
 	public VTextComponent(VContainer container, UpdateableText text, Font font)
 	{
-		super(container);
+		super(container, font);
 		this.text = text;
-		this.font = font;
 	}
 	
 	@Override

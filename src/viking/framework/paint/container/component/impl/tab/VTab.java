@@ -1,5 +1,6 @@
 package viking.framework.paint.container.component.impl.tab;
 
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 import viking.framework.paint.container.VContainer;
@@ -15,9 +16,9 @@ public class VTab extends VComponent
 	private int height;
 	private VComponent content;
 	
-	public VTab(VContainer container)
+	public VTab(VContainer container, Font f)
 	{
-		super(container);
+		super(container, f);
 	}
 	
 	@Override

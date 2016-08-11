@@ -15,7 +15,7 @@ public class VTabbedPane extends VComponent
 
 	public VTabbedPane(VContainer container)
 	{
-		super(container);
+		super(container, null);
 	}
 	
 	@Override

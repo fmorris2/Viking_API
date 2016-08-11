@@ -6,14 +6,16 @@ import java.awt.Composite;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 
 import viking.framework.paint.VikingPaint;
+import viking.framework.paint.font.VFont;
 import viking.framework.paint.plugin.VikingPaintPlugin;
 import viking.framework.script.VikingScript;
 
 /**
  * BasicVikingPaint is the most simple flavour of a VikingPaint. It pretty much
- * is just basic text above the chat box. No flashy effects / images.
+ * is just basic text. No flashy effects / images.
  * 
  * @author The Viking
  *
@@ -29,21 +31,25 @@ public abstract class BasicVikingPlugin extends VikingPaintPlugin
 	
 	private Color color;
 	private int paintSpace = -1;
+	private int fontSize;
 	
-	public BasicVikingPlugin(VikingScript script, VikingPaint<?> paint, Color color, float alpha, int x, int bottomY)
+	public BasicVikingPlugin(VikingScript script, VikingPaint<?> paint, Color color, int fontSize, float alpha, int x, int bottomY)
 	{
 		super(script, paint);
 		this.color = color;
+		this.fontSize = fontSize;
 		PAINT_X = x;
 		PAINT_BOT_Y = bottomY;
 		ALPHA_COMPOSITE = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
 	}
 	
+	protected abstract VFont getFont();
+	
 	protected abstract String[] getInfo();
 	
 	private int calculateSpace(Graphics2D g)
 	{
-		Font f = paint.getFont().getCurrent();
+		Font f = getFont().get(fontSize);
 		FontMetrics metrics = g.getFontMetrics(f);
 		
 		return metrics.getHeight() + SPACE_PADDING;
@@ -54,6 +60,12 @@ public abstract class BasicVikingPlugin extends VikingPaintPlugin
 	{
 		if(paintSpace == -1) //Calculate space between lines if needed
 			paintSpace = calculateSpace(g);
+		
+		//fonts
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		Font f = getFont().get(fontSize);
+		ge.registerFont(f);
+		g.setFont(f);
 		
 		Composite oldComposite = g.getComposite();
 		

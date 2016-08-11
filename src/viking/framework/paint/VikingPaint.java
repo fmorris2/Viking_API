@@ -5,6 +5,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 
 import viking.api.Timing;
+import viking.framework.paint.font.VikingFonts;
 import viking.framework.paint.mouse.VikingCursor;
 import viking.framework.paint.plugin.VikingPaintPlugin;
 import viking.framework.script.VikingScript;
@@ -21,7 +22,7 @@ import viking.framework.script.VikingScript;
 public abstract class VikingPaint<T extends VikingScript>
 {	
 	protected T script;
-	protected VikingFont font;
+	protected VikingFonts fonts;
 	protected VikingPaintPlugin[] plugins;
 	protected VikingCursor cursor;
 	protected long startTime;
@@ -34,7 +35,7 @@ public abstract class VikingPaint<T extends VikingScript>
 	public VikingPaint(T script)
 	{
 		this.script = script;
-		font = new VikingFont(script);
+		fonts = new VikingFonts(script);
 		plugins = generatePlugins(script);
 		cursor = new VikingCursor(script);
 		startTime = Timing.currentMs();
@@ -63,12 +64,6 @@ public abstract class VikingPaint<T extends VikingScript>
 			rh.put(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
 			g.setRenderingHints(rh);
 			
-			//fonts
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			
-			ge.registerFont(font.getCurrent());
-			g.setFont(font.getCurrent());
-			
 			//custom mouse cursor & trail
 			cursor.draw(g, script.mouse.getPosition());
 		}
@@ -89,8 +84,8 @@ public abstract class VikingPaint<T extends VikingScript>
 			plugin.reset();
 	}
 	
-	public VikingFont getFont()
+	public VikingFonts getFont()
 	{
-		return font;
+		return fonts;
 	}
 }

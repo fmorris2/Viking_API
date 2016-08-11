@@ -6,6 +6,7 @@ import java.lang.management.ManagementFactory;
 import viking.api.Timing;
 import viking.framework.averager.Averager;
 import viking.framework.paint.VikingPaint;
+import viking.framework.paint.font.VFont;
 import viking.framework.paint.plugin.impl.BasicVikingPlugin;
 import viking.framework.script.VikingScript;
 
@@ -13,6 +14,7 @@ import com.sun.management.OperatingSystemMXBean;
 
 public class VikingDevPlugin extends BasicVikingPlugin
 {
+	private static final int FONT_SIZE = 11;
 	private static final int PAINT_X = 4;
 	private static final int PAINT_BOT_Y = 336;
 	
@@ -21,7 +23,7 @@ public class VikingDevPlugin extends BasicVikingPlugin
 	
 	public VikingDevPlugin(VikingScript script, VikingPaint<?> p)
 	{
-		super(script, p, Color.WHITE, 0.8F, PAINT_X, PAINT_BOT_Y);
+		super(script, p, Color.WHITE, FONT_SIZE, 0.8F, PAINT_X, PAINT_BOT_Y);
 		bean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 		avg = script.getUtils().getAverager();
 		isVisible = script.isDevBuild();
@@ -42,6 +44,12 @@ public class VikingDevPlugin extends BasicVikingPlugin
 			"Physical memory usage: " + bean.getFreePhysicalMemorySize() / 1000000
 				+ "/" + bean.getTotalPhysicalMemorySize() / 1000000 + "Mb",
 		};
+	}
+	
+	@Override
+	protected VFont getFont()
+	{
+		return paint.getFont().MEDIUM;
 	}
 
 	@Override
