@@ -19,9 +19,15 @@ public abstract class VikingPaintPlugin
 		isVisible = true;
 	}
 	
-	public abstract void draw(Graphics2D g);
+	public void handle(Graphics2D g)
+	{
+		if(isVisible)
+			draw(g);
+	}
 	
 	public abstract void reset();
+
+	protected abstract void draw(Graphics2D g);
 	
 	//Getters & Setters
 	public boolean isVisible()

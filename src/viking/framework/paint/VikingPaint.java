@@ -73,8 +73,7 @@ public abstract class VikingPaint<T extends VikingScript>
 		}
 		
 		for(VikingPaintPlugin plugin : plugins)
-			if(plugin.isVisible())
-				plugin.draw(g);
+			plugin.handle(g);
 	}
 	
 	public long getTimeRan()
