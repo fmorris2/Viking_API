@@ -64,6 +64,10 @@ public abstract class BasicVikingPlugin extends VikingPaintPlugin
 		//fonts
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		Font f = getFont().get(fontSize);
+		if(f == null)
+			script.log("NULL FONT");
+		else
+			script.log("FONT IS NOT NULL");
 		ge.registerFont(f);
 		g.setFont(f);
 		

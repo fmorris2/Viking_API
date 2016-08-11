@@ -1,7 +1,6 @@
 package viking.framework.paint;
 
 import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 
 import viking.api.Timing;
