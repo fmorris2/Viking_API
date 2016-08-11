@@ -65,6 +65,7 @@ public abstract class VikingPaint<T extends VikingScript>
 			
 			//fonts
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			
 			ge.registerFont(font.getCurrent());
 			g.setFont(font.getCurrent());
 			
