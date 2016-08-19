@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import viking.framework.paint.VikingPaint;
 import viking.framework.script.VikingScript;
 
-
 public abstract class VikingPaintPlugin
 {	
 	protected VikingScript script;
