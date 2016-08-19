@@ -11,16 +11,20 @@ public abstract class VChatBoxMinimal extends VikingPaintPlugin
 {
 	public static final int CONTAINER_X = 300;
 	public static final int CONTAINER_Y = 345;
+	private static final int LOGO_X = 264; 
+	private static final int LOGO_Y = 268;
 	
 	private static final String CONTAINER_URL = "/script/paint/_default/main_container_bg.png";
 	
 	protected VTabBar tabs;
 	private VImage containerImage;
+	private VImage logo;
 	
-	public VChatBoxMinimal(VikingScript script, VikingPaint<?> paint)
+	public VChatBoxMinimal(VikingScript script, VikingPaint<?> paint, String logoUrl)
 	{
 		super(script, paint);
 		tabs = createTabs();
+		logo = new VImage(script.getVikingWebsite() + logoUrl);
 		containerImage = new VImage(script.getVikingWebsite() + CONTAINER_URL);
 	}
 	
@@ -29,6 +33,7 @@ public abstract class VChatBoxMinimal extends VikingPaintPlugin
 	{
 		script.assertion(tabs != null, "ChatBox paint should not have null tabs List");
 		
+		logo.draw(g, LOGO_X, LOGO_Y);
 		containerImage.draw(g, CONTAINER_X, CONTAINER_Y);	
 	}
 	
