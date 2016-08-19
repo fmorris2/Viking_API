@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import viking.framework.paint.VikingPaint;
 import viking.framework.script.VikingScript;
 
-public abstract class VikingPaintPlugin
+public abstract class VikingPaintPlugin implements Drawable
 {	
 	protected VikingScript script;
 	protected VikingPaint<?> paint;
@@ -25,8 +25,6 @@ public abstract class VikingPaintPlugin
 	}
 	
 	public abstract void reset();
-
-	protected abstract void draw(Graphics2D g);
 	
 	//Getters & Setters
 	public boolean isVisible()

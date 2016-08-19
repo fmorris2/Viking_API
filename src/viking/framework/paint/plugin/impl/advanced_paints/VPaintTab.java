@@ -1,6 +1,9 @@
 package viking.framework.paint.plugin.impl.advanced_paints;
 
-public class VPaintTab
-{
+import viking.framework.paint.plugin.Drawable;
 
+
+public abstract class VPaintTab implements Drawable
+{
+	
 }
