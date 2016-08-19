@@ -24,12 +24,12 @@ public abstract class VChatBoxMinimal extends VikingPaintPlugin
 		containerImage = new VImage(script.getVikingWebsite() + CONTAINER_URL);
 	}
 	
+	@Override
 	public void draw(Graphics2D g)
 	{
 		script.assertion(tabs != null, "ChatBox paint should not have null tabs List");
 		
-		containerImage.draw(g, CONTAINER_X, CONTAINER_Y);
-		
+		containerImage.draw(g, CONTAINER_X, CONTAINER_Y);	
 	}
 	
 	protected abstract VTabBar createTabs();
