@@ -35,6 +35,13 @@ public abstract class VChatBoxMinimal extends VikingPaintPlugin
 		
 		logo.draw(g, LOGO_X, LOGO_Y);
 		containerImage.draw(g, CONTAINER_X, CONTAINER_Y);	
+		tabs.draw(g);
+	}
+	
+	@Override
+	public void reset()
+	{
+		tabs.reset();
 	}
 	
 	protected abstract VTabBar createTabs();
