@@ -23,6 +23,7 @@ public class Timing
 	 */
 	public static long timeFromMark(long mark)
 	{
+		//test
 		return System.currentTimeMillis() - mark;
 	}
 	
