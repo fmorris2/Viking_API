@@ -76,6 +76,14 @@ public class WalkingUtils extends ScriptUtil
 		return walkTo(pos, null, null, -1, -1);
 	}
 	
+	/**
+	 * This method calls upon the general walkTo method, but walks to a random position
+	 * in the area provided and also breaks out of the walking method as soon as the player
+	 * enters the area.
+	 * 
+	 * @param a The area to walk to
+	 * @return true if the player successfully walked to the area, false otherwise
+	 */
 	public boolean walkToArea(Area a)
 	{
 		final VCondition IN_AREA = script.getUtils().getConditions().inAreaCondition(a);

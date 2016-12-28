@@ -61,7 +61,6 @@ public class Timing
 	 * @param cycleTime the time, in ms, between condition checks
 	 * @param timeout the maximum time to wait for the condition to be true
 	 * @return true if the condition was met within the threshold, or false if the timeout was exceeded
-	 * @throws InterruptedException
 	 */
 	public static boolean waitCondition(VCondition condition, int cycleTime, int timeout)
 	{
@@ -76,6 +75,29 @@ public class Timing
 		}.sleep();
 	}
 	
+	/**
+	 * This method waits for a specific condition to be true within a maximum amount of time. Your
+	 * basic conditional sleep.
+	 * 
+	 * @param condition the condition to wait for
+	 * @param timeout the maximum time to wait for the condition to be true
+	 * @return true if the condition was met within the threshold, or false if the timeout was exceeded
+	 */
+	public static boolean waitCondition(VCondition condition, int timeout)
+	{
+		return waitCondition(condition, 20, timeout);
+	}
+	
+	/**
+	 * This method waits for a specific condition
+	 * to be true within a maximum amount of time. Your
+	 * basic conditional sleep. This method uses the LCondition interface, so it provides lambda support
+	 * 
+	 * @param condition the condition to wait for
+	 * @param cycleTime the time, in ms, between condition checks
+	 * @param timeout the maximum time to wait for the condition to be true
+	 * @return true if the condition was met within the threshold, or false if the timeout was exceeded
+	 */
 	public static boolean waitCondition(LCondition condition, int cycleTime, int timeout)
 	{
 		return new ConditionalSleep(timeout, cycleTime)
@@ -89,17 +111,17 @@ public class Timing
 		}.sleep();
 	}
 	
+	/**
+	 * This method waits for a specific condition to be true within a maximum amount of time. Your
+	 * basic conditional sleep. This method uses the LCondition interface, so it provides lambda support
+	 * 
+	 * @param condition the condition to wait for
+	 * @param timeout the maximum time to wait for the condition to be true
+	 * @return true if the condition was met within the threshold, or false if the timeout was exceeded
+	 */
 	public static boolean waitCondition(LCondition condition, int timeout)
 	{
-		return new ConditionalSleep(timeout, 20)
-		{
-			@Override
-			public boolean condition() throws InterruptedException
-			{
-				return condition.evaluate();
-			}
-			
-		}.sleep();
+		return waitCondition(condition, 20, timeout);
 	}
 
 }

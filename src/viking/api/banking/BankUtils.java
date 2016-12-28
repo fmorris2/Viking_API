@@ -46,6 +46,13 @@ public class BankUtils extends ScriptUtil
 		return BANKS.get(0).getArea();
 	}
 	
+	/**
+	 * This method returns whether or not the player is in a bank.
+	 * The algorithm used for this is simply grabbing the closest bank
+	 * with getClosest(), and checking if it contains the player
+	 * 
+	 * @return true if the player is in the bank, false otherwise
+	 */
 	public boolean isInBank()
 	{
 		return getClosest().contains(myPlayer());

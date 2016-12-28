@@ -5,7 +5,9 @@ import org.osbot.rs07.utility.Condition;
 /**
  * This is the class we use instead of the default Condition
  * class in the OSBot API. This object allowed for easy chaining
- * of Conditions with and, or, not operators.
+ * of Conditions with and, or, not operators. Doesn't support lambdas
+ * in Timing.waitCondition, but you can use the LCondition interface
+ * for that
  * 
  * @author The Viking
  *
