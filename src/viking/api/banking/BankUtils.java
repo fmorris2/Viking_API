@@ -19,7 +19,7 @@ import viking.framework.script.VikingScript;
  */
 public class BankUtils extends ScriptUtil
 {
-	//Our bank cache, so we don't have to continue to load up the VikingBank value array
+	//Our BANK cache, so we don't have to continue to load up the VikingBank value array
 	private static final List<VikingBank> BANKS = new ArrayList<>(Arrays.asList(VikingBank.values()));
 		
 	//Our cached Comparator, so we don't have to create a new one every time we want to sort the banks
@@ -33,25 +33,25 @@ public class BankUtils extends ScriptUtil
 	
 	/**
 	 * This method uses our handy VikingBank enum
-	 * to calculate and determine the closest bank to
+	 * to calculate and determine the closest BANK to
 	 * the character. Takes into consideration whether
 	 * or not the character is in a members world.
 	 * 
-	 * @return the closest valid bank to the player
+	 * @return the closest valid BANK to the player
 	 */
 	public Area getClosest()
 	{
 		Collections.sort(BANKS, bankComparator); //Sort cached banks list using comparator
-		script.log(this, true, "Closest bank: " + BANKS.get(0));
+		script.log(this, true, "Closest BANK: " + BANKS.get(0));
 		return BANKS.get(0).getArea();
 	}
 	
 	/**
-	 * This method returns whether or not the player is in a bank.
-	 * The algorithm used for this is simply grabbing the closest bank
+	 * This method returns whether or not the player is in a BANK.
+	 * The algorithm used for this is simply grabbing the closest BANK
 	 * with getClosest(), and checking if it contains the player
 	 * 
-	 * @return true if the player is in the bank, false otherwise
+	 * @return true if the player is in the BANK, false otherwise
 	 */
 	public boolean isInBank()
 	{
@@ -59,14 +59,14 @@ public class BankUtils extends ScriptUtil
 	}
 	
 	/**
-	 * This method opens the closest bank. The only reason
-	 * this method is here is due to the fact that bank.open()
+	 * This method opens the closest BANK. The only reason
+	 * this method is here is due to the fact that BANK.open()
 	 * throws an InterruptedException, so instead of adding
 	 * a try / catch block whenever we use it in our code,
 	 * we simply make this method and not have to worry about
 	 * it again
 	 * 
-	 * @return whether or not the bank was opened successfully
+	 * @return whether or not the BANK was opened successfully
 	 */
 	public boolean open()
 	{
@@ -83,11 +83,11 @@ public class BankUtils extends ScriptUtil
 	}
 	
 	/**
-	 * This is the comparator we use to sort our bank cache, and
-	 * push the best bank option to the front of the list
+	 * This is the comparator we use to sort our BANK cache, and
+	 * push the best BANK option to the front of the list
 	 * 
 	 * @return a Comparator which sorts by whether or not the
-	 * bank is valid first, and distance to the player second
+	 * BANK is valid first, and distance to the player second
 	 */
 	private Comparator<VikingBank> bankComparator()
 	{

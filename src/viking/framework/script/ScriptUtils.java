@@ -3,56 +3,31 @@ package viking.framework.script;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
+import viking.api.skills.woodcutting.Woodcutting;
 import viking.api.travel.WalkingUtils;
 import viking.framework.averager.Averager;
 
 /**
  * Each VikingScript has a ScriptUtils object which hold various other
  * utility objects from the Viking API
- * 
- * @author The Viking
  *
+ * @author The Viking
  */
-public class ScriptUtils
-{	
-	private BankUtils bank;
-	private WalkingUtils walk;
-	private VConditions conditions;
-	private VFilters filters;
-	private Averager avg;
-	
-	public ScriptUtils(VikingScript script)
-	{
-		bank = new BankUtils(script);
-		walk = new WalkingUtils(script);
-		conditions = new VConditions(script);
-		filters = new VFilters(script);
-		avg = new Averager(script);
-	}
-	
-	//Getters
-	public BankUtils getBank()
-	{
-		return bank;
-	}
-	
-	public WalkingUtils getWalk()
-	{
-		return walk;
-	}
-	
-	public VConditions getConditions()
-	{
-		return conditions;
-	}
-	
-	public VFilters getFilters()
-	{
-		return filters;
-	}
-	
-	public Averager getAverager()
-	{
-		return avg;
-	}
+public class ScriptUtils {
+
+    public final BankUtils BANK;
+    public final WalkingUtils WALK;
+    public final VConditions CONDITIONS;
+    public final VFilters FILTERS;
+    public final Averager AVERAGER;
+    public final Woodcutting WOODCUTTING;
+
+    public ScriptUtils(VikingScript script) {
+        BANK = new BankUtils(script);
+        WALK = new WalkingUtils(script);
+        CONDITIONS = new VConditions(script);
+        FILTERS = new VFilters(script);
+        AVERAGER = new Averager(script);
+        WOODCUTTING = new Woodcutting(script);
+    }
 }

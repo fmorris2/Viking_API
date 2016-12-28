@@ -34,7 +34,7 @@ public class WalkingUtils extends ScriptUtil
 	 * provided by the API to use. Will use WebWalking if the distance
 	 * is far, or the default Walking class if the distance is shorter
 	 * 
-	 * @param pos the position to walk to
+	 * @param pos the position to WALK to
 	 * @param breakCondition a condition to break out of the walking for 
 	 * @param waitCondition a condition to wait for after the walking finishes
 	 * @param cycleTime the cycle time for the wait condition
@@ -57,17 +57,17 @@ public class WalkingUtils extends ScriptUtil
 				((WebWalkEvent)(walkEvent)).setBreakCondition(breakCondition);
 		}
 		
-		//execute the walk event
+		//execute the WALK event
 		return execute(walkEvent).hasFinished()
 				&& waitCondition == null ? true : Timing.waitCondition(waitCondition, cycleTime, timeout);
 	}
 	
 	/**
-	 * This method is the most basic walk method in this class. It calls upon
-	 * the general walk method, but doesn't make use of a break condition or wait
+	 * This method is the most basic WALK method in this class. It calls upon
+	 * the general WALK method, but doesn't make use of a break condition or wait
 	 * condition.
 	 * 
-	 * @param pos The position to walk to
+	 * @param pos The position to WALK to
 	 * @return true if we've successfully walked to the position, false otherwise
 	 * @throws InterruptedException
 	 */
@@ -81,7 +81,7 @@ public class WalkingUtils extends ScriptUtil
 	 * in the area provided and also breaks out of the walking method as soon as the player
 	 * enters the area.
 	 * 
-	 * @param a The area to walk to
+	 * @param a The area to WALK to
 	 * @return true if the player successfully walked to the area, false otherwise
 	 */
 	public boolean walkToArea(Area a)

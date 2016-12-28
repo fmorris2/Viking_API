@@ -9,7 +9,7 @@ import viking.api.ScriptUtil;
 import viking.framework.script.VikingScript;
 
 /**
- * This class holds various pre-made filters for use in Viking scripts
+ * This class holds various pre-made FILTERS for use in Viking scripts
  * 
  * @author The Viking
  */
@@ -28,7 +28,7 @@ public class VFilters extends ScriptUtil
 	 * Checks if the npc is not under attack, and also not interacting with
 	 * any other character
 	 * 
-	 * @return a Filter which filters only NPCs that are viable for attacking
+	 * @return a Filter which FILTERS only NPCs that are viable for attacking
 	 */
 	private Filter<NPC> ableToAttack()
 	{
@@ -45,7 +45,7 @@ public class VFilters extends ScriptUtil
 	 * a certain distance, inclusive
 	 * 
 	 * @param distance the maximum distance the npc can be away, inclusive
-	 * @return a filter which filters only NPCs that are within a certain distance
+	 * @return a filter which FILTERS only NPCs that are within a certain distance
 	 */
 	public Filter<Entity> distanceFilter(int distance)
 	{

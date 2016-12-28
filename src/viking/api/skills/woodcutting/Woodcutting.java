@@ -1,18 +1,24 @@
 package viking.api.skills.woodcutting;
 
 import org.osbot.rs07.api.ui.Skill;
+import viking.api.ScriptUtil;
 import viking.api.skills.woodcutting.enums.AxeType;
 import viking.framework.VMethodProvider;
+import viking.framework.script.VikingScript;
 
 /**
  * Created by Sphiinx on 12/27/2016.
  */
-public class Woodcutting extends VMethodProvider {
+public class Woodcutting extends ScriptUtil {
+
+    public Woodcutting(VikingScript script) {
+        super(script);
+    }
 
     /**
      * Gets the best usable axe the RSPlayer has.
      *
-     * @param is_checking_bank True if we are checking the bank for the best usable axe; false otherwise.
+     * @param is_checking_bank True if we are checking the BANK for the best usable axe; false otherwise.
      * @return The best usable axe the RSPlayer has.
      */
     public AxeType getBestUsableAxe(boolean is_checking_bank) {
