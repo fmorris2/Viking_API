@@ -25,7 +25,7 @@ public class VikingDevPlugin extends BasicVikingPlugin
 	{
 		super(script, p, Color.WHITE, FONT_SIZE, 0.8F, PAINT_X, PAINT_BOT_Y);
 		bean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-		avg = script.getUtils().getAverager();
+		avg = script.getUtils().AVERAGER;
 		isVisible = script.isDevBuild();
 	}
 
