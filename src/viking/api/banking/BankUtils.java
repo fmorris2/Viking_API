@@ -46,6 +46,11 @@ public class BankUtils extends ScriptUtil
 		return BANKS.get(0).getArea();
 	}
 	
+	public boolean isInBank()
+	{
+		return getClosest().contains(myPlayer());
+	}
+	
 	/**
 	 * This method opens the closest bank. The only reason
 	 * this method is here is due to the fact that bank.open()
