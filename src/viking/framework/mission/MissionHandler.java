@@ -47,6 +47,13 @@ public class MissionHandler
 		
 		script.assertion(current != null, "Current mission is null"); //We should never be supplying null missions to our script, so crash if we did
 		
+		//check if the mission onStart needs to be called
+		if(!current.hasStarted())
+		{
+			current.onMissionStart();
+			current.setStarted(true);
+		}
+		
 		//if the current mission is over, move on to the next one
 		if(current.canEnd())
 		{

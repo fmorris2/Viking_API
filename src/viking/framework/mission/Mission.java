@@ -14,6 +14,7 @@ public abstract class Mission extends VMethodProvider
 {
 	protected VikingScript script;
 	protected GoalList goals;
+	private boolean hasStarted;
 	
 	/**
 	 * Primary constructor for Mission - Takes in the VikingScript
@@ -83,6 +84,8 @@ public abstract class Mission extends VMethodProvider
 	 */
 	public abstract int execute();
 	
+	public abstract void onMissionStart();
+	
 	/**
 	 * Resets the mission specific paint info
 	 */
@@ -92,6 +95,16 @@ public abstract class Mission extends VMethodProvider
 	public VikingScript getScript()
 	{
 		return script;
+	}
+	
+	public boolean hasStarted()
+	{
+		return hasStarted;
+	}
+	
+	public void setStarted(boolean started)
+	{
+		hasStarted = started;
 	}
 	
 }
