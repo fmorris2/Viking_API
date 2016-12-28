@@ -123,7 +123,8 @@ public abstract class VikingScript extends Script
 	@Override
 	public void onPaint(Graphics2D g)
 	{
-		vikingPaint.paint(g);
+		if(vikingPaint != null)
+			vikingPaint.paint(g);
 	}
 	
 	//Gettters
