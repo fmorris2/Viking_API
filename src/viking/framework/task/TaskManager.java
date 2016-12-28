@@ -1,20 +1,20 @@
 package viking.framework.task;
 
 
-import viking.framework.VMethodProvider;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import viking.framework.mission.Mission;
 
 /**
  * Created by Sphiinx on 4/20/2016.
  */
-public class TaskManager extends VMethodProvider {
+public class TaskManager<T extends Mission> {
 
     /**
      * The master task list for the program.
      */
-    private List<Task> task_list = new ArrayList<>();
+    private List<Task<T>> task_list = new ArrayList<>();
 
     /**
      * The master status for the program.
@@ -25,6 +25,13 @@ public class TaskManager extends VMethodProvider {
      * The master boolean for stopping the program.
      */
     private static boolean stop_program;
+    
+    protected T mission;
+    
+    public TaskManager(T mission)
+    {
+    	this.mission = mission;
+    }
 
     /**
      * Loops through all of the tasks in the task list until it finds an valid task that it can execute.
@@ -32,15 +39,16 @@ public class TaskManager extends VMethodProvider {
      * @param min The minimum sleep delay after executing a task.
      * @param max The maximum sleep delay after executing a task.
      * */
-    public void loop(int min, int max) {
+    @SuppressWarnings("static-access")
+	public void loop(int min, int max) {
         while (!stop_program) {
-            Task task = getValidTask();
+            Task<T> task = getValidTask();
             if (task != null) {
                 status = task.toString();
                 task.execute();
             }
             try {
-                sleep(random(min, max));
+                mission.sleep(mission.random(min, max));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -52,8 +60,9 @@ public class TaskManager extends VMethodProvider {
      *
      * @param tasks The tasks to be added to the task list.
      * */
-    public void addTask(Task... tasks) {
-        for (Task task : tasks) {
+    @SuppressWarnings("unchecked")
+	public void addTask(Task<T>... tasks) {
+        for (Task<T> task : tasks) {
             if (!task_list.contains(task)) {
                 task_list.add(task);
             }
@@ -65,7 +74,7 @@ public class TaskManager extends VMethodProvider {
      *
      * @param task The specified task to be removed from the task list.
      * */
-    public void removeTask(Task task) {
+    public void removeTask(Task<T> task) {
         if (task_list.contains(task)) {
             task_list.remove(task);
         }
@@ -92,8 +101,8 @@ public class TaskManager extends VMethodProvider {
      *
      * @return A validated task.
      * */
-    public Task getValidTask() {
-        for (Task task : task_list) {
+    public Task<T> getValidTask() {
+        for (Task<T> task : task_list) {
             if (task.validate()) {
                 return task;
             }
