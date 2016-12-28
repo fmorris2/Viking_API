@@ -16,8 +16,8 @@ public abstract class Task<T extends Mission> extends VMethodProvider {
 		exchangeContext(mission.getScript());
 	}
 	
-    abstract boolean validate();
+    public abstract boolean validate();
 
-    abstract void execute();
+    public abstract void execute();
 
 }
