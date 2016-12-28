@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.osbot.rs07.utility.ConditionalSleep;
 
+import viking.api.condition.LCondition;
 import viking.api.condition.VCondition;
 
 /**
@@ -65,6 +66,32 @@ public class Timing
 	public static boolean waitCondition(VCondition condition, int cycleTime, int timeout)
 	{
 		return new ConditionalSleep(timeout, cycleTime)
+		{
+			@Override
+			public boolean condition() throws InterruptedException
+			{
+				return condition.evaluate();
+			}
+			
+		}.sleep();
+	}
+	
+	public static boolean waitCondition(LCondition condition, int cycleTime, int timeout)
+	{
+		return new ConditionalSleep(timeout, cycleTime)
+		{
+			@Override
+			public boolean condition() throws InterruptedException
+			{
+				return condition.evaluate();
+			}
+			
+		}.sleep();
+	}
+	
+	public static boolean waitCondition(LCondition condition, int timeout)
+	{
+		return new ConditionalSleep(timeout, 20)
 		{
 			@Override
 			public boolean condition() throws InterruptedException
