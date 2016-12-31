@@ -24,14 +24,14 @@ public class ScriptUtils {
     public final Woodcutting WOODCUTTING = new Woodcutting();
     public final VLogin LOGIN = new VLogin();
     
-    public ScriptUtils(VikingScript script)
+    public void init(VikingScript script)
     {
-        BANK.exchangeContext(script);
-        WALK.exchangeContext(script);
-        CONDITIONS.exchangeContext(script);
-        FILTERS.exchangeContext(script);
-        AVERAGER.exchangeContext(script);
-        WOODCUTTING.exchangeContext(script);
-        LOGIN.exchangeContext(script);
+    	 BANK.exchangeContext(script);
+         WALK.exchangeContext(script);
+         CONDITIONS.exchangeContext(script);
+         FILTERS.exchangeContext(script);
+         AVERAGER.exchangeContext(script);
+         WOODCUTTING.exchangeContext(script);
+         LOGIN.exchangeContext(script);
     }
 }
