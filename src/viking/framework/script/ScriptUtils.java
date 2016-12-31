@@ -24,15 +24,14 @@ public class ScriptUtils {
     public final Woodcutting WOODCUTTING = new Woodcutting();
     public final VLogin LOGIN = new VLogin();
     
-    @SuppressWarnings("deprecation")
-	public ScriptUtils(VikingScript script)
+    public ScriptUtils(VikingScript script)
     {
-        BANK.exchangeContext(script.bot);
-        WALK.exchangeContext(script.bot);
-        CONDITIONS.exchangeContext(script.bot);
-        FILTERS.exchangeContext(script.bot);
-        AVERAGER.exchangeContext(script.bot);
-        WOODCUTTING.exchangeContext(script.bot);
-        LOGIN.exchangeContext(script.bot);
+        BANK.exchangeContext(script);
+        WALK.exchangeContext(script);
+        CONDITIONS.exchangeContext(script);
+        FILTERS.exchangeContext(script);
+        AVERAGER.exchangeContext(script);
+        WOODCUTTING.exchangeContext(script);
+        LOGIN.exchangeContext(script);
     }
 }
