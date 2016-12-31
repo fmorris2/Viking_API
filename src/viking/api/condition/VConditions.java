@@ -18,12 +18,15 @@ import viking.framework.script.VikingScript;
  */
 public class VConditions extends ScriptUtil {
 
-    public final VCondition IN_COMBAT = inCombat();
-    public final VCondition BANK_OPEN = isBankOpen();
-    public final VCondition LOGGED_IN = isLoggedIn();
+    public final VCondition IN_COMBAT;
+    public final VCondition BANK_OPEN;
+    public final VCondition LOGGED_IN;
 
     public VConditions(VikingScript script) {
         super(script);
+        IN_COMBAT = inCombat();
+        BANK_OPEN = isBankOpen();
+        LOGGED_IN = isLoggedIn();
     }
 
     public VCondition inAreaCondition(Area a) {
