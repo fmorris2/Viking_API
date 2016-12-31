@@ -1,13 +1,8 @@
 package viking.api.interaction;
 
-import viking.api.ScriptUtil;
-import viking.framework.script.VikingScript;
+import viking.framework.VMethodProvider;
 
-public class VInteractions extends ScriptUtil
+public class VInteractions extends VMethodProvider
 {
-	public VInteractions(VikingScript script)
-	{
-		super(script);
-	}
 
 }

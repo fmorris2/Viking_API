@@ -16,21 +16,11 @@ import viking.framework.averager.Averager;
  */
 public class ScriptUtils {
 
-    public final BankUtils BANK;
-    public final WalkingUtils WALK;
-    public final VConditions CONDITIONS;
-    public final VFilters FILTERS;
-    public final Averager AVERAGER;
-    public final Woodcutting WOODCUTTING;
-    public final VLogin LOGIN;
-
-    public ScriptUtils(VikingScript script) {
-        BANK = new BankUtils(script);
-        WALK = new WalkingUtils(script);
-        CONDITIONS = new VConditions(script);
-        FILTERS = new VFilters(script);
-        AVERAGER = new Averager(script);
-        WOODCUTTING = new Woodcutting(script);
-        LOGIN = new VLogin(script);
-    }
+    public final BankUtils BANK = new BankUtils();
+    public final WalkingUtils WALK = new WalkingUtils();
+    public final VConditions CONDITIONS = new VConditions();
+    public final VFilters FILTERS = new VFilters();
+    public final Averager AVERAGER = new Averager();
+    public final Woodcutting WOODCUTTING = new Woodcutting();
+    public final VLogin LOGIN = new VLogin();
 }

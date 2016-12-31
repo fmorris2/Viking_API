@@ -4,18 +4,17 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import viking.api.ScriptUtil;
+import viking.framework.VMethodProvider;
 import viking.framework.script.VikingScript;
 
-public class Averager extends ScriptUtil
+public class Averager extends VMethodProvider
 {
 	private Map<String, DataPair> data;
 	private MovingAverager movingAverager;
 	private DecimalFormat format;
 	
-	public Averager(VikingScript script)
+	public Averager()
 	{
-		super(script);
 		data = new HashMap<>();
 		format = new DecimalFormat("###.##");
 		movingAverager = new MovingAverager(format);

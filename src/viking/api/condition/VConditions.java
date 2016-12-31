@@ -4,8 +4,7 @@ import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.model.Character;
 import org.osbot.rs07.api.model.Entity;
 
-import viking.api.ScriptUtil;
-import viking.framework.script.VikingScript;
+import viking.framework.VMethodProvider;
 
 /**
  * This class holds all of the preset VConditions in
@@ -16,18 +15,11 @@ import viking.framework.script.VikingScript;
  *
  * @author The Viking
  */
-public class VConditions extends ScriptUtil {
+public class VConditions extends VMethodProvider {
 
-    public final VCondition IN_COMBAT;
-    public final VCondition BANK_OPEN;
-    public final VCondition LOGGED_IN;
-
-    public VConditions(VikingScript script) {
-        super(script);
-        IN_COMBAT = inCombat();
-        BANK_OPEN = isBankOpen();
-        LOGGED_IN = isLoggedIn();
-    }
+    public final VCondition IN_COMBAT = inCombat();
+    public final VCondition BANK_OPEN = isBankOpen();
+    public final VCondition LOGGED_IN = isLoggedIn();
 
     public VCondition inAreaCondition(Area a) {
         return new VCondition() {

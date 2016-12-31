@@ -8,8 +8,7 @@ import java.util.List;
 
 import org.osbot.rs07.api.map.Area;
 
-import viking.api.ScriptUtil;
-import viking.framework.script.VikingScript;
+import viking.framework.VMethodProvider;
 
 /**
  * Utility class with methods which relate to banking
@@ -17,19 +16,13 @@ import viking.framework.script.VikingScript;
  * @author The Viking
  * 
  */
-public class BankUtils extends ScriptUtil
+public class BankUtils extends VMethodProvider
 {
 	//Our BANK cache, so we don't have to continue to load up the VikingBank value array
 	private static final List<VikingBank> BANKS = new ArrayList<>(Arrays.asList(VikingBank.values()));
 		
 	//Our cached Comparator, so we don't have to create a new one every time we want to sort the banks
 	private Comparator<VikingBank> bankComparator = bankComparator();
-	
-	public BankUtils(VikingScript script)
-	{
-		super(script);
-		bankComparator = bankComparator();
-	}
 	
 	/**
 	 * This method uses our handy VikingBank enum

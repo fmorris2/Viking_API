@@ -6,10 +6,9 @@ import org.osbot.rs07.event.Event;
 import org.osbot.rs07.event.WalkingEvent;
 import org.osbot.rs07.event.WebWalkEvent;
 
-import viking.api.ScriptUtil;
 import viking.api.Timing;
 import viking.api.condition.VCondition;
-import viking.framework.script.VikingScript;
+import viking.framework.VMethodProvider;
 
 /**
  * This class will hold various utility method relating
@@ -18,15 +17,10 @@ import viking.framework.script.VikingScript;
  * @author The Viking
  *
  */
-public class WalkingUtils extends ScriptUtil
+public class WalkingUtils extends VMethodProvider
 {
 	private static final int MIN_LOCAL_COORD = 16;
 	private static final int MAX_LOCAL_COORD = 88;
-	
-	public WalkingUtils(VikingScript script)
-	{
-		super(script);
-	}
 	
 	/**
 	 * The general walking method in the WalkingUtils class.

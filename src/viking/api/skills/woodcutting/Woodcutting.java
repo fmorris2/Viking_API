@@ -1,19 +1,14 @@
 package viking.api.skills.woodcutting;
 
 import org.osbot.rs07.api.ui.Skill;
-import viking.api.ScriptUtil;
+
 import viking.api.skills.woodcutting.enums.AxeType;
 import viking.framework.VMethodProvider;
-import viking.framework.script.VikingScript;
 
 /**
  * Created by Sphiinx on 12/27/2016.
  */
-public class Woodcutting extends ScriptUtil {
-
-    public Woodcutting(VikingScript script) {
-        super(script);
-    }
+public class Woodcutting extends VMethodProvider {
 
     /**
      * Gets the best usable axe the RSPlayer has.

@@ -1,7 +1,7 @@
 package viking.api.login;
 
-import viking.api.ScriptUtil;
 import viking.api.Timing;
+import viking.framework.VMethodProvider;
 import viking.framework.script.VikingScript;
 
 /**
@@ -10,13 +10,8 @@ import viking.framework.script.VikingScript;
  * @author Rick
  *
  */
-public class VLogin extends ScriptUtil
+public class VLogin extends VMethodProvider
 {
-
-	public VLogin(VikingScript script)
-	{
-		super(script);
-	}
 	
 	public boolean login(String username, String password)
 	{

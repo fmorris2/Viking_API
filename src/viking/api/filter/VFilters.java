@@ -4,24 +4,17 @@ import org.osbot.rs07.api.filter.Filter;
 import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.model.NPC;
 
-
-import viking.api.ScriptUtil;
-import viking.framework.script.VikingScript;
+import viking.framework.VMethodProvider;
 
 /**
  * This class holds various pre-made FILTERS for use in Viking scripts
  * 
  * @author The Viking
  */
-public class VFilters extends ScriptUtil
+public class VFilters extends VMethodProvider
 {
 	public final Filter<NPC> ABLE_TO_ATTACK_NPC = ableToAttack();
 	public final Filter<Entity> ABLE_TO_REACH_ENTITY = ableToReach();
-	
-	public VFilters(VikingScript script)
-	{
-		super(script);
-	}
 	
 	/**
 	 * Filter for determining whether or not an NPC is able to be attacked.
