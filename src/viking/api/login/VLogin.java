@@ -29,6 +29,13 @@ public class VLogin extends ScriptUtil
 			
 			}
 			
-			return Timing.waitCondition(conditions.LOGGED_IN, 4000);
+			if(conditions == null)
+				script.log(this, false, "conditions is null");
+			else if(conditions.LOGGED_IN == null)
+				script.log(this, false, "LOGGED_IN is null");
+			else 
+				return Timing.waitCondition(conditions.LOGGED_IN, 4000);
+			
+			return false;
 	}
 }
