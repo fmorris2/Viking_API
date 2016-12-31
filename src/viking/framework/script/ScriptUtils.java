@@ -23,4 +23,16 @@ public class ScriptUtils {
     public final Averager AVERAGER = new Averager();
     public final Woodcutting WOODCUTTING = new Woodcutting();
     public final VLogin LOGIN = new VLogin();
+    
+    @SuppressWarnings("deprecation")
+	public ScriptUtils(VikingScript script)
+    {
+        BANK.exchangeContext(script.bot);
+        WALK.exchangeContext(script.bot);
+        CONDITIONS.exchangeContext(script.bot);
+        FILTERS.exchangeContext(script.bot);
+        AVERAGER.exchangeContext(script.bot);
+        WOODCUTTING.exchangeContext(script.bot);
+        LOGIN.exchangeContext(script.bot);
+    }
 }

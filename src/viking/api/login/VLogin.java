@@ -2,7 +2,6 @@ package viking.api.login;
 
 import viking.api.Timing;
 import viking.framework.VMethodProvider;
-import viking.framework.script.VikingScript;
 
 /**
  * VLogin - A script utility class that will handle

@@ -42,13 +42,5 @@ public class VMethodProvider extends MethodProvider {
         avg = script.getUtils().AVERAGER;
         woodcutting = script.getUtils().WOODCUTTING;
         login = script.getUtils().LOGIN;
-        
-        bankUtils.exchangeContext(script.bot);
-        walkUtils.exchangeContext(script.bot);
-        conditions.exchangeContext(script.bot);
-        filters.exchangeContext(script.bot);
-        avg.exchangeContext(script.bot);
-        woodcutting.exchangeContext(script.bot);
-        login.exchangeContext(script.bot);
     }
 }
