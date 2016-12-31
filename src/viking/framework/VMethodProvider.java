@@ -5,6 +5,7 @@ import org.osbot.rs07.script.MethodProvider;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
+import viking.api.login.VLogin;
 import viking.api.skills.woodcutting.Woodcutting;
 import viking.api.travel.WalkingUtils;
 import viking.framework.averager.Averager;
@@ -28,6 +29,7 @@ public class VMethodProvider extends MethodProvider {
     public VFilters filters;
     public Averager avg;
     public Woodcutting woodcutting;
+    public VLogin login;
 
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
@@ -39,5 +41,6 @@ public class VMethodProvider extends MethodProvider {
         filters = script.getUtils().FILTERS;
         avg = script.getUtils().AVERAGER;
         woodcutting = script.getUtils().WOODCUTTING;
+        login = script.getUtils().LOGIN;
     }
 }

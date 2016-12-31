@@ -20,6 +20,7 @@ public class VConditions extends ScriptUtil {
 
     public final VCondition IN_COMBAT = inCombat();
     public final VCondition BANK_OPEN = isBankOpen();
+    public final VCondition LOGGED_IN = isLoggedIn();
 
     public VConditions(VikingScript script) {
         super(script);
@@ -72,6 +73,18 @@ public class VConditions extends ScriptUtil {
                 return bank.isOpen();
             }
         };
+    }
+    
+    private VCondition isLoggedIn()
+    {
+    	return new VCondition()
+		{
+    		@Override
+    		public boolean evaluate()
+    		{
+    			return client.isLoggedIn();
+    		}
+		};
     }
 
 }

@@ -3,6 +3,7 @@ package viking.framework.script;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
+import viking.api.login.VLogin;
 import viking.api.skills.woodcutting.Woodcutting;
 import viking.api.travel.WalkingUtils;
 import viking.framework.averager.Averager;
@@ -21,6 +22,7 @@ public class ScriptUtils {
     public final VFilters FILTERS;
     public final Averager AVERAGER;
     public final Woodcutting WOODCUTTING;
+    public final VLogin LOGIN;
 
     public ScriptUtils(VikingScript script) {
         BANK = new BankUtils(script);
@@ -29,5 +31,6 @@ public class ScriptUtils {
         FILTERS = new VFilters(script);
         AVERAGER = new Averager(script);
         WOODCUTTING = new Woodcutting(script);
+        LOGIN = new VLogin(script);
     }
 }
