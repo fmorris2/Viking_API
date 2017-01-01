@@ -5,24 +5,31 @@ package viking.api.skills.woodcutting.enums;
  */
 public enum TreeType {
 
-    NORMAL("Tree"),
-    OAK("Oak"),
-    WILLOW("Willow"),
-    TEAK("Teak"),
-    MAPLE("Maple"),
-    MAHOGANY("Mahogany"),
-    YEW("Yew"),
-    MAGIC("Magic"),
-    REDWOOD("Redwood");
+    NORMAL("Tree", 1),
+    EVERGREEN("Evergreen", 1),
+    OAK("Oak", 15),
+    WILLOW("Willow", 30),
+    TEAK("Teak", 35),
+    MAPLE("Maple", 45),
+    MAHOGANY("Mahogany", 50),
+    YEW("Yew", 60),
+    MAGIC("Magic", 75),
+    REDWOOD("Redwood", 90);
 
     private final String TREE_NAME;
+    private final int LEVEL;
 
-    TreeType(String tree_name) {
+    TreeType(String tree_name, int level) {
         this.TREE_NAME = tree_name;
+        this.LEVEL = level;
     }
 
     public String getTreeName() {
         return TREE_NAME;
+    }
+
+    public int getLevel() {
+        return LEVEL;
     }
 
 }
