@@ -32,7 +32,7 @@ public class ScriptUtils {
     	filters = new VFilters();
     	averager = new Averager();
     	woodcutting = new Woodcutting();
-    	login = new VLogin();
+    	login = new VLogin(script);
     	
     	bank.exchangeContext(script);
     	walk.exchangeContext(script);

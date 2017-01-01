@@ -8,6 +8,7 @@ import org.osbot.rs07.listener.LoginResponseCodeListener;
 import org.osbot.rs07.utility.ConditionalSleep;
 
 import viking.framework.VMethodProvider;
+import viking.framework.script.VikingScript;
 
 public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 {
@@ -16,7 +17,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 	private boolean isInvalid, isBanned, isLocked;
 	private String username, password;
 	
-	public VLogin()
+	public VLogin(VikingScript script)
 	{
 		script.bot.addLoginListener(this);
 	}
