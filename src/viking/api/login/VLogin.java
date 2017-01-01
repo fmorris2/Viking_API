@@ -24,8 +24,11 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 	
 	public boolean login(String username, String password)
 	{
+		script.log(this, false, "Attempting to login " + username + ":" + password);
+		
 		if(this.username == null || !this.username.equals(username) || this.password == null || !this.password.equals(password))
 		{
+			script.log(this, false, "We're trying to login with different credentials... Resetting");
 			this.username = username;
 			this.password = password;
 			isInvalid = false;
@@ -34,15 +37,30 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		}
 			
 		if(isInvalid || isBanned || isLocked)
+		{
+			script.log(this, false, "isInvalid, isBanned, or isLocked");
 			return false;
+		}
 		if (getClient().isLoggedIn() && getLobbyButton() == null)
+		{
+			script.log(this, false, "Success, logged in!");
 			return true;
+		}
 		else if (getLobbyButton() != null)
+		{
+			script.log(this, false, "getLobbyButton() != null");
 			clickLobbyButton();
+		}
 		else if (isOnWorldSelectorScreen())
+		{
+			script.log(this, false, "isOnWorldSelectorScreen()");
 			cancelWorldSelection(); 
+		}
 		else if (!isPasswordEmpty())
+		{
+			script.log(this, false, "!isPasswordEmpty()");
 			clickCancelLoginButton();
+		}
 		else
 			handle();
 		
