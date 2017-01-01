@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import viking.framework.VMethodProvider;
-import viking.framework.script.VikingScript;
 
 public class Averager extends VMethodProvider
 {
