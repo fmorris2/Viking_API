@@ -80,7 +80,7 @@ public class WalkingUtils extends VMethodProvider
 	 */
 	public boolean walkToArea(Area a)
 	{
-		final VCondition IN_AREA = script.getUtils().CONDITIONS.inAreaCondition(a);
+		final VCondition IN_AREA = conditions.inAreaCondition(a);
 		return walkTo(a.getRandomPosition(), IN_AREA, IN_AREA, 600, 3500);
 	}
 	

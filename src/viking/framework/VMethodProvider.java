@@ -35,12 +35,12 @@ public class VMethodProvider extends MethodProvider {
     public void exchangeContext(VikingScript script) {
         super.exchangeContext(script.bot);
         this.script = script;
-        bankUtils = script.getUtils().BANK;
-        walkUtils = script.getUtils().WALK;
-        conditions = script.getUtils().CONDITIONS;
-        filters = script.getUtils().FILTERS;
-        avg = script.getUtils().AVERAGER;
-        woodcutting = script.getUtils().WOODCUTTING;
-        login = script.getUtils().LOGIN;
+        bankUtils = script.getUtils().bank;
+        walkUtils = script.getUtils().walk;
+        conditions = script.getUtils().conditions;
+        filters = script.getUtils().filters;
+        avg = script.getUtils().averager;
+        woodcutting = script.getUtils().woodcutting;
+        login = script.getUtils().login;
     }
 }

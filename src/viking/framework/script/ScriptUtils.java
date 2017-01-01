@@ -16,22 +16,30 @@ import viking.framework.averager.Averager;
  */
 public class ScriptUtils {
 
-    public final BankUtils BANK = new BankUtils();
-    public final WalkingUtils WALK = new WalkingUtils();
-    public final VConditions CONDITIONS = new VConditions();
-    public final VFilters FILTERS = new VFilters();
-    public final Averager AVERAGER = new Averager();
-    public final Woodcutting WOODCUTTING = new Woodcutting();
-    public final VLogin LOGIN = new VLogin();
+    public BankUtils bank;
+    public WalkingUtils walk;
+    public VConditions conditions;
+    public VFilters filters;
+    public Averager averager;
+    public Woodcutting woodcutting;
+    public VLogin login;
     
     public void init(VikingScript script)
     {
-    	 BANK.exchangeContext(script);
-         WALK.exchangeContext(script);
-         CONDITIONS.exchangeContext(script);
-         FILTERS.exchangeContext(script);
-         AVERAGER.exchangeContext(script);
-         WOODCUTTING.exchangeContext(script);
-         LOGIN.exchangeContext(script);
+    	bank = new BankUtils();
+    	walk = new WalkingUtils();
+    	conditions = new VConditions();
+    	filters = new VFilters();
+    	averager = new Averager();
+    	woodcutting = new Woodcutting();
+    	login = new VLogin();
+    	
+    	bank.exchangeContext(script);
+    	walk.exchangeContext(script);
+    	conditions.exchangeContext(script);
+    	filters.exchangeContext(script);
+    	averager.exchangeContext(script);
+    	woodcutting.exchangeContext(script);
+    	login.exchangeContext(script);
     }
 }
