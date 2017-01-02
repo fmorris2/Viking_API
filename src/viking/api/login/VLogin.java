@@ -74,7 +74,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		if(UI_STATE == 1) //there are already credentials typed in
 			return clearCredentials();
 		if(UI_STATE == 3) //we need to click try again
-			return clickTryAgainButton();
+			return clickTryAgainButton() && clearCredentials();
 		
 		return false;
 	}
@@ -98,11 +98,6 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 			return Timing.waitCondition(() -> !isOnWorldSelectorScreen(), 3000);
 		
 		return false;
-	}
-
-	private boolean isPasswordEmpty()
-	{
-		return !getColorPicker().isColorAt(350, 274, Color.WHITE);
 	}
 
 	private boolean clickCancelLoginButton()
