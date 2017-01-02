@@ -5,8 +5,8 @@ import java.awt.Color;
 import org.osbot.rs07.api.ui.RS2Widget;
 import org.osbot.rs07.input.mouse.RectangleDestination;
 import org.osbot.rs07.listener.LoginResponseCodeListener;
-import org.osbot.rs07.utility.ConditionalSleep;
 
+import viking.api.Timing;
 import viking.framework.VMethodProvider;
 import viking.framework.script.VikingScript;
 
@@ -41,30 +41,45 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 			script.log(this, false, "isInvalid, isBanned, or isLocked");
 			return false;
 		}
-		if (getClient().isLoggedIn() && getLobbyButton() == null)
-		{
-			script.log(this, false, "Success, logged in!");
-			return true;
-		}
-		else if (getLobbyButton() != null)
-		{
-			script.log(this, false, "getLobbyButton() != null");
-			clickLobbyButton();
-		}
-		else if (isOnWorldSelectorScreen())
-		{
-			script.log(this, false, "isOnWorldSelectorScreen()");
-			cancelWorldSelection(); 
-		}
-		else if (!isPasswordEmpty())
-		{
-			script.log(this, false, "!isPasswordEmpty()");
-			clickCancelLoginButton();
-		}
-		else
-			handle();
 		
-		return login(username, password);
+		if(isOnMainLoginScreen() || getToMainLoginScreen())
+		{
+			if(enterUserDetails(username, password))
+				return clickLoginButton();
+		}
+		
+		return false;
+	}
+	
+	private boolean isOnMainLoginScreen()
+	{
+		return client.getLoginUIState() == 2;
+	}
+	
+	private boolean getToMainLoginScreen()
+	{
+		script.log(this, false, "Get to main login screen");
+		final int UI_STATE = getClient().getLoginUIState();
+		
+		//check if on world selection
+		if(isOnWorldSelectorScreen())
+			return cancelWorldSelection() && clickExistingUserButton();
+		if(UI_STATE == 0) //on initial screen
+			return clickExistingUserButton();
+		if(UI_STATE == 1) //there are already credentials typed in
+			return clearCredentials();
+		if(UI_STATE == 3) //we need to click try again
+			return clickTryAgainButton();
+		
+		return false;
+	}
+	
+	private boolean clearCredentials()
+	{
+		if(clickCancelLoginButton() && Timing.waitCondition(() -> client.getLoginUIState() == 2, 2000))
+			return clickExistingUserButton();
+		
+		return false;
 	}
 
 	private boolean isOnWorldSelectorScreen()
@@ -72,19 +87,12 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		return getColorPicker().isColorAt(50, 50, Color.BLACK);
 	}
 
-	private void cancelWorldSelection()
+	private boolean cancelWorldSelection()
 	{
 		if (getMouse().click(new RectangleDestination(getBot(), 712, 8, 42, 8)))
-		{
-			new ConditionalSleep(3000)
-			{
-				@Override
-				public boolean condition() throws InterruptedException
-				{
-					return !isOnWorldSelectorScreen();
-				}
-			}.sleep();
-		}
+			return Timing.waitCondition(() -> !isOnWorldSelectorScreen(), 3000);
+		
+		return false;
 	}
 
 	private boolean isPasswordEmpty()
@@ -97,33 +105,17 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		return getMouse().click(new RectangleDestination(getBot(), 398, 308, 126, 27));
 	}
 
-	private void handle()
+	private boolean clickExistingUserButton()
 	{
-		switch (getClient().getLoginUIState())
-		{
-		case 0:
-			clickExistingUsersButton();
-			break;
-		case 1:
-			clickLoginButton();
-			break;
-		case 2:
-			enterUserDetails(username, password);
-			break;
-		case 3:
-			clickTryAgainButton();
-			break;
-		}
+		if(getMouse().click(new RectangleDestination(getBot(), 400, 280, 120, 20)))
+			return Timing.waitCondition(() -> client.getLoginUIState() == 2, 2000);
+		
+		return false;
 	}
 
-	private void clickExistingUsersButton()
+	private boolean clickLoginButton()
 	{
-		getMouse().click(new RectangleDestination(getBot(), 400, 280, 120, 20));
-	}
-
-	private void clickLoginButton()
-	{
-		getMouse().click(new RectangleDestination(getBot(), 240, 310, 120, 20));
+		return getMouse().click(new RectangleDestination(getBot(), 240, 310, 120, 20));
 	}
 
 	private boolean enterUserDetails(String username, String password)
@@ -136,19 +128,12 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		return getMouse().click(new RectangleDestination(getBot(), 318, 262, 130, 26));
 	}
 
-	private void clickLobbyButton()
+	private boolean clickLobbyButton()
 	{
 		if (getLobbyButton().interact())
-		{
-			new ConditionalSleep(10_000)
-			{
-				@Override
-				public boolean condition() throws InterruptedException
-				{
-					return getLobbyButton() == null;
-				}
-			}.sleep();
-		}
+			return Timing.waitCondition(() -> getLobbyButton() == null, 10000);
+		
+		return false;
 	}
 
 	private RS2Widget getLobbyButton()
