@@ -2,6 +2,7 @@ package viking.api.login;
 
 import java.awt.Color;
 
+import org.osbot.rs07.api.Client.LoginState;
 import org.osbot.rs07.api.ui.RS2Widget;
 import org.osbot.rs07.input.mouse.RectangleDestination;
 import org.osbot.rs07.listener.LoginResponseCodeListener;
@@ -44,8 +45,12 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		
 		if(isOnMainLoginScreen() || getToMainLoginScreen())
 		{
-			if(enterUserDetails(username, password))
-				return clickLoginButton();
+			if(enterUserDetails(username, password) && clickLoginButton()
+					&& Timing.waitCondition(() -> (client.getLoginState() != LoginState.LOADING), 5000))
+			{
+				script.log(this, false, "Done loading.... checking for lobby button");
+				return Timing.waitCondition(() -> getLobbyButton() != null, 3000) && clickLobbyButton();
+			}
 		}
 		
 		return false;
