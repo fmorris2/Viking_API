@@ -28,7 +28,7 @@ public enum TreeType {
         return TREE_NAME;
     }
 
-    public int getLevel() {
+    public int getWoodcuttingLevel() {
         return LEVEL;
     }
 

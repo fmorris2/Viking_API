@@ -3,6 +3,7 @@ package viking.api.skills.woodcutting;
 import org.osbot.rs07.api.ui.Skill;
 
 import viking.api.skills.woodcutting.enums.AxeType;
+import viking.api.skills.woodcutting.enums.TreeType;
 import viking.framework.VMethodProvider;
 
 /**
@@ -33,17 +34,31 @@ public class Woodcutting extends VMethodProvider {
     /**
      * Gets the highest level of axe the RSPlayer can use.
      *
-     * @return The highest level pf axe the RSPlayer can use.
+     * @return The highest level axe the RSPlayer can use.
      */
     public AxeType currentAppropriateAxe() {
         final AxeType[] axes = AxeType.values();
 
-        for (int i = axes.length - 1; i >= 0; i--) {
+        for (int i = axes.length - 1; i >= 0; i--)
             if (axes[i].getWoodcuttingLevel() <= skills.getStatic(Skill.WOODCUTTING))
                 return axes[i];
-        }
 
         return AxeType.IRON;
+    }
+
+    /**
+     * Gets the highest level tree that the RSPlayer can chop.
+     *
+     * @return The highest level tree the RSPlayer can chop
+     * */
+    public TreeType getBestChoppableTreeType() {
+        final TreeType[] tree_types = TreeType.values();
+
+        for (int i = tree_types.length - 1; i >= 0; i--)
+            if (tree_types[i].getWoodcuttingLevel() <= skills.getStatic(Skill.WOODCUTTING))
+                return tree_types[i];
+
+        return TreeType.NORMAL;
     }
 
 }
