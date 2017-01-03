@@ -71,4 +71,9 @@ public class MissionHandler
 	{
 		return missions;
 	}
+	
+	public Mission getCurrent()
+	{
+		return missions.peek();
+	}
 }

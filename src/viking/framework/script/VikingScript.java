@@ -134,6 +134,11 @@ public abstract class VikingScript extends Script
 		return utils;
 	}
 	
+	public MissionHandler getMissionHandler()
+	{
+		return missionHandler;
+	}
+	
 	public String getVikingWebsite()
 	{
 		return isDevBuild() ? DEVELOPMENT_SITE : PRODUCTION_SITE;
