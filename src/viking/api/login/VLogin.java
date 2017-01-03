@@ -128,7 +128,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		return getMouse().click(new RectangleDestination(getBot(), 318, 262, 130, 26));
 	}
 
-	private boolean clickLobbyButton()
+	public boolean clickLobbyButton()
 	{
 		if (getLobbyButton().interact())
 			return Timing.waitCondition(() -> getLobbyButton() == null, 10000);
@@ -136,7 +136,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		return false;
 	}
 
-	private RS2Widget getLobbyButton()
+	public RS2Widget getLobbyButton()
 	{
 		return getWidgets().getWidgetContainingText("CLICK HERE TO PLAY");
 	}
