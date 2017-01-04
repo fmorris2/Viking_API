@@ -20,11 +20,6 @@ public class TaskManager<T extends Mission> {
      * The master status for the program.
      */
     private static String status;
-
-    /**
-     * The master boolean for stopping the program.
-     */
-    private static boolean stop_program;
     
     protected T mission;
     
@@ -35,25 +30,17 @@ public class TaskManager<T extends Mission> {
 
     /**
      * Loops through all of the tasks in the task list until it finds an valid task that it can execute.
-     *
-     * @param min The minimum sleep delay after executing a task.
-     * @param max The maximum sleep delay after executing a task.
+     * 
      * */
-    @SuppressWarnings("static-access")
-	public void loop(int min, int max) {
-        while (!stop_program) {
-            Task<T> task = getValidTask();
-            if (task != null) {
-                status = task.toString();
-                task.execute();
-            }
-            try {
-                mission.sleep(mission.random(min, max));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	public void loop()
+	{
+		Task<T> task = getValidTask();
+		if (task != null)
+		{
+			status = task.toString();
+			task.execute();
+		}
+	}
 
     /**
      * Adds all of the given tasks to the task list.
@@ -117,15 +104,6 @@ public class TaskManager<T extends Mission> {
      * */
     public String getStatus() {
         return status;
-    }
-
-    /**
-     * Stops the program if the specified value is true.
-     *
-     * @param stop_program Stops the program if true; does nothing otherwise.
-     * */
-    public static void stopProgram(boolean stop_program) {
-        TaskManager.stop_program = stop_program;
     }
 
     /**
