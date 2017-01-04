@@ -50,13 +50,17 @@ public class Woodcutting extends VMethodProvider {
      * Gets the highest level tree that the RSPlayer can chop.
      *
      * @return The highest level tree the RSPlayer can chop
-     * */
-    public TreeType getBestChoppableTreeType() {
+     */
+    public TreeType getBestChoppableTreeType(boolean is_members) {
         final TreeType[] tree_types = TreeType.values();
 
-        for (int i = tree_types.length - 1; i >= 0; i--)
+        for (int i = tree_types.length - 1; i >= 0; i--) {
             if (tree_types[i].getWoodcuttingLevel() <= skills.getStatic(Skill.WOODCUTTING))
-                return tree_types[i];
+                if (tree_types[i].isMembers() && !is_members)
+                    continue;
+
+            return tree_types[i];
+        }
 
         return TreeType.NORMAL;
     }
