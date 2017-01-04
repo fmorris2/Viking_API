@@ -100,7 +100,7 @@ public abstract class VikingScript extends Script
 			for(StackTraceElement st : elements)
 				log(st.toString());
 				
-			//stop();
+			stop();
 		}
 		
 		return 100;
