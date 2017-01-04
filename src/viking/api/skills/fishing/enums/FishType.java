@@ -1,5 +1,7 @@
 package viking.api.skills.fishing.enums;
 
+import java.util.Arrays;
+
 /**
  * Created by Sphiinx on 1/3/2017.
  */
@@ -35,6 +37,10 @@ public enum FishType {
 
     public FishingLocation[] getFishingLocations() {
         return FISHING_LOCATIONS;
+    }
+
+    public int[] getRequiredEquipmentIDs() {
+        return Arrays.stream(REQUIRED_EQUIPMENT).mapToInt(FishingEquipment::getItemID).toArray();
     }
 
 }
