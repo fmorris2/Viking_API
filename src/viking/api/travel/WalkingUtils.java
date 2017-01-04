@@ -89,23 +89,11 @@ public class WalkingUtils extends VMethodProvider {
      * @param wait_condition The waiting condition
      * @return true if the player successfully walked to the area, false otherwise
      */
-    public boolean walkToArea(Area a, LCondition break_condition, LCondition wait_condition) {
-        VCondition b_condition = new VCondition() {
-            @Override
-            public boolean evaluate() {
-                return break_condition.evaluate();
-            }
-        };
-        VCondition w_condition = new VCondition() {
-            @Override
-            public boolean evaluate() {
-                return wait_condition.evaluate();
-            }
-        };
-        return walkTo(a.getRandomPosition(), b_condition, w_condition, 600, 3500);
+    public boolean walkToArea(Area a, VCondition break_condition, VCondition wait_condition) {
+        return walkTo(a.getRandomPosition(), break_condition, wait_condition, 600, 3500);
     }
 
-    public boolean walkToArea(Area a, LCondition break_condition) {
+    public boolean walkToArea(Area a, VCondition break_condition) {
         return walkToArea(a, break_condition, null);
     }
 
