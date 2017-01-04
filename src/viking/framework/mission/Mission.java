@@ -1,5 +1,7 @@
 package viking.framework.mission;
 
+import org.osbot.rs07.listener.MessageListener;
+
 import viking.framework.VMethodProvider;
 import viking.framework.goal.GoalList;
 import viking.framework.script.VikingScript;
@@ -10,7 +12,7 @@ import viking.framework.script.VikingScript;
  * 
  * @author The Viking
  */
-public abstract class Mission extends VMethodProvider
+public abstract class Mission extends VMethodProvider implements MessageListener
 {
 	protected VikingScript script;
 	protected GoalList goals;

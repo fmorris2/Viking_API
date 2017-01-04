@@ -2,7 +2,10 @@ package viking.framework.script;
 
 import java.awt.Graphics2D;
 import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
+import org.osbot.rs07.api.ui.Message;
 import org.osbot.rs07.script.Script;
 
 import viking.framework.mission.Mission;
@@ -25,6 +28,7 @@ public abstract class VikingScript extends Script
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
 	private MissionHandler missionHandler; //Handles / drives the missions for the script
 	private ScriptUtils utils; //Holds the various script utilities for each Viking Script
+	private BlockingQueue<Message> messageQueue = new ArrayBlockingQueue<>(100);
 	
 	/**
 	 * This method will be provided by the script implementation.
@@ -86,11 +90,35 @@ public abstract class VikingScript extends Script
 		}
 	}
 	
+	private void sendMessageUpdates()
+	{
+		try
+		{
+			log(this, false, "Message queue size: " + messageQueue.size());
+			
+			Mission current = missionHandler.getCurrent();
+			if(current != null)
+			{
+				for(Message m : messageQueue)
+					current.onMessage(m);
+				
+				messageQueue.clear();
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public int onLoop()
 	{
 		try
 		{
+			//send message updates to missions
+			sendMessageUpdates();
+			
 			return missionHandler.execute();
 		}
 		catch(Exception e)
@@ -110,6 +138,7 @@ public abstract class VikingScript extends Script
 	public void onStart()
 	{
 		log(this, false, "Started " + getName() + " v" + getVersion() + " by " + getAuthor());
+		bot.addMessageListener(this);
 		utils = new ScriptUtils();
 		utils.init(this);
 		missionHandler = new MissionHandler(this, generateMissions());
@@ -127,6 +156,12 @@ public abstract class VikingScript extends Script
 	{
 		if(vikingPaint != null)
 			vikingPaint.paint(g);
+	}
+	
+	@Override
+	public void onMessage(Message m)
+	{
+		messageQueue.add(m);
 	}
 	
 	//Gettters
