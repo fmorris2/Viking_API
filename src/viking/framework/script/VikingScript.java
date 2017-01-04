@@ -93,9 +93,7 @@ public abstract class VikingScript extends Script
 	private void sendMessageUpdates()
 	{
 		try
-		{
-			log(this, false, "Message queue size: " + messageQueue.size());
-			
+		{	
 			Mission current = missionHandler.getCurrent();
 			if(current != null)
 			{
