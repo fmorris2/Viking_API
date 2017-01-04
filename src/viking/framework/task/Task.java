@@ -19,5 +19,10 @@ public abstract class Task<T extends Mission> extends VMethodProvider {
     public abstract boolean validate();
 
     public abstract void execute();
+    
+    public String toString()
+    {
+    	return getClass().getName();
+    }
 
 }
