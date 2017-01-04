@@ -32,7 +32,7 @@ public enum FishingLocation {
         return MEMBERS;
     }
 
-    public FishType[] getTreeTypes() {
+    public FishType[] getFishTypes() {
         return FISH_TYPE;
     }
 

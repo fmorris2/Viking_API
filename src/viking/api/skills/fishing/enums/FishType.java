@@ -21,4 +21,20 @@ public enum FishType {
         this.FISHING_LOCATIONS = fishing_locations;
     }
 
+    public int getItemID() {
+        return ITEM_ID;
+    }
+
+    public String getFishingAction() {
+        return FISH_ACTION;
+    }
+
+    public FishingEquipment[] getRequiredEquipment() {
+        return REQUIRED_EQUIPMENT;
+    }
+
+    public FishingLocation[] getFishingLocations() {
+        return FISHING_LOCATIONS;
+    }
+
 }
