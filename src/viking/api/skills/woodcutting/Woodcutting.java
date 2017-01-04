@@ -55,11 +55,12 @@ public class Woodcutting extends VMethodProvider {
         final TreeType[] tree_types = TreeType.values();
 
         for (int i = tree_types.length - 1; i >= 0; i--) {
-            if (tree_types[i].getWoodcuttingLevel() <= skills.getStatic(Skill.WOODCUTTING))
-                if (tree_types[i].isMembers() && !is_members)
+            if (tree_types[i].getWoodcuttingLevel() <= skills.getStatic(Skill.WOODCUTTING)) {
+                if (tree_types[i].isMembers() && !is_members) {
                     continue;
-
-            return tree_types[i];
+                }
+                return tree_types[i];
+            }
         }
 
         return TreeType.NORMAL;
