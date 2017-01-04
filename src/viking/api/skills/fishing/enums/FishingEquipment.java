@@ -7,22 +7,28 @@ import java.util.Arrays;
  */
 public enum FishingEquipment {
 
-    FISHING_ROD(307),
-    FLY_FISHING_ROD(309),
-    SMALL_FISHING_NET(303),
-    BIG_FISHING_NET(-1),
-    HARPOON(311),
-    FEATHER(314),
-    FISHING_BAIT(313);
+    FISHING_ROD(307, 1),
+    FLY_FISHING_ROD(309, 1),
+    SMALL_FISHING_NET(303, 1),
+    BIG_FISHING_NET(-1, 1),
+    HARPOON(311, 1),
+    FEATHER(314, 0),
+    FISHING_BAIT(313, 0);
 
     private final int ITEM_ID;
+    private final int AMOUNT;
 
-    FishingEquipment(int item_id) {
+    FishingEquipment(int item_id, int amount) {
         this.ITEM_ID = item_id;
+        this.AMOUNT = amount;
     }
 
     public int getItemID() {
         return ITEM_ID;
+    }
+
+    public int getItemAmount() {
+        return AMOUNT;
     }
 
     public static int[] getItemIDs() {
