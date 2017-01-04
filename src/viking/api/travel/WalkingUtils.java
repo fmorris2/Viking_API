@@ -7,7 +7,6 @@ import org.osbot.rs07.event.WalkingEvent;
 import org.osbot.rs07.event.WebWalkEvent;
 
 import viking.api.Timing;
-import viking.api.condition.LCondition;
 import viking.api.condition.VCondition;
 import viking.framework.VMethodProvider;
 
@@ -50,7 +49,7 @@ public class WalkingUtils extends VMethodProvider {
 
         //execute the WALK event
         return execute(walkEvent).hasFinished()
-                && waitCondition == null ? true : Timing.waitCondition(waitCondition, cycleTime, timeout);
+                && waitCondition == null || Timing.waitCondition(waitCondition, cycleTime, timeout);
     }
 
     /**
@@ -86,15 +85,10 @@ public class WalkingUtils extends VMethodProvider {
      *
      * @param a         The area to WALK to
      * @param break_condition The stopping condition
-     * @param wait_condition The waiting condition
      * @return true if the player successfully walked to the area, false otherwise
      */
-    public boolean walkToArea(Area a, VCondition break_condition, VCondition wait_condition) {
-        return walkTo(a.getRandomPosition(), break_condition, wait_condition, 600, 3500);
-    }
-
     public boolean walkToArea(Area a, VCondition break_condition) {
-        return walkToArea(a, break_condition, null);
+        return walkTo(a.getRandomPosition(), break_condition, null, 600, 3500);
     }
 
     /**
