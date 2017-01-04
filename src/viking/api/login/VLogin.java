@@ -50,7 +50,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 			{
 				script.log(this, false, "Done loading.... checking for lobby button");
 				return Timing.waitCondition(() -> getLobbyButton() != null, 6500) && clickLobbyButton()
-						&& Timing.waitCondition(() -> (getLobbyButton() == null && client.isLoggedIn()), 4000);
+						&& Timing.waitCondition(() -> (getLobbyButton() == null && client.getLoginStateValue() == 30), 4000);
 			}
 		}
 		
