@@ -1,5 +1,6 @@
 package viking.framework.mission;
 
+import org.osbot.rs07.api.ui.Message;
 import org.osbot.rs07.listener.MessageListener;
 
 import viking.framework.VMethodProvider;
@@ -108,5 +109,9 @@ public abstract class Mission extends VMethodProvider implements MessageListener
 	{
 		hasStarted = started;
 	}
+	
+	@Override
+	public void onMessage(Message m)
+	{}
 	
 }
