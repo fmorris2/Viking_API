@@ -12,6 +12,7 @@ public enum FishingEquipment {
     SMALL_FISHING_NET(303, 1),
     BIG_FISHING_NET(-1, 1),
     HARPOON(311, 1),
+    LOBSTER_POT(301, 1),
     FEATHER(314, 0),
     FISHING_BAIT(313, 0);
 

@@ -6,6 +6,7 @@ import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
 import viking.api.login.VLogin;
+import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
 import viking.api.travel.WalkingUtils;
 import viking.framework.averager.Averager;
@@ -29,6 +30,7 @@ public class VMethodProvider extends MethodProvider {
     public VFilters filters;
     public Averager avg;
     public Woodcutting woodcutting;
+    public Fishing fishing;
     public VLogin login;
 
     @SuppressWarnings("deprecation")
@@ -41,6 +43,7 @@ public class VMethodProvider extends MethodProvider {
         filters = script.getUtils().filters;
         avg = script.getUtils().averager;
         woodcutting = script.getUtils().woodcutting;
+        fishing = script.getUtils().fishing;
         login = script.getUtils().login;
     }
 }
