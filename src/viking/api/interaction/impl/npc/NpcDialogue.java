@@ -15,8 +15,6 @@ import viking.framework.VMethodProvider;
 
 public class NpcDialogue extends EntityInteraction<NPC>
 {	
-	private static final int NPC_CHAT_MASTER = 231, NPC_NAME_CHILD = 1, NPC_CONTINUE_CHILD = 2, NPC_MESSAGE_CHILD = 3;
-	private static final int GAME_DIALOGUE_MASTER = 229, GAME_DIALOGUE_CONT_CHILD = 1;
 	
 	private int[] options;
 	private int optionIndex;
@@ -75,8 +73,24 @@ public class NpcDialogue extends EntityInteraction<NPC>
 	
 	private boolean inDialogue()
 	{
-		return vmp.widgets.isVisible(NPC_CHAT_MASTER) || vmp.widgets.isVisible(GAME_DIALOGUE_MASTER)
-				|| vmp.dialogues.isPendingOption();
+		for(DIALOGUE_INTERFACES inter : DIALOGUE_INTERFACES.values())
+			if(vmp.widgets.isVisible(inter.MASTER))
+				return true;
+		
+		return vmp.dialogues.isPendingOption();
+	}
+	
+	enum DIALOGUE_INTERFACES
+	{
+		NPC_CHAT(231),
+		GAME_DIALOGUE(229),
+		PLAYER_CHAT(217);
+		
+		public final int MASTER;
+		DIALOGUE_INTERFACES(int interMaster)
+		{
+			MASTER = interMaster;
+		}
 	}
 
 }
