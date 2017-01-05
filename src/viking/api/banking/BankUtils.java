@@ -31,7 +31,7 @@ public class BankUtils extends VMethodProvider
 	 * @param is_members True if we should return all banks, false if we should only return f2p.
 	 * @return An Area Array containing all of the bank areas.
 	 * */
-	public static Area[] getAllBanks(boolean is_members) {
+	public Area[] getAllBanks(boolean is_members) {
 		BankLocation[] bank_locations = BankLocation.values();
 		Area[] bank_areas = new Area[bank_locations.length];
 		for(int i = 0; i < bank_locations.length; i++) {
