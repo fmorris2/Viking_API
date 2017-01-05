@@ -49,7 +49,6 @@ public abstract class EntityInteraction<T extends Entity>
 	
 	public boolean execute()
 	{
-		api.log("ENTITYINTERACTION TESSSSSTTTT");
 		return (target == null ? findTarget() : true) && prepareInteraction() && interact();
 	}
 	

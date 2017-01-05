@@ -28,13 +28,13 @@ public class NpcDialogue extends EntityInteraction<NPC>
 	protected boolean interact()
 	{
 		vmp.log("NpcDialogue INTERACT!!!");
-		if(!vmp.dialogues.inDialogue())
+		if(!inDialogue())
 		{
 			if(target.interact(action))
-				Timing.waitCondition(() -> vmp.dialogues.inDialogue(), 8000);
+				Timing.waitCondition(() -> inDialogue(), 8000);
 		}
 		
-		while(vmp.dialogues.inDialogue())
+		while(inDialogue())
 		{
 			if(vmp.dialogues.isPendingContinuation())
 				vmp.dialogues.clickContinue();
@@ -50,7 +50,7 @@ public class NpcDialogue extends EntityInteraction<NPC>
 			vmp.waitMs(MethodProvider.random(300, 900));
 		}
 		
-		return !vmp.dialogues.inDialogue();
+		return !inDialogue();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,6 +64,11 @@ public class NpcDialogue extends EntityInteraction<NPC>
 	protected EntityAPI<NPC> getAPI()
 	{
 		return vmp.npcs;
+	}
+	
+	private boolean inDialogue()
+	{
+		return vmp.dialogues.isPendingContinuation() || vmp.dialogues.isPendingOption();
 	}
 
 }
