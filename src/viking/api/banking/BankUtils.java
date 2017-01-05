@@ -29,13 +29,17 @@ public class BankUtils extends VMethodProvider
 	 * Gets an Area Array containing all of the banks in the BankLocation enum.
 	 *
 	 * @param is_members True if we should return all banks, false if we should only return f2p.
+	 * @param deposit_box True if we should return deposit boxes as well, false if we should only return banks.
 	 * @return An Area Array containing all of the bank areas.
 	 * */
-	public Area[] getAllBanks(boolean is_members) {
+	public Area[] getAllBanks(boolean is_members, boolean deposit_box) {
 		BankLocation[] bank_locations = BankLocation.values();
 		List<Area> bank_areas = new ArrayList<>();
 		for (BankLocation bank_location : bank_locations) {
 			if (bank_location.isMembers() && !is_members)
+				continue;
+
+			if (bank_location.isDepositBox() && !deposit_box)
 				continue;
 
 			bank_areas.add(bank_location.getArea());

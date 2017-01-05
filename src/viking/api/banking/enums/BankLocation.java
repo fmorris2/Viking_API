@@ -13,48 +13,61 @@ import org.osbot.rs07.api.map.constants.Banks;
  */
 public enum BankLocation {
 
-    YANILLE(Banks.YANILLE, true),
-    LUMBRIDGE_UPPER(Banks.LUMBRIDGE_UPPER, false),
-    TZHAAR(Banks.TZHAAR, true),
-    LOVAKENGJ_HOUSE(Banks.LOVAKENGJ_HOUSE, true),
-    VARROCK_WEST(Banks.VARROCK_WEST, false),
-    DUEL_ARENA(Banks.DUEL_ARENA, false),
-    AL_KHARID(Banks.AL_KHARID, false),
-    CASTLE_WARS(Banks.CASTLE_WARS, true),
-    EDGEVILLE(Banks.EDGEVILLE, false),
-    FALADOR_EAST(Banks.FALADOR_EAST, false),
-    ARDOUGNE_NORTH(Banks.ARDOUGNE_NORTH, true),
-    CATHERBY(Banks.CATHERBY, true),
-    PEST_CONTROL(Banks.PEST_CONTROL, true),
-    FALADOR_WEST(Banks.FALADOR_WEST, false),
-    GRAND_EXCHANGE(Banks.GRAND_EXCHANGE, false),
-    HOSIDIUS_HOUSE(Banks.HOSIDIUS_HOUSE, true),
-    SHAYZIEN_HOUSE(Banks.SHAYZIEN_HOUSE, true),
-    ARCEUUS_HOUSE(Banks.ARCEUUS_HOUSE, true),
-    GNOME_STRONGHOLD(Banks.GNOME_STRONGHOLD, true),
-    ARDOUGNE_SOUTH(Banks.ARDOUGNE_SOUTH, true),
-    VARROCK_EAST(Banks.VARROCK_EAST, false),
-    LUMBRIDGE_LOWER(Banks.LUMBRIDGE_LOWER, true),
-    DRAYNOR(Banks.DRAYNOR, false),
-    CAMELOT(Banks.CAMELOT, true),
-    CANIFIS(Banks.CANIFIS, true),
-    PISCARILIUS_HOUSE(Banks.PISCARILIUS_HOUSE, true),
-    LOVAKITE_MINE(Banks.LOVAKITE_MINE, true);
+    YANILLE(Banks.YANILLE, true, false),
+    LUMBRIDGE_UPPER(Banks.LUMBRIDGE_UPPER, false, false),
+    TZHAAR(Banks.TZHAAR, true, false),
+    LOVAKENGJ_HOUSE(Banks.LOVAKENGJ_HOUSE, true, false),
+    VARROCK_WEST(Banks.VARROCK_WEST, false, false),
+    DUEL_ARENA(Banks.DUEL_ARENA, false, false),
+    AL_KHARID(Banks.AL_KHARID, false, false),
+    CASTLE_WARS(Banks.CASTLE_WARS, true, false),
+    EDGEVILLE(Banks.EDGEVILLE, false, false),
+    FALADOR_EAST(Banks.FALADOR_EAST, false, false),
+    ARDOUGNE_NORTH(Banks.ARDOUGNE_NORTH, true, false),
+    CATHERBY(Banks.CATHERBY, true, false),
+    PEST_CONTROL(Banks.PEST_CONTROL, true, false),
+    FALADOR_WEST(Banks.FALADOR_WEST, false, false),
+    GRAND_EXCHANGE(Banks.GRAND_EXCHANGE, false, false),
+    HOSIDIUS_HOUSE(Banks.HOSIDIUS_HOUSE, true, false),
+    SHAYZIEN_HOUSE(Banks.SHAYZIEN_HOUSE, true, false),
+    ARCEUUS_HOUSE(Banks.ARCEUUS_HOUSE, true, false),
+    GNOME_STRONGHOLD(Banks.GNOME_STRONGHOLD, true, false),
+    ARDOUGNE_SOUTH(Banks.ARDOUGNE_SOUTH, true, false),
+    VARROCK_EAST(Banks.VARROCK_EAST, false, false),
+    LUMBRIDGE_LOWER(Banks.LUMBRIDGE_LOWER, true, false),
+    DRAYNOR(Banks.DRAYNOR, false, false),
+    CAMELOT(Banks.CAMELOT, true, false),
+    CANIFIS(Banks.CANIFIS, true, false),
+    PISCARILIUS_HOUSE(Banks.PISCARILIUS_HOUSE, true, false),
+    LOVAKITE_MINE(Banks.LOVAKITE_MINE, true, false),
+    PORT_SARIM_DEPOSIT_BOX(new Area(new int[][]{
+            {3041, 3237},
+            {3048, 3237},
+            {3048, 3229},
+            {3041, 3230}
+    }), false, true);
 
     private final Area AREA;
     private final boolean IS_MEMEBERS;
+    private final boolean IS_DEPOSIT_BOX;
 
-    BankLocation(Area area, boolean is_members) {
+    BankLocation(Area area, boolean is_members, boolean is_deposit_box) {
         this.AREA = area;
         this.IS_MEMEBERS = is_members;
+        this.IS_DEPOSIT_BOX = is_deposit_box;
     }
 
+    //Getters & Setters
     public Area getArea() {
         return AREA;
     }
 
     public boolean isMembers() {
         return IS_MEMEBERS;
+    }
+
+    public boolean isDepositBox() {
+        return IS_DEPOSIT_BOX;
     }
 
 }

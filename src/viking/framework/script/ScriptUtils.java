@@ -2,7 +2,7 @@ package viking.framework.script;
 
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
-import viking.api.depositbox.DepositBox;
+import viking.api.depositbox.BankDepositBox;
 import viking.api.filter.VFilters;
 import viking.api.login.VLogin;
 import viking.api.skills.fishing.Fishing;
@@ -19,7 +19,7 @@ import viking.framework.averager.Averager;
 public class ScriptUtils {
 
     public BankUtils bank;
-    public DepositBox depositBox;
+    public BankDepositBox bankDepositBox;
     public WalkingUtils walk;
     public VConditions conditions;
     public VFilters filters;
@@ -31,7 +31,7 @@ public class ScriptUtils {
     public void init(VikingScript script)
     {
     	bank = new BankUtils();
-    	depositBox = new DepositBox();
+    	bankDepositBox = new BankDepositBox();
     	walk = new WalkingUtils();
     	conditions = new VConditions();
     	filters = new VFilters();
