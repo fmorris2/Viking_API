@@ -3,8 +3,6 @@ package viking.api.banking.enums;
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.constants.Banks;
 
-import java.util.Arrays;
-
 /**
  * This is essentially a wrapper enum for the provided Bank constants in the
  * API. This enum allows for us to do things such as find the closest bank
@@ -41,29 +39,22 @@ public enum BankLocation {
     CAMELOT(Banks.CAMELOT, true),
     CANIFIS(Banks.CANIFIS, true),
     PISCARILIUS_HOUSE(Banks.PISCARILIUS_HOUSE, true),
-    LOVAKITE_MINE(Banks.LOVAKITE_MINE, true),
-    PORT_SARIM_DEPOSIT_BOX(new Area(new int[][]{
-            {3041, 3237},
-            {3048, 3237},
-            {3048, 3229},
-            {3041, 3230}
-    }), false);
+    LOVAKITE_MINE(Banks.LOVAKITE_MINE, true);
 
-    private Area area;
-    private boolean isMembers;
+    private final Area AREA;
+    private final boolean IS_MEMEBERS;
 
-    BankLocation(Area area, boolean isMembers) {
-        this.area = area;
-        this.isMembers = isMembers;
+    BankLocation(Area area, boolean is_members) {
+        this.AREA = area;
+        this.IS_MEMEBERS = is_members;
     }
 
-    //Getters & Setters
     public Area getArea() {
-        return area;
+        return AREA;
     }
 
     public boolean isMembers() {
-        return isMembers;
+        return IS_MEMEBERS;
     }
 
 }
