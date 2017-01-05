@@ -3,6 +3,7 @@ package viking.framework.script;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
+import viking.api.interaction.VInteractionFactory;
 import viking.api.login.VLogin;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
@@ -25,6 +26,7 @@ public class ScriptUtils {
     public Woodcutting woodcutting;
     public Fishing fishing;
     public VLogin login;
+    public VInteractionFactory iFact;
     
     public void init(VikingScript script)
     {
@@ -36,6 +38,7 @@ public class ScriptUtils {
     	woodcutting = new Woodcutting();
     	fishing = new Fishing();
     	login = new VLogin(script);
+    	iFact = new VInteractionFactory(); 
     	
     	bank.exchangeContext(script);
     	walk.exchangeContext(script);
@@ -44,5 +47,6 @@ public class ScriptUtils {
     	averager.exchangeContext(script);
     	woodcutting.exchangeContext(script);
     	login.exchangeContext(script);
+    	iFact.exchangeContext(script);
     }
 }
