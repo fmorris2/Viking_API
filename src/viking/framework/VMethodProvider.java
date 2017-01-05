@@ -6,6 +6,7 @@ import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
 import viking.api.interaction.VInteractionFactory;
+import viking.api.item.ItemUtils;
 import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
 import viking.api.pricechecking.PriceChecking;
@@ -40,6 +41,7 @@ public class VMethodProvider extends MethodProvider {
     public ItemManagment item_managment;
     public PriceChecking price_checking;
     public Stats stats;
+    public ItemUtils itemUtils;
 
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
@@ -57,6 +59,7 @@ public class VMethodProvider extends MethodProvider {
         price_checking = script.getUtils().price_checking;
         stats = script.getUtils().stats;
         iFact = script.getUtils().iFact;
+        itemUtils = script.getUtils().itemUtils;
     }
 
     public void waitMs(long ms) {

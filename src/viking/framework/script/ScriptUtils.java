@@ -4,6 +4,7 @@ import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
 import viking.api.interaction.VInteractionFactory;
+import viking.api.item.ItemUtils;
 import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
 import viking.api.pricechecking.PriceChecking;
@@ -33,6 +34,7 @@ public class ScriptUtils {
     public ItemManagment item_managment;
     public PriceChecking price_checking;
     public Stats stats;
+    public ItemUtils itemUtils;
 
     public void init(VikingScript script) {
         bank = new BankUtils();
@@ -47,6 +49,7 @@ public class ScriptUtils {
         item_managment = new ItemManagment();
         price_checking = new PriceChecking();
         stats = new Stats();
+        itemUtils = new ItemUtils();
 
         bank.exchangeContext(script);
         walk.exchangeContext(script);
@@ -59,6 +62,7 @@ public class ScriptUtils {
         item_managment.exchangeContext(script);
         price_checking.exchangeContext(script);
         stats.exchangeContext(script);
+        itemUtils.exchangeContext(script);
 
     }
 
