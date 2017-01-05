@@ -24,13 +24,32 @@ public class BankUtils extends VMethodProvider
 		
 	//Our cached Comparator, so we don't have to create a new one every time we want to sort the banks
 	private Comparator<BankLocation> bankComparator = bankComparator();
-	
+
+	/**
+	 * Gets an Area Array containing all of the banks in the BankLocation enum.
+	 *
+	 * @param is_members True if we should return all banks, false if we should only return f2p.
+	 * @return An Area Array containing all of the bank areas.
+	 * */
+	public static Area[] getAllBanks(boolean is_members) {
+		BankLocation[] bank_locations = BankLocation.values();
+		Area[] bank_areas = new Area[bank_locations.length];
+		for(int i = 0; i < bank_locations.length; i++) {
+			if (bank_locations[i].isMembers() && !is_members)
+				continue;
+
+			bank_areas[i] = bank_locations[i].getArea();
+		}
+
+		return bank_areas;
+	}
+
 	/**
 	 * This method uses our handy VikingBank enum
 	 * to calculate and determine the closest BANK to
 	 * the character. Takes into consideration whether
 	 * or not the character is in a members world.
-	 * 
+	 *
 	 * @return the closest valid BANK to the player
 	 */
 	public Area getClosest()
