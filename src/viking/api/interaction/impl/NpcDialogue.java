@@ -27,6 +27,7 @@ public class NpcDialogue extends EntityInteraction<NPC>
 	@Override
 	protected boolean interact()
 	{
+		vmp.log("NpcDialogue INTERACT!!!");
 		if(!vmp.dialogues.inDialogue())
 		{
 			if(target.interact(action))
