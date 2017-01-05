@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.osbot.rs07.api.map.Area;
 
+import viking.api.banking.enums.BankLocation;
 import viking.framework.VMethodProvider;
 
 /**
@@ -19,24 +20,43 @@ import viking.framework.VMethodProvider;
 public class BankUtils extends VMethodProvider
 {
 	//Our BANK cache, so we don't have to continue to load up the VikingBank value array
-	private static final List<VikingBank> BANKS = new ArrayList<>(Arrays.asList(VikingBank.values()));
+	private static final List<BankLocation> BANK_LOCATIONS = new ArrayList<>(Arrays.asList(BankLocation.values()));
 		
 	//Our cached Comparator, so we don't have to create a new one every time we want to sort the banks
-	private Comparator<VikingBank> bankComparator = bankComparator();
-	
+	private Comparator<BankLocation> bankComparator = bankComparator();
+
+	/**
+	 * Gets an Area Array containing all of the banks in the BankLocation enum.
+	 *
+	 * @param is_members True if we should return all banks, false if we should only return f2p.
+	 * @return An Area Array containing all of the bank areas.
+	 * */
+	public Area[] getAllBanks(boolean is_members) {
+		BankLocation[] bank_locations = BankLocation.values();
+		List<Area> bank_areas = new ArrayList<>();
+		for (BankLocation bank_location : bank_locations) {
+			if (bank_location.isMembers() && !is_members)
+				continue;
+
+			bank_areas.add(bank_location.getArea());
+		}
+
+		return bank_areas.toArray(new Area[bank_areas.size()]);
+	}
+
 	/**
 	 * This method uses our handy VikingBank enum
 	 * to calculate and determine the closest BANK to
 	 * the character. Takes into consideration whether
 	 * or not the character is in a members world.
-	 * 
+	 *
 	 * @return the closest valid BANK to the player
 	 */
 	public Area getClosest()
 	{
-		Collections.sort(BANKS, bankComparator); //Sort cached banks list using comparator
-		script.log(this, true, "Closest BANK: " + BANKS.get(0));
-		return BANKS.get(0).getArea();
+		Collections.sort(BANK_LOCATIONS, bankComparator); //Sort cached banks list using comparator
+		script.log(this, true, "Closest BANK: " + BANK_LOCATIONS.get(0));
+		return BANK_LOCATIONS.get(0).getArea();
 	}
 	
 	/**
@@ -82,12 +102,12 @@ public class BankUtils extends VMethodProvider
 	 * @return a Comparator which sorts by whether or not the
 	 * BANK is valid first, and distance to the player second
 	 */
-	private Comparator<VikingBank> bankComparator()
+	private Comparator<BankLocation> bankComparator()
 	{
-		return new Comparator<VikingBank>()
+		return new Comparator<BankLocation>()
 		{
 			@Override
-			public int compare(VikingBank one, VikingBank two)
+			public int compare(BankLocation one, BankLocation two)
 			{
 				final boolean IN_MEMBERS_WORLD = worlds.isMembersWorld();
 				

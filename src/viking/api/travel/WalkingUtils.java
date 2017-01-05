@@ -127,4 +127,5 @@ public class WalkingUtils extends VMethodProvider {
         return samePlane && (baseX >= MIN_LOCAL_COORD && baseX <= MAX_LOCAL_COORD &&
                 baseY >= MIN_LOCAL_COORD && baseY <= MAX_LOCAL_COORD);
     }
+
 }
