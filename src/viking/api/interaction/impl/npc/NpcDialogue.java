@@ -45,7 +45,10 @@ public class NpcDialogue extends EntityInteraction<NPC>
 			else if(vmp.dialogues.isPendingOption())
 			{
 				if(optionIndex >= options.length)
+				{
+					vmp.log("Invalid number of options supplied for dialogue... breaking.");
 					break;
+				}
 				
 				vmp.dialogues.selectOption(options[optionIndex]);
 				optionIndex++;
