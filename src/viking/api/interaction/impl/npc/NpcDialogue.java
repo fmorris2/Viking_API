@@ -29,12 +29,14 @@ public class NpcDialogue extends EntityInteraction<NPC>
 	{
 		if(!inDialogue())
 		{
+			vmp.log("Not in dialogue.... attempting to talk to npc");
 			if(target.interact(action))
 				Timing.waitCondition(() -> inDialogue(), 8000);
 		}
 		
 		while(inDialogue())
 		{
+			vmp.log("in dialogue...");
 			if(vmp.dialogues.isPendingContinuation())
 				vmp.dialogues.clickContinue();
 			else if(vmp.dialogues.isPendingOption())
