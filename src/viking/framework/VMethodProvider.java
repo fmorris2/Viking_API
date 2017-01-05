@@ -5,6 +5,7 @@ import org.osbot.rs07.script.MethodProvider;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
+import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
@@ -32,6 +33,7 @@ public class VMethodProvider extends MethodProvider {
     public Woodcutting woodcutting;
     public Fishing fishing;
     public VLogin login;
+    public ItemManagment item_managment;
 
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
@@ -45,17 +47,14 @@ public class VMethodProvider extends MethodProvider {
         woodcutting = script.getUtils().woodcutting;
         fishing = script.getUtils().fishing;
         login = script.getUtils().login;
+        item_managment = script.getUtils().item_managment;
     }
-    
-    public void waitMs(long ms)
-    {
-    	try
-    	{
-    		sleep(ms);
-    	}
-    	catch(InterruptedException e)
-    	{
-    		e.printStackTrace();
-    	}
+
+    public void waitMs(long ms) {
+        try {
+            sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,6 +4,7 @@ import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
 import viking.api.interaction.VInteractionFactory;
+import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
@@ -27,26 +28,30 @@ public class ScriptUtils {
     public Fishing fishing;
     public VLogin login;
     public VInteractionFactory iFact;
-    
-    public void init(VikingScript script)
-    {
-    	bank = new BankUtils();
-    	walk = new WalkingUtils();
-    	conditions = new VConditions();
-    	filters = new VFilters();
-    	averager = new Averager();
-    	woodcutting = new Woodcutting();
-    	fishing = new Fishing();
-    	login = new VLogin(script);
-    	iFact = new VInteractionFactory(); 
-    	
-    	bank.exchangeContext(script);
-    	walk.exchangeContext(script);
-    	conditions.exchangeContext(script);
-    	filters.exchangeContext(script);
-    	averager.exchangeContext(script);
-    	woodcutting.exchangeContext(script);
-    	login.exchangeContext(script);
-    	iFact.exchangeContext(script);
+    public ItemManagment item_managment;
+
+    public void init(VikingScript script) {
+        bank = new BankUtils();
+        walk = new WalkingUtils();
+        conditions = new VConditions();
+        filters = new VFilters();
+        averager = new Averager();
+        woodcutting = new Woodcutting();
+        fishing = new Fishing();
+        login = new VLogin(script);
+        iFact = new VInteractionFactory();
+        item_managment = new ItemManagment();
+
+        bank.exchangeContext(script);
+        walk.exchangeContext(script);
+        conditions.exchangeContext(script);
+        filters.exchangeContext(script);
+        averager.exchangeContext(script);
+        woodcutting.exchangeContext(script);
+        login.exchangeContext(script);
+        iFact.exchangeContext(script);
+        item_managment.exchangeContext(script);
+
     }
+
 }
