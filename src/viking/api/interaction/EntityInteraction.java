@@ -76,12 +76,12 @@ public abstract class EntityInteraction<T extends Entity>
 	
 	protected boolean prepareInteraction()
 	{
-		if(target.isVisible())
-			return true;
-		
 		if(vmp.myPosition().distance(target.getPosition()) > WALK_TO_THRESH)
 			vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target), null, 100, 100);
 		
-		return target.isVisible() || (vmp.camera.toEntity(target) && target.isVisible());
+		if(!target.isVisible())
+			vmp.camera.toEntity(target);
+		
+		return target.isVisible();
 	}
 }
