@@ -5,6 +5,7 @@ import org.osbot.rs07.script.MethodProvider;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
+import viking.api.interaction.VInteractionFactory;
 import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
 import viking.api.skills.fishing.Fishing;
@@ -33,6 +34,7 @@ public class VMethodProvider extends MethodProvider {
     public Woodcutting woodcutting;
     public Fishing fishing;
     public VLogin login;
+    public VInteractionFactory iFact;
     public ItemManagment item_managment;
 
     @SuppressWarnings("deprecation")
@@ -48,6 +50,7 @@ public class VMethodProvider extends MethodProvider {
         fishing = script.getUtils().fishing;
         login = script.getUtils().login;
         item_managment = script.getUtils().item_managment;
+        iFact = script.getUtils().iFact;
     }
 
     public void waitMs(long ms) {
