@@ -1,4 +1,4 @@
-package viking.api.interaction.impl;
+package viking.api.interaction.impl.npc;
 
 import org.osbot.rs07.api.EntityAPI;
 import org.osbot.rs07.api.filter.ActionFilter;

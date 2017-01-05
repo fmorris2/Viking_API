@@ -2,8 +2,8 @@ package viking.api.interaction;
 
 import org.osbot.rs07.api.model.NPC;
 
-import viking.api.interaction.impl.ClickNpc;
-import viking.api.interaction.impl.NpcDialogue;
+import viking.api.interaction.impl.npc.ClickNpc;
+import viking.api.interaction.impl.npc.NpcDialogue;
 import viking.framework.VMethodProvider;
 
 public class VInteractionFactory extends VMethodProvider
