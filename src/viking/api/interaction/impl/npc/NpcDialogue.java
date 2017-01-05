@@ -82,7 +82,7 @@ public class NpcDialogue extends EntityInteraction<NPC>
 			if(vmp.widgets.isVisible(inter.MASTER))
 				return true;
 		
-		return false;
+		return vmp.widgets.getWidgetContainingText("Click here to continue") != null;
 	}
 	
 	enum ContinueInterfaces
