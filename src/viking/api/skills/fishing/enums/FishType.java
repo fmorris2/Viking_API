@@ -88,4 +88,13 @@ public enum FishType {
         return Arrays.stream(REQUIRED_EQUIPMENT).mapToInt(FishingEquipment::getItemID).toArray();
     }
 
+    /**
+     * Gets all of the fish item ID's in the enum.
+     *
+     * @return An integer array containing all of the fish item ID's in the enum.
+     * */
+    public static int[] getItemIDs() {
+        return Arrays.stream(FishType.values()).mapToInt(FishType::getItemID).toArray();
     }
+
+}
