@@ -42,6 +42,6 @@ public abstract class Worker<T extends Mission> extends VMethodProvider
 	
 	public String toString()
 	{
-		return getClass().getName();
+		return getClass().getSimpleName();
 	}
 }
