@@ -39,4 +39,9 @@ public abstract class Worker<T extends Mission> extends VMethodProvider
 	 * This method handles the execution of this worker
 	 */
 	public abstract void work();
+	
+	public String toString()
+	{
+		return getClass().getName();
+	}
 }
