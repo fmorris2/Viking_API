@@ -60,7 +60,7 @@ public enum BankLocation {
         return isMembers;
     }
 
-    public Area[] getBanks() {
+    public static Area[] getBanks() {
         BankLocation[] bank_locations = values();
         Area[] bank_areas = new Area[bank_locations.length];
         for(int i = 0; i < bank_locations.length; i++)
