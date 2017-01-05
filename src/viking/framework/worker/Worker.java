@@ -40,8 +40,9 @@ public abstract class Worker<T extends Mission> extends VMethodProvider
 	 */
 	public abstract void work();
 	
+	@Override
 	public String toString()
 	{
-		return getClass().getName();
+		return getClass().getSimpleName();
 	}
 }
