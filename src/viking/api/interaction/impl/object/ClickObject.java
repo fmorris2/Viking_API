@@ -4,6 +4,7 @@ import org.osbot.rs07.api.EntityAPI;
 import org.osbot.rs07.api.filter.ActionFilter;
 import org.osbot.rs07.api.filter.Filter;
 import org.osbot.rs07.api.filter.NameFilter;
+import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.model.RS2Object;
 
@@ -22,6 +23,11 @@ public class ClickObject extends EntityInteraction<RS2Object>
 	public ClickObject(VMethodProvider vmp, String action, String name, int searchDistance)
 	{
 		super(vmp, action, name, searchDistance);
+	}
+	
+	public ClickObject(VMethodProvider vmp, String action, String name, Area a)
+	{
+		super(vmp, action, name, a);
 	}
 	
 	@Override
