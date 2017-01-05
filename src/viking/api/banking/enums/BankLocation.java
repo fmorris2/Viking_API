@@ -1,7 +1,9 @@
-package viking.api.banking;
+package viking.api.banking.enums;
 
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.constants.Banks;
+
+import java.util.Arrays;
 
 /**
  * This is essentially a wrapper enum for the provided Bank constants in the
@@ -11,7 +13,7 @@ import org.osbot.rs07.api.map.constants.Banks;
  *
  * @author The Viking
  */
-public enum VikingBank {
+public enum BankLocation {
 
     YANILLE(Banks.YANILLE, true),
     LUMBRIDGE_UPPER(Banks.LUMBRIDGE_UPPER, false),
@@ -44,7 +46,7 @@ public enum VikingBank {
     private Area area;
     private boolean isMembers;
 
-    VikingBank(Area area, boolean isMembers) {
+    BankLocation(Area area, boolean isMembers) {
         this.area = area;
         this.isMembers = isMembers;
     }
@@ -57,4 +59,14 @@ public enum VikingBank {
     public boolean isMembers() {
         return isMembers;
     }
+
+    public Area[] getBanks() {
+        BankLocation[] bank_locations = values();
+        Area[] bank_areas = new Area[bank_locations.length];
+        for(int i = 0; i < bank_locations.length; i++)
+            bank_areas[i] = bank_locations[i].getArea();
+
+        return bank_areas;
+    }
+
 }
