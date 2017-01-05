@@ -7,6 +7,7 @@ import viking.api.interaction.VInteractionFactory;
 import viking.api.item.ItemUtils;
 import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
+import viking.api.object.ObjectUtils;
 import viking.api.pricechecking.PriceChecking;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
@@ -35,6 +36,7 @@ public class ScriptUtils {
     public PriceChecking price_checking;
     public Stats stats;
     public ItemUtils itemUtils;
+    public ObjectUtils objectUtils;
 
     public void init(VikingScript script) {
         bank = new BankUtils();
@@ -50,6 +52,7 @@ public class ScriptUtils {
         price_checking = new PriceChecking();
         stats = new Stats();
         itemUtils = new ItemUtils();
+        objectUtils = new ObjectUtils();
 
         bank.exchangeContext(script);
         walk.exchangeContext(script);
@@ -63,6 +66,7 @@ public class ScriptUtils {
         price_checking.exchangeContext(script);
         stats.exchangeContext(script);
         itemUtils.exchangeContext(script);
+        objectUtils.exchangeContext(script);
 
     }
 

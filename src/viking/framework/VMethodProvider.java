@@ -9,6 +9,7 @@ import viking.api.interaction.VInteractionFactory;
 import viking.api.item.ItemUtils;
 import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
+import viking.api.object.ObjectUtils;
 import viking.api.pricechecking.PriceChecking;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
@@ -42,6 +43,7 @@ public class VMethodProvider extends MethodProvider {
     public PriceChecking price_checking;
     public Stats stats;
     public ItemUtils itemUtils;
+    public ObjectUtils objectUtils;
 
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
@@ -60,6 +62,7 @@ public class VMethodProvider extends MethodProvider {
         stats = script.getUtils().stats;
         iFact = script.getUtils().iFact;
         itemUtils = script.getUtils().itemUtils;
+        objectUtils = script.getUtils().objectUtils;
     }
 
     public void waitMs(long ms) {
