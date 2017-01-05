@@ -1,5 +1,6 @@
 package viking.framework;
 
+import org.osbot.rs07.api.util.LocalPathFinder;
 import org.osbot.rs07.script.MethodProvider;
 
 import viking.api.banking.BankUtils;
@@ -10,6 +11,7 @@ import viking.api.item.ItemUtils;
 import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
 import viking.api.object.ObjectUtils;
+import viking.api.position.PosUtils;
 import viking.api.pricechecking.PriceChecking;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
@@ -44,6 +46,8 @@ public class VMethodProvider extends MethodProvider {
     public Stats stats;
     public ItemUtils itemUtils;
     public ObjectUtils objectUtils;
+    public LocalPathFinder localPathFinder;
+    public PosUtils posUtils;
 
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
@@ -63,6 +67,8 @@ public class VMethodProvider extends MethodProvider {
         iFact = script.getUtils().iFact;
         itemUtils = script.getUtils().itemUtils;
         objectUtils = script.getUtils().objectUtils;
+        localPathFinder = script.getUtils().localPathFinder;
+        posUtils = script.getUtils().posUtils;
     }
 
     public void waitMs(long ms) {

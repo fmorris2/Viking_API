@@ -1,5 +1,7 @@
 package viking.framework.script;
 
+import org.osbot.rs07.api.util.LocalPathFinder;
+
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
@@ -8,6 +10,7 @@ import viking.api.item.ItemUtils;
 import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
 import viking.api.object.ObjectUtils;
+import viking.api.position.PosUtils;
 import viking.api.pricechecking.PriceChecking;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
@@ -37,6 +40,8 @@ public class ScriptUtils {
     public Stats stats;
     public ItemUtils itemUtils;
     public ObjectUtils objectUtils;
+    public LocalPathFinder localPathFinder;
+    public PosUtils posUtils;
 
     public void init(VikingScript script) {
         bank = new BankUtils();
@@ -53,6 +58,8 @@ public class ScriptUtils {
         stats = new Stats();
         itemUtils = new ItemUtils();
         objectUtils = new ObjectUtils();
+        localPathFinder = new LocalPathFinder(script.bot);
+        posUtils = new PosUtils();
 
         bank.exchangeContext(script);
         walk.exchangeContext(script);
@@ -67,6 +74,7 @@ public class ScriptUtils {
         stats.exchangeContext(script);
         itemUtils.exchangeContext(script);
         objectUtils.exchangeContext(script);
+        posUtils.exchangeContext(script);
 
     }
 
