@@ -7,8 +7,10 @@ import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
 import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
+import viking.api.pricechecking.PriceChecking;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
+import viking.api.stats.Stats;
 import viking.api.travel.WalkingUtils;
 import viking.framework.averager.Averager;
 import viking.framework.script.VikingScript;
@@ -34,6 +36,8 @@ public class VMethodProvider extends MethodProvider {
     public Fishing fishing;
     public VLogin login;
     public ItemManagment item_managment;
+    public PriceChecking price_checking;
+    public Stats stats;
 
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
@@ -48,6 +52,8 @@ public class VMethodProvider extends MethodProvider {
         fishing = script.getUtils().fishing;
         login = script.getUtils().login;
         item_managment = script.getUtils().item_managment;
+        price_checking = script.getUtils().price_checking;
+        stats = script.getUtils().stats;
     }
 
     public void waitMs(long ms) {

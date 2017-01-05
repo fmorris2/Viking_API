@@ -6,8 +6,10 @@ import viking.api.filter.VFilters;
 import viking.api.interaction.VInteractionFactory;
 import viking.api.item_managment.ItemManagment;
 import viking.api.login.VLogin;
+import viking.api.pricechecking.PriceChecking;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.woodcutting.Woodcutting;
+import viking.api.stats.Stats;
 import viking.api.travel.WalkingUtils;
 import viking.framework.averager.Averager;
 
@@ -29,6 +31,8 @@ public class ScriptUtils {
     public VLogin login;
     public VInteractionFactory iFact;
     public ItemManagment item_managment;
+    public PriceChecking price_checking;
+    public Stats stats;
 
     public void init(VikingScript script) {
         bank = new BankUtils();
@@ -41,6 +45,8 @@ public class ScriptUtils {
         login = new VLogin(script);
         iFact = new VInteractionFactory();
         item_managment = new ItemManagment();
+        price_checking = new PriceChecking();
+        stats = new Stats();
 
         bank.exchangeContext(script);
         walk.exchangeContext(script);
@@ -51,6 +57,8 @@ public class ScriptUtils {
         login.exchangeContext(script);
         iFact.exchangeContext(script);
         item_managment.exchangeContext(script);
+        price_checking.exchangeContext(script);
+        stats.exchangeContext(script);
 
     }
 
