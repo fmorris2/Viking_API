@@ -104,24 +104,19 @@ public class BankUtils extends VMethodProvider
 	 */
 	private Comparator<BankLocation> bankComparator()
 	{
-		return new Comparator<BankLocation>()
-		{
-			@Override
-			public int compare(BankLocation one, BankLocation two)
-			{
-				final boolean IN_MEMBERS_WORLD = worlds.isMembersWorld();
-				
-				//Compare first by whether or not the banks are valid for the character in terms of membership
-				if(!IN_MEMBERS_WORLD)
-				{
-					final int MEM_DIFF = Boolean.compare(one.isMembers(), two.isMembers());
-					if(MEM_DIFF != 0)
-						return MEM_DIFF;
-				}
-				
-				//Compare second by distance to the player
-				return myPosition().distance(one.getArea().getRandomPosition()) - myPosition().distance(two.getArea().getRandomPosition());
-			}
-		};
+		return (one, two) -> {
+            final boolean IN_MEMBERS_WORLD = worlds.isMembersWorld();
+
+            //Compare first by whether or not the banks are valid for the character in terms of membership
+            if(!IN_MEMBERS_WORLD)
+            {
+                final int MEM_DIFF = Boolean.compare(one.isMembers(), two.isMembers());
+                if(MEM_DIFF != 0)
+                    return MEM_DIFF;
+            }
+
+            //Compare second by distance to the player
+            return myPosition().distance(one.getArea().getRandomPosition()) - myPosition().distance(two.getArea().getRandomPosition());
+        };
 	}
 }
