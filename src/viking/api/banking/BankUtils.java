@@ -33,15 +33,15 @@ public class BankUtils extends VMethodProvider
 	 * */
 	public Area[] getAllBanks(boolean is_members) {
 		BankLocation[] bank_locations = BankLocation.values();
-		Area[] bank_areas = new Area[bank_locations.length];
-		for(int i = 0; i < bank_locations.length; i++) {
-			if (bank_locations[i].isMembers() && !is_members)
+		List<Area> bank_areas = new ArrayList<>();
+		for (BankLocation bank_location : bank_locations) {
+			if (bank_location.isMembers() && !is_members)
 				continue;
 
-			bank_areas[i] = bank_locations[i].getArea();
+			bank_areas.add(bank_location.getArea());
 		}
 
-		return bank_areas;
+		return bank_areas.toArray(new Area[bank_areas.size()]);
 	}
 
 	/**
