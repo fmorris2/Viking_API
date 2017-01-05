@@ -8,6 +8,6 @@ public class PosUtils extends VMethodProvider
 {
 	public boolean isWalkable(Position p)
 	{
-		return localPathFinder.findPath(p) != null;
+		return myPosition().equals(p) || localPathFinder.findPath(p) != null;
 	}
 }
