@@ -41,7 +41,7 @@ public enum AxeType {
     /**
      * Gets all of the axe item ID's in the enum.
      *
-     * @return An integer array containing all of the pickaxe item ID's in the enum.
+     * @return An integer array containing all of the axe item ID's in the enum.
      * */
     public static int[] getItemIDs() {
         return Arrays.stream(AxeType.values()).mapToInt(AxeType::getItemID).toArray();
