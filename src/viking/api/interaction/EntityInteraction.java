@@ -18,6 +18,8 @@ import viking.framework.VMethodProvider;
  */
 public abstract class EntityInteraction<T extends Entity>
 {
+	private static final int WALK_TO_THRESH = 9;
+	
 	protected T target;
 	protected EntityAPI<T> api;
 	protected String name;
@@ -74,8 +76,12 @@ public abstract class EntityInteraction<T extends Entity>
 	
 	protected boolean prepareInteraction()
 	{
-		return target.isVisible() 
-				|| vmp.camera.toEntity(target) 
-				|| vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target), null, -1, -1);
+		if(target.isVisible())
+			return true;
+		
+		if(vmp.myPosition().distance(target.getPosition()) > WALK_TO_THRESH)
+			vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target), null, 100, 100);
+		
+		return target.isVisible() || (vmp.camera.toEntity(target) && target.isVisible());
 	}
 }
