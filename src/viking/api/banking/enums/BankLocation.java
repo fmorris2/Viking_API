@@ -41,7 +41,13 @@ public enum BankLocation {
     CAMELOT(Banks.CAMELOT, true),
     CANIFIS(Banks.CANIFIS, true),
     PISCARILIUS_HOUSE(Banks.PISCARILIUS_HOUSE, true),
-    LOVAKITE_MINE(Banks.LOVAKITE_MINE, true);
+    LOVAKITE_MINE(Banks.LOVAKITE_MINE, true),
+    PORT_SARIM_DEPOSIT_BOX(new Area(new int[][]{
+            {3041, 3237},
+            {3048, 3237},
+            {3048, 3229},
+            {3041, 3230}
+    }), false);
 
     private Area area;
     private boolean isMembers;
