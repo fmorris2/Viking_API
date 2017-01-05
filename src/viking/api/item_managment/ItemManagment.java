@@ -11,14 +11,14 @@ import java.util.ArrayList;
 public class ItemManagment extends VMethodProvider {
 
     /**
-     * ArrayList containing all of the items we should try to buy.
+     * ArrayList containing all of the itemIDs we should try to buy.
      */
-    private ArrayList<Item> items_needed = new ArrayList<>();
+    public ArrayList<Integer> items_needed = new ArrayList<>();
 
     /**
-     * ArrayList containing all of the items we're willing to sell in order to buy the items_needed.
+     * ArrayList containing all of the itemIDs we're willing to sell in order to buy the items_needed.
      */
-    private ArrayList<Item> items_willing_to_sell = new ArrayList<>();
+    public ArrayList<Integer> items_willing_to_sell = new ArrayList<>();
 
 
 }
