@@ -38,7 +38,7 @@ public class NpcDialogue extends EntityInteraction<NPC>
 		while(inDialogue())
 		{
 			vmp.log("in dialogue...");
-			if(vmp.dialogues.isPendingContinuation())
+			if(pendingContinuation())
 				vmp.dialogues.clickContinue();
 			else if(vmp.dialogues.isPendingOption())
 			{
@@ -72,24 +72,34 @@ public class NpcDialogue extends EntityInteraction<NPC>
 	}
 	
 	private boolean inDialogue()
+	{	
+		return pendingContinuation() || vmp.dialogues.isPendingOption();
+	}
+	
+	private boolean pendingContinuation()
 	{
-		for(DIALOGUE_INTERFACES inter : DIALOGUE_INTERFACES.values())
+		for(ContinueInterfaces inter : ContinueInterfaces.values())
 			if(vmp.widgets.isVisible(inter.MASTER))
 				return true;
 		
-		return vmp.dialogues.isPendingOption();
+		return false;
 	}
 	
-	enum DIALOGUE_INTERFACES
+	enum ContinueInterfaces
 	{
 		NPC_CHAT(231),
 		GAME_DIALOGUE(229),
 		PLAYER_CHAT(217);
 		
 		public final int MASTER;
-		DIALOGUE_INTERFACES(int interMaster)
+		ContinueInterfaces(int interMaster)
 		{
 			MASTER = interMaster;
+		}
+		
+		public int getMaster()
+		{
+			return MASTER;
 		}
 	}
 
