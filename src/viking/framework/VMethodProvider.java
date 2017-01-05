@@ -46,4 +46,16 @@ public class VMethodProvider extends MethodProvider {
         fishing = script.getUtils().fishing;
         login = script.getUtils().login;
     }
+    
+    public void waitMs(long ms)
+    {
+    	try
+    	{
+    		sleep(ms);
+    	}
+    	catch(InterruptedException e)
+    	{
+    		e.printStackTrace();
+    	}
+    }
 }
