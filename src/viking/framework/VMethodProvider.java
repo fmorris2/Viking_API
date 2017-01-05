@@ -4,7 +4,6 @@ import org.osbot.rs07.script.MethodProvider;
 
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
-import viking.api.depositbox.BankDepositBox;
 import viking.api.filter.VFilters;
 import viking.api.login.VLogin;
 import viking.api.skills.fishing.Fishing;
@@ -26,7 +25,6 @@ public class VMethodProvider extends MethodProvider {
 
     public VikingScript script;
     public BankUtils bankUtils;
-    public BankDepositBox bankDepositBox;
     public WalkingUtils walkUtils;
     public VConditions conditions;
     public VFilters filters;
@@ -40,7 +38,6 @@ public class VMethodProvider extends MethodProvider {
         super.exchangeContext(script.bot);
         this.script = script;
         bankUtils = script.getUtils().bank;
-        bankDepositBox = script.getUtils().bankDepositBox;
         walkUtils = script.getUtils().walk;
         conditions = script.getUtils().conditions;
         filters = script.getUtils().filters;
