@@ -1,13 +1,26 @@
 package viking.api.interaction;
 
 import org.osbot.rs07.api.model.NPC;
+import org.osbot.rs07.api.model.RS2Object;
 
 import viking.api.interaction.impl.npc.ClickNpc;
 import viking.api.interaction.impl.npc.NpcDialogue;
+import viking.api.interaction.impl.object.ClickObject;
 import viking.framework.VMethodProvider;
 
 public class VInteractionFactory extends VMethodProvider
 {
+	//ClickObject
+	public ClickObject clickObject(String action, String name, int searchDistance)
+	{
+		return new ClickObject(this, action, name, searchDistance);
+	}
+	
+	public ClickObject clickObject(String action, RS2Object target)
+	{
+		return new ClickObject(this, action, target);
+	}
+	
 	//NpcDialogue
 	public NpcDialogue dialogue(String action, String name, int searchDistance, int... options)
 	{

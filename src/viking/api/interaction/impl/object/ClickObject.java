@@ -5,7 +5,6 @@ import org.osbot.rs07.api.filter.ActionFilter;
 import org.osbot.rs07.api.filter.Filter;
 import org.osbot.rs07.api.filter.NameFilter;
 import org.osbot.rs07.api.model.Entity;
-import org.osbot.rs07.api.model.NPC;
 import org.osbot.rs07.api.model.RS2Object;
 
 import viking.api.filter.VFilters;
