@@ -1,7 +1,9 @@
 package viking.api.interaction;
 
 import org.osbot.rs07.api.EntityAPI;
+import org.osbot.rs07.api.filter.AreaFilter;
 import org.osbot.rs07.api.filter.Filter;
+import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.model.Entity;
 
 import viking.api.filter.VFilters;
@@ -24,23 +26,35 @@ public abstract class EntityInteraction<T extends Entity>
 	protected VMethodProvider vmp;
 	private Filter<T> findFilter;
 	
+	
+	public EntityInteraction(VMethodProvider vmp, String action)
+	{
+		this.vmp = vmp;
+		this.action = action;
+		api = getAPI();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public EntityInteraction(VMethodProvider vmp, String action, String name, int searchDistance)
 	{
-		this.action = action;
+		this(vmp, action);
 		this.name = name;
 		this.searchDistance = searchDistance;
-		this.vmp = vmp;
 		findFilter = VFilters.and(findFilter(), vmp.filters.distanceFilter(searchDistance));
-		api = getAPI();
 	}
 	
 	public EntityInteraction(VMethodProvider vmp, String action, T target)
 	{
-		this.action = action;
+		this(vmp, action);
 		this.target = target;
-		this.vmp = vmp;
-		getAPI();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public EntityInteraction(VMethodProvider vmp, String action, String name, Area a)
+	{
+		this(vmp, action);
+		this.name = name;
+		findFilter = VFilters.and(findFilter(), new AreaFilter<Entity>(a));
 	}
 	
 	protected abstract boolean interact();

@@ -1,5 +1,6 @@
 package viking.api.interaction;
 
+import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.model.NPC;
 import org.osbot.rs07.api.model.RS2Object;
 
@@ -19,6 +20,11 @@ public class VInteractionFactory extends VMethodProvider
 	public ClickObject clickObject(String action, RS2Object target)
 	{
 		return new ClickObject(this, action, target);
+	}
+	
+	public ClickObject clickObject(String action, String name, Area a)
+	{
+		return new ClickObject(this, action, name, a);
 	}
 	
 	//NpcDialogue
