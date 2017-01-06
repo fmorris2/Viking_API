@@ -28,7 +28,7 @@ public class ItemOnObject extends EntityInteraction<RS2Object>
 		
 		if(selectedItem == null || (!selectedItem.equals(action) && vmp.inventory.deselectItem()))
 		{
-			if(item.interact("Use") && target.interact("Use " + action + " -> " + name))
+			if(item.interact("Use") && target.interact("Use"))
 				return true;
 		}
 		
