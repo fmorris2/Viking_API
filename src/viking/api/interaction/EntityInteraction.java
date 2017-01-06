@@ -29,11 +29,18 @@ public abstract class EntityInteraction<T extends Entity>
 	private Filter<T> findFilter;
 	
 	
+	public EntityInteraction(VMethodProvider vmp, int searchDistance)
+	{
+		this.vmp = vmp;
+		this.searchDistance = searchDistance;
+		api = getAPI();
+		
+	}
 	public EntityInteraction(VMethodProvider vmp, String action)
 	{
 		this.vmp = vmp;
-		this.action = action;
 		api = getAPI();
+		this.action = action;
 	}
 	
 	@SuppressWarnings("unchecked")

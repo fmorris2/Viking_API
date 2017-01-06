@@ -44,6 +44,7 @@ public class ScriptUtils {
     public PosUtils posUtils;
 
     public void init(VikingScript script) {
+    	
         bank = new BankUtils();
         walk = new WalkingUtils();
         conditions = new VConditions();

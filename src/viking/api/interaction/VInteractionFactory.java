@@ -7,10 +7,17 @@ import org.osbot.rs07.api.model.RS2Object;
 import viking.api.interaction.impl.npc.ClickNpc;
 import viking.api.interaction.impl.npc.NpcDialogue;
 import viking.api.interaction.impl.object.ClickObject;
+import viking.api.interaction.impl.object.ItemOnObject;
 import viking.framework.VMethodProvider;
 
 public class VInteractionFactory extends VMethodProvider
 {
+	//Item on object
+	public ItemOnObject itemOnObj(VMethodProvider vmp, String item, String object, int searchDistance)
+	{
+		return new ItemOnObject(this, item, object, searchDistance);
+	}
+	
 	//ClickObject
 	public ClickObject clickObject(String action, String name, int searchDistance)
 	{

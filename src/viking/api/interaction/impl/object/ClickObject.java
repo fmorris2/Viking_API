@@ -32,7 +32,7 @@ public class ClickObject extends EntityInteraction<RS2Object>
 	
 	@Override
 	protected boolean interact()
-	{
+	{	
 		return target.interact(action);
 	}
 

@@ -48,7 +48,7 @@ public class VMethodProvider extends MethodProvider {
     public ObjectUtils objectUtils;
     public LocalPathFinder localPathFinder;
     public PosUtils posUtils;
-
+    
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
         super.exchangeContext(script.bot);
