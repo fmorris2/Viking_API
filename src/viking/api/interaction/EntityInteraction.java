@@ -78,7 +78,6 @@ public abstract class EntityInteraction<T extends Entity>
 	@SuppressWarnings("unchecked")
 	protected boolean findTarget()
 	{
-		vmp.log("Found target: " + api.closest(findFilter) != null);
 		return (target = api.closest(findFilter)) != null;
 	}
 	

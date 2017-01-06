@@ -21,11 +21,8 @@ public class ItemOnObject extends EntityInteraction<RS2Object>
 	protected boolean interact()
 	{
 		Item item = vmp.inventory.getItem(action);
-		vmp.log("Search for item in inventory");
 		if(item == null)
 			return false;
-		
-		vmp.log("Item is not null");
 		
 		String selectedItem = vmp.inventory.getSelectedItemName();
 		
