@@ -39,8 +39,8 @@ public abstract class EntityInteraction<T extends Entity>
 	public EntityInteraction(VMethodProvider vmp, String action)
 	{
 		this.vmp = vmp;
-		api = getAPI();
 		this.action = action;
+		api = getAPI();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -78,6 +78,7 @@ public abstract class EntityInteraction<T extends Entity>
 	@SuppressWarnings("unchecked")
 	protected boolean findTarget()
 	{
+		vmp.log("Found target: " + api.closest(findFilter) != null);
 		return (target = api.closest(findFilter)) != null;
 	}
 	
