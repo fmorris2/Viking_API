@@ -26,6 +26,9 @@ public class ItemUtils extends VMethodProvider
 		if(!tabs.open(Tab.INVENTORY))
 			return false;
 		
+		if(equipment.contains(name))
+			return true;
+		
 		Item i = inventory.getItem(name);
 		if(i != null)
 			return i.interact("Wield", "Wear");
