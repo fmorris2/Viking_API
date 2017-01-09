@@ -66,7 +66,8 @@ public class WalkingUtils extends VMethodProvider {
         {
         	script.log(this, false, "Normal walk failed.. trying LocalPathFinder");
         	List<Position> path = localPathFinder.findPath(pos);
-        	walking.walkPath(path);
+        	if(path != null)
+        		walking.walkPath(path);
         }
 
         //execute the WALK event
