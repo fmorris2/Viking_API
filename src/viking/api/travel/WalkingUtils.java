@@ -18,6 +18,8 @@ import viking.framework.VMethodProvider;
  * @author The Viking
  */
 public class WalkingUtils extends VMethodProvider {
+	private static final int LOCAL_WALK_THRESH = 20;
+	
     private static final int MIN_LOCAL_COORD = 16;
     private static final int MAX_LOCAL_COORD = 50;
 
@@ -38,7 +40,10 @@ public class WalkingUtils extends VMethodProvider {
     public boolean walkTo(Position pos, VCondition breakCondition, VCondition waitCondition, int cycleTime, int timeout) {
         //determine if we'll use web walking or normal walking
         final boolean IS_REGIONAL = isRegional(pos);
-        Event walkEvent = IS_REGIONAL ? new WalkingEvent(pos) : new WebWalkEvent(pos);
+        final boolean SHOULD_USE_NORMAL_WALK = myPosition().distance(pos) < LOCAL_WALK_THRESH 
+        		&& myPosition().getZ() == pos.getZ();
+        
+        Event walkEvent = IS_REGIONAL || SHOULD_USE_NORMAL_WALK ? new WalkingEvent(pos) : new WebWalkEvent(pos);
 
         //set the break condition if necessary
         if (breakCondition != null) {

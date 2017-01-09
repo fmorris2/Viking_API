@@ -3,6 +3,7 @@ package viking.api.item;
 import org.osbot.rs07.api.model.Item;
 import org.osbot.rs07.api.ui.Tab;
 
+import viking.api.Timing;
 import viking.framework.VMethodProvider;
 
 public class ItemUtils extends VMethodProvider
@@ -31,7 +32,7 @@ public class ItemUtils extends VMethodProvider
 		
 		Item i = inventory.getItem(name);
 		if(i != null)
-			return i.interact("Wield", "Wear");
+			return i.interact("Wield", "Wear") && Timing.waitCondition(() -> equipment.contains(name), 700);
 		
 		return false;
 	}
