@@ -44,6 +44,11 @@ public class WalkingUtils extends VMethodProvider {
         		&& myPosition().getZ() == pos.getZ());
         
         Event walkEvent = SHOULD_USE_NORMAL_WALK ? new WalkingEvent(pos) : new WebWalkEvent(pos);
+        
+        if(SHOULD_USE_NORMAL_WALK)
+        	script.log(this, false, "walkTo using normal walking");
+        else
+        	script.log(this, false, "walkTo using web walking");
 
         //set the break condition if necessary
         if (breakCondition != null) {
