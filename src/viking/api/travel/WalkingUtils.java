@@ -40,14 +40,14 @@ public class WalkingUtils extends VMethodProvider {
     public boolean walkTo(Position pos, VCondition breakCondition, VCondition waitCondition, int cycleTime, int timeout) {
         //determine if we'll use web walking or normal walking
         final boolean IS_REGIONAL = isRegional(pos);
-        final boolean SHOULD_USE_NORMAL_WALK = myPosition().distance(pos) < LOCAL_WALK_THRESH 
-        		&& myPosition().getZ() == pos.getZ();
+        final boolean SHOULD_USE_NORMAL_WALK = IS_REGIONAL || (myPosition().distance(pos) < LOCAL_WALK_THRESH 
+        		&& myPosition().getZ() == pos.getZ());
         
-        Event walkEvent = IS_REGIONAL || SHOULD_USE_NORMAL_WALK ? new WalkingEvent(pos) : new WebWalkEvent(pos);
+        Event walkEvent = SHOULD_USE_NORMAL_WALK ? new WalkingEvent(pos) : new WebWalkEvent(pos);
 
         //set the break condition if necessary
         if (breakCondition != null) {
-            if (IS_REGIONAL)
+            if (SHOULD_USE_NORMAL_WALK)
                 ((WalkingEvent) (walkEvent)).setBreakCondition(breakCondition);
             else
                 ((WebWalkEvent) (walkEvent)).setBreakCondition(breakCondition);
