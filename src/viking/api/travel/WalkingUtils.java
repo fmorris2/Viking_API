@@ -1,5 +1,7 @@
 package viking.api.travel;
 
+import java.util.List;
+
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.event.Event;
@@ -57,9 +59,18 @@ public class WalkingUtils extends VMethodProvider {
             else
                 ((WebWalkEvent) (walkEvent)).setBreakCondition(breakCondition);
         }
+        
+        Event event = execute(walkEvent);
+        
+        if(event.hasFailed() && SHOULD_USE_NORMAL_WALK)
+        {
+        	script.log(this, false, "Normal walk failed.. trying LocalPathFinder");
+        	List<Position> path = localPathFinder.findPath(pos);
+        	walking.walkPath(path);
+        }
 
         //execute the WALK event
-        return execute(walkEvent).hasFinished()
+        return event.hasFinished()
                 && waitCondition == null ? true : Timing.waitCondition(waitCondition, cycleTime, timeout);
     }
 
