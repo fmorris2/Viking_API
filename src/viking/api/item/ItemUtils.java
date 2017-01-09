@@ -19,4 +19,13 @@ public class ItemUtils extends VMethodProvider
 		
 		return false;
 	}
+	
+	public boolean wield(String name)
+	{
+		Item i = inventory.getItem(name);
+		if(i != null)
+			return i.interact("Wield", "Wear");
+		
+		return false;
+	}
 }
