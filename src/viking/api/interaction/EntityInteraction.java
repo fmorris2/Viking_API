@@ -18,6 +18,8 @@ import viking.framework.VMethodProvider;
  */
 public abstract class EntityInteraction<T extends Entity>
 {	
+	private final static int DIST_THRESH = 7;
+	
 	protected T target;
 	protected EntityAPI<T> api;
 	protected String name;
@@ -25,8 +27,7 @@ public abstract class EntityInteraction<T extends Entity>
 	protected int searchDistance;
 	protected VMethodProvider vmp;
 	private Filter<T> findFilter;
-	
-	
+		
 	public EntityInteraction(VMethodProvider vmp, int searchDistance)
 	{
 		this.vmp = vmp;
@@ -84,7 +85,7 @@ public abstract class EntityInteraction<T extends Entity>
 		if(!target.isVisible())
 			vmp.camera.toEntity(target);
 		
-		if(!target.isVisible())
+		if(!target.isVisible() || vmp.myPosition().distance(target) > DIST_THRESH)
 			vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target), null, 100, 100);
 		
 		if(!target.isVisible())
