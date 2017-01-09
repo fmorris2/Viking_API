@@ -1,6 +1,7 @@
 package viking.api.item;
 
 import org.osbot.rs07.api.model.Item;
+import org.osbot.rs07.api.ui.Tab;
 
 import viking.framework.VMethodProvider;
 
@@ -22,6 +23,9 @@ public class ItemUtils extends VMethodProvider
 	
 	public boolean wield(String name)
 	{
+		if(!tabs.open(Tab.INVENTORY))
+			return false;
+		
 		Item i = inventory.getItem(name);
 		if(i != null)
 			return i.interact("Wield", "Wear");
