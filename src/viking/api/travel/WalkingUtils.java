@@ -1,7 +1,5 @@
 package viking.api.travel;
 
-import java.util.List;
-
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.event.Event;
@@ -45,6 +43,22 @@ public class WalkingUtils extends VMethodProvider {
         final boolean SHOULD_USE_NORMAL_WALK = IS_REGIONAL || (myPosition().distance(pos) < LOCAL_WALK_THRESH 
         		&& myPosition().getZ() == pos.getZ());
         
+        if(SHOULD_USE_NORMAL_WALK && !map.canReach(pos))
+        {
+        	script.log(this, false, "Can't reach target pos.... Looking for reachable adjacent tile");
+        	for(int x = -1; x < 2; x++)
+        		for(int y = -1; y < 2; y++)
+        		{
+        			Position toCheck = pos.translate(x, y);
+        			if(map.canReach(toCheck))
+        			{
+        				script.log(this, false, "Can reach adjacent tile.... Set new destination");
+        				pos = toCheck;
+        				break;
+        			}
+        		}
+        }
+        
         Event walkEvent = SHOULD_USE_NORMAL_WALK ? new WalkingEvent(pos) : new WebWalkEvent(pos);
         
         if(SHOULD_USE_NORMAL_WALK)
@@ -61,14 +75,6 @@ public class WalkingUtils extends VMethodProvider {
         }
         
         Event event = execute(walkEvent);
-        
-        if(event.hasFailed() && SHOULD_USE_NORMAL_WALK)
-        {
-        	script.log(this, false, "Normal walk failed.. trying LocalPathFinder");
-        	List<Position> path = localPathFinder.findPath(pos);
-        	if(path != null)
-        		walking.walkPath(path);
-        }
 
         //execute the WALK event
         return event.hasFinished()
