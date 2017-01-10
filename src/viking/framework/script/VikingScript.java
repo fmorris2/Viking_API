@@ -129,7 +129,7 @@ public abstract class VikingScript extends Script
 			stop();
 		}
 		
-		return 100;
+		return 400;
 	}
 
 	@Override

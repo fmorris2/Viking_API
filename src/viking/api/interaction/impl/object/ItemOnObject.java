@@ -6,6 +6,7 @@ import org.osbot.rs07.api.filter.NameFilter;
 import org.osbot.rs07.api.model.Entity;
 import org.osbot.rs07.api.model.Item;
 import org.osbot.rs07.api.model.RS2Object;
+import org.osbot.rs07.api.ui.Tab;
 
 import viking.api.interaction.EntityInteraction;
 import viking.framework.VMethodProvider;
@@ -20,6 +21,9 @@ public class ItemOnObject extends EntityInteraction<RS2Object>
 	@Override
 	protected boolean interact()
 	{
+		if(!vmp.tabs.open(Tab.INVENTORY))
+			return false;
+		
 		Item item = vmp.inventory.getItem(action);
 		if(item == null)
 			return false;
