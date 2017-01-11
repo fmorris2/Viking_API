@@ -42,9 +42,7 @@ public class WalkingUtils extends VMethodProvider {
         final boolean IS_REGIONAL = isRegional(pos);
         final boolean SHOULD_USE_NORMAL_WALK = (IS_REGIONAL || (myPosition().distance(pos) < LOCAL_WALK_THRESH)
         		&& myPosition().getZ() == pos.getZ());
-        
-        script.log(this, false, "Attempting to walk to " + pos);
-        
+
         if(SHOULD_USE_NORMAL_WALK && !map.canReach(pos))
         {
         	script.log(this, false, "Can't reach target pos.... Looking for reachable adjacent tile");
@@ -106,7 +104,7 @@ public class WalkingUtils extends VMethodProvider {
      */
     public boolean walkToArea(Area a) {
         final VCondition IN_AREA = conditions.inAreaCondition(a);
-        return walkTo(a.getRandomPosition(), IN_AREA, IN_AREA, 600, 3500);
+        return walkTo(a.getRandomPosition().translate(0, 0, a.getPlane()), IN_AREA, IN_AREA, 600, 3500);
     }
 
     /**
@@ -132,7 +130,7 @@ public class WalkingUtils extends VMethodProvider {
                 return wait_condition.evaluate();
             }
         };
-        return walkTo(a.getRandomPosition(), b_condition, w_condition, 600, 3500);
+        return walkTo(a.getRandomPosition().translate(0, 0, a.getPlane()), b_condition, w_condition, 600, 3500);
     }
 
     public boolean walkToArea(Area a, LCondition break_condition) {
