@@ -104,7 +104,7 @@ public class WalkingUtils extends VMethodProvider {
      */
     public boolean walkToArea(Area a) {
         final VCondition IN_AREA = conditions.inAreaCondition(a);
-        return walkTo(a.getRandomPosition().translate(0, 0, a.getPlane()), IN_AREA, IN_AREA, 600, 3500);
+        return walkTo(a.getRandomPosition(), IN_AREA, IN_AREA, 600, 3500);
     }
 
     /**
@@ -130,7 +130,7 @@ public class WalkingUtils extends VMethodProvider {
                 return wait_condition.evaluate();
             }
         };
-        return walkTo(a.getRandomPosition().translate(0, 0, a.getPlane()), b_condition, w_condition, 600, 3500);
+        return walkTo(a.getRandomPosition(), b_condition, w_condition, 600, 3500);
     }
 
     public boolean walkToArea(Area a, LCondition break_condition) {
