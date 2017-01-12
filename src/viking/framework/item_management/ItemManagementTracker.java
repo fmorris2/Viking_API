@@ -32,7 +32,7 @@ public class ItemManagementTracker
 		
 		//update gold amount
 		long invGp = m.inventory.getAmount(GOLD_ID);
-		long bankGp = SCRIPT.BANK_CACHE.get(GOLD_ID);
+		long bankGp = SCRIPT.BANK_CACHE.getOrDefault(GOLD_ID, 0);
 		SCRIPT.log(this, false, "invGp: " + invGp + ", bankGp: " + bankGp + ", totalGp: " + (invGp + bankGp));
 		totalGp = invGp + bankGp;
 		
@@ -43,7 +43,7 @@ public class ItemManagementTracker
 		{
 			//determine amount we have of the specific item to sell
 			long invAmt = m.inventory.getAmount(id);
-			long bankAmt = SCRIPT.BANK_CACHE.get(id);
+			long bankAmt = SCRIPT.BANK_CACHE.getOrDefault(id, 0);
 			SCRIPT.log(this, false, "Amount for item id " + id + ": inv- " + invAmt + ", bank - " + bankAmt);
 			
 			//determine value of how many of this item we have to sell
