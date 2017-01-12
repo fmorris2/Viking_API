@@ -1,12 +1,15 @@
 package viking.framework.item_management;
 
+import viking.api.pricechecking.PriceChecking;
 import viking.framework.goal.Goal;
 import viking.framework.goal.GoalList;
 import viking.framework.mission.Mission;
 
 public class IMEntry
 {
-	public final int ID, AMT;
+	private static final double BUY_PRICE_MOD = 1.3;
+	
+	public final int ID, AMT, PRICE;
 	public final String SEARCH_TERM;
 	public final GoalList GOALS;
 	
@@ -17,13 +20,14 @@ public class IMEntry
 		mission = m;
 		ID = id;
 		AMT = amt;
+		PRICE = (int)(PriceChecking.getGEPrice(ID) * BUY_PRICE_MOD);
 		SEARCH_TERM = searchTerm;
 		GOALS = new GoalList(goals);
 	}
 	
-	public boolean shouldBuy()
+	public boolean shouldBuy(long totalValue)
 	{
-		return !playerHasEntry() && GOALS.hasReachedGoals();
+		return totalValue >= PRICE && !playerHasEntry() && GOALS.hasReachedGoals();
 	}
 	
 	private boolean playerHasEntry()
@@ -36,5 +40,10 @@ public class IMEntry
 		boolean inBank = mission.getScript().BANK_CACHE.containsKey(ID);
 		
 		return inInv || inEquip || inBank;
+	}
+	
+	public String toString()
+	{
+		return "[IMEntry] ID: " + ID + " AMT: " + AMT + " PRICE: " + PRICE + " SEARCH_TERM: " + SEARCH_TERM;
 	}
 }

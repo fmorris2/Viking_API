@@ -16,6 +16,8 @@ public class ItemManagementTracker
 	
 	public final VikingScript SCRIPT;
 	public final ItemManagement IM;
+	private final int[] TO_SELL;
+	private final IMEntry[] TO_BUY;
 	
 	private long totalGp;
 	private long totalSellableItemValue;
@@ -24,6 +26,8 @@ public class ItemManagementTracker
 	{
 		SCRIPT = s;
 		IM = im;
+		TO_SELL = im.itemsToSell();
+		TO_BUY = im.itemsToBuy();
 	}
 	
 	public void update()
@@ -39,7 +43,7 @@ public class ItemManagementTracker
 		//update total sellable item value
 		totalSellableItemValue = 0;
 		
-		for(int id : IM.itemsToSell())
+		for(int id : TO_SELL)
 		{
 			//determine amount we have of the specific item to sell
 			long invAmt = m.inventory.getAmount(id);
@@ -58,6 +62,18 @@ public class ItemManagementTracker
 		}
 		
 		SCRIPT.log(this, false, "Total sellable item value: " + totalSellableItemValue);
+		SCRIPT.log(this, false, "Total Vaue: " + getTotalValue() + " gp");
+	}
+	
+	public IMEntry needsToBuy()
+	{
+		for(IMEntry e : TO_BUY)
+		{
+			if(e.shouldBuy(getTotalValue()))
+				return e;
+		}
+		
+		return null;
 	}
 	
 	public long getTotalGp()

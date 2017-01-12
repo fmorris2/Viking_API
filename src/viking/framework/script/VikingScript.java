@@ -11,6 +11,7 @@ import org.osbot.rs07.api.model.Item;
 import org.osbot.rs07.api.ui.Message;
 import org.osbot.rs07.script.Script;
 
+import viking.framework.item_management.IMEntry;
 import viking.framework.item_management.ItemManagement;
 import viking.framework.item_management.ItemManagementTracker;
 import viking.framework.mission.Mission;
@@ -130,9 +131,13 @@ public abstract class VikingScript extends Script
 			updateBankCache();
 			
 			//check for item management system
-			itemManagement();
-			
-			return missionHandler.execute();
+			IMEntry toBuy = needsItemManagement();
+			if(toBuy != null)
+			{
+				log(this, false, "Item Management needs to buy " + toBuy);
+			}
+			else
+				return missionHandler.execute();
 		}
 		catch(Exception e)
 		{
@@ -159,7 +164,7 @@ public abstract class VikingScript extends Script
 		vikingPaint = getVikingPaint();
 	}
 	
-	private void itemManagement()
+	private IMEntry needsItemManagement()
 	{
 		Mission current = missionHandler.getCurrent();
 		if(current instanceof ItemManagement)
@@ -170,7 +175,12 @@ public abstract class VikingScript extends Script
 			
 			//update tracker info
 			imTracker.update();
+			
+			//see if we need to initiate item management
+			return imTracker.needsToBuy();
 		}
+		
+		return null;
 	}
 	
 	private void updateBankCache()
