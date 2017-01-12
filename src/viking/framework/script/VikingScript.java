@@ -166,7 +166,7 @@ public abstract class VikingScript extends Script
 	private void handleImEvent(IMEntry toBuy)
 	{
 		log(this, false, "Item Management needs to buy " + toBuy);
-		ItemManagementEvent imEvent = new ItemManagementEvent(missionHandler.getCurrent(), toBuy, imTracker);
+		ItemManagementEvent imEvent = new ItemManagementEvent(this, missionHandler.getCurrent(), toBuy, imTracker);
 		while(!imEvent.isFinished())
 		{
 			imEvent.execute();
