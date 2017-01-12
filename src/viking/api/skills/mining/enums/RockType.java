@@ -29,8 +29,8 @@ public enum RockType {
         this.LEVEL = level;
     }
 
-    public int getRockColor() {
-        return COLOR;
+    public short getRockColor() {
+        return (short) COLOR;
     }
 
     public boolean isMembers() {
