@@ -1,6 +1,8 @@
 package viking.framework.script;
 
 import java.awt.Graphics2D;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -24,6 +26,8 @@ public abstract class VikingScript extends Script
 {
 	private static final String DEVELOPMENT_SITE = "http://dev.vikingscripts.io";
 	private static final String PRODUCTION_SITE = "http://vikingscripts.io";
+	
+	public final Map<String, String> PARAMS = new HashMap<>();
 	
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
 	private MissionHandler missionHandler; //Handles / drives the missions for the script
@@ -139,8 +143,24 @@ public abstract class VikingScript extends Script
 		bot.addMessageListener(this);
 		utils = new ScriptUtils();
 		utils.init(this);
+		parseParams();
 		missionHandler = new MissionHandler(this, generateMissions());
 		vikingPaint = getVikingPaint();
+	}
+	
+	private void parseParams()
+	{
+		if(getParameters() != null)
+		{
+			log(this, false, "Parsing parameters from String " + getParameters());
+			String[] parts = getParameters().split("\\.");
+			for(String part : parts)
+			{
+				String[] keyVal = part.split(";");
+				log(this, false, "Params now contains key " + keyVal[0] + " with val " + keyVal[1]);
+				PARAMS.put(keyVal[0], keyVal[1]);
+			}
+		}
 	}
 
 	@Override
