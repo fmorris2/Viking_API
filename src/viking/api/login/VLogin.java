@@ -13,9 +13,9 @@ import viking.framework.script.VikingScript;
 
 public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 {
-	public static final int BANNED_CODE = 4;
+	public static final int BANNED_CODE = 4, UPDATED_CODE = 6;
 	
-	private boolean isInvalid, isBanned, isLocked;
+	private boolean isInvalid, isBanned, isLocked, isUpdated;
 	private String username, password;
 	
 	public VLogin(VikingScript script)
@@ -148,6 +148,8 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		script.log(this, false, "Login response code caught: " + code);
 		if(code == BANNED_CODE)
 			isBanned = true;
+		else if(code == UPDATED_CODE)
+			isUpdated = true;
 		
 	}
 	
@@ -164,5 +166,10 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 	public boolean isLocked()
 	{
 		return isLocked;
+	}
+	
+	public boolean isRSUpdate()
+	{
+		return isUpdated;
 	}
 }
