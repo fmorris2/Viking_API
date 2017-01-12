@@ -2,6 +2,7 @@ package viking.api.travel;
 
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
+import org.osbot.rs07.api.ui.RS2Widget;
 import org.osbot.rs07.event.Event;
 import org.osbot.rs07.event.WebWalkEvent;
 
@@ -32,8 +33,12 @@ public class WalkingUtils extends VMethodProvider {
      * @throws InterruptedException
      */
     public boolean walkTo(Position pos, VCondition breakCondition, VCondition waitCondition, int cycleTime, int timeout) {
-    	
     	script.log(this, false, "Walk to " + pos);
+    	
+    	RS2Widget inter = widgets.getWidgetContainingText("Close");
+    	if(inter != null)
+    		inter.interact();
+    	
     	WebWalkEvent walkEvent = new WebWalkEvent(pos);
         walkEvent.setBreakCondition(breakCondition);
         
