@@ -21,13 +21,21 @@ public class VConditions extends VMethodProvider {
     public final VCondition BANK_OPEN = isBankOpen();
     public final VCondition LOGGED_IN = isLoggedIn();
 
+    public VCondition canReach(Entity e)
+    {
+    	return new VCondition() {
+            @Override
+            public boolean evaluate() {
+                return map.canReach(e);
+            }
+        };
+    }
     public VCondition inAreaCondition(Area a) {
         return new VCondition() {
             @Override
             public boolean evaluate() {
                 return a.contains(script.myPosition());
             }
-
         };
     }
 

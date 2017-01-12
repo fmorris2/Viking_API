@@ -85,8 +85,8 @@ public abstract class EntityInteraction<T extends Entity>
 		if(!target.isVisible())
 			vmp.camera.toEntity(target);
 		
-		if(!target.isVisible() || vmp.myPosition().distance(target) > DIST_THRESH)
-			vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target), null, 100, 100);
+		if(!vmp.map.canReach(target) || !target.isVisible() || vmp.myPosition().distance(target) > DIST_THRESH)
+			vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target).and(vmp.conditions.canReach(target)), null, 100, 100);
 		
 		if(!target.isVisible())
 			vmp.camera.toEntity(target);
