@@ -16,7 +16,7 @@ public class ItemManagementTracker
 	
 	public final VikingScript SCRIPT;
 	public final ItemManagement IM;
-	private final int[] TO_SELL;
+	public final int[] TO_SELL;
 	private final IMEntry[] TO_BUY;
 	
 	private long totalGp;

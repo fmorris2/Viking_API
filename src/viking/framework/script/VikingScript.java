@@ -13,6 +13,7 @@ import org.osbot.rs07.script.Script;
 
 import viking.framework.item_management.IMEntry;
 import viking.framework.item_management.ItemManagement;
+import viking.framework.item_management.ItemManagementEvent;
 import viking.framework.item_management.ItemManagementTracker;
 import viking.framework.mission.Mission;
 import viking.framework.mission.MissionHandler;
@@ -133,9 +134,7 @@ public abstract class VikingScript extends Script
 			//check for item management system
 			IMEntry toBuy = needsItemManagement();
 			if(toBuy != null)
-			{
-				log(this, false, "Item Management needs to buy " + toBuy);
-			}
+				handleImEvent(toBuy);
 			else
 				return missionHandler.execute();
 		}
@@ -162,6 +161,18 @@ public abstract class VikingScript extends Script
 		parseParams();
 		missionHandler = new MissionHandler(this, generateMissions());
 		vikingPaint = getVikingPaint();
+	}
+	
+	private void handleImEvent(IMEntry toBuy)
+	{
+		log(this, false, "Item Management needs to buy " + toBuy);
+		ItemManagementEvent imEvent = new ItemManagementEvent(missionHandler.getCurrent(), toBuy, imTracker);
+		while(!imEvent.isFinished())
+		{
+			imEvent.execute();
+			missionHandler.getCurrent().waitMs(400);
+		}
+		
 	}
 	
 	private IMEntry needsItemManagement()
