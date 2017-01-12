@@ -3,7 +3,6 @@ package viking.api.travel;
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.event.Event;
-import org.osbot.rs07.event.WalkingEvent;
 import org.osbot.rs07.event.WebWalkEvent;
 
 import viking.api.Timing;
@@ -18,11 +17,6 @@ import viking.framework.VMethodProvider;
  * @author The Viking
  */
 public class WalkingUtils extends VMethodProvider {
-	private static final int LOCAL_WALK_THRESH = 20;
-	
-    private static final int MIN_LOCAL_COORD = 16;
-    private static final int MAX_LOCAL_COORD = 50;
-
     /**
      * The general walking method in the WalkingUtils class.
      * This method will intelligently determine which walking system
@@ -38,41 +32,10 @@ public class WalkingUtils extends VMethodProvider {
      * @throws InterruptedException
      */
     public boolean walkTo(Position pos, VCondition breakCondition, VCondition waitCondition, int cycleTime, int timeout) {
-        //determine if we'll use web walking or normal walking
-        final boolean IS_REGIONAL = isRegional(pos);
-        final boolean SHOULD_USE_NORMAL_WALK = (IS_REGIONAL || (myPosition().distance(pos) < LOCAL_WALK_THRESH)
-        		&& myPosition().getZ() == pos.getZ());
-
-        if(SHOULD_USE_NORMAL_WALK && !map.canReach(pos))
-        {
-        	script.log(this, false, "Can't reach target pos.... Looking for reachable adjacent tile");
-        	for(int x = -1; x < 2; x++)
-        		for(int y = -1; y < 2; y++)
-        		{
-        			Position toCheck = pos.translate(x, y);
-        			if(map.canReach(toCheck))
-        			{
-        				script.log(this, false, "Can reach adjacent tile.... Set new destination");
-        				pos = toCheck;
-        				break;
-        			}
-        		}
-        }
-        
-        Event walkEvent = SHOULD_USE_NORMAL_WALK ? new WalkingEvent(pos) : new WebWalkEvent(pos);
-        
-        if(SHOULD_USE_NORMAL_WALK)
-        	script.log(this, false, "walkTo using normal walking");
-        else
-        	script.log(this, false, "walkTo using web walking");
-
-        //set the break condition if necessary
-        if (breakCondition != null) {
-            if (SHOULD_USE_NORMAL_WALK)
-                ((WalkingEvent) (walkEvent)).setBreakCondition(breakCondition);
-            else
-                ((WebWalkEvent) (walkEvent)).setBreakCondition(breakCondition);
-        }
+    	
+    	script.log(this, false, "Walk to " + pos);
+    	WebWalkEvent walkEvent = new WebWalkEvent(pos);
+        walkEvent.setBreakCondition(breakCondition);
         
         Event event = execute(walkEvent);
 
@@ -135,25 +98,6 @@ public class WalkingUtils extends VMethodProvider {
 
     public boolean walkToArea(Area a, LCondition break_condition) {
         return walkToArea(a, break_condition, null);
-    }
-
-    /**
-     * This method tells us whether a given position is in the
-     * loaded region
-     *
-     * @param position the position to check
-     * @return true if the position is in the loaded region, false otherwise
-     */
-    private boolean isRegional(Position position) {
-        if (position == null)
-            return false;
-
-        int baseX = position.getX() - map.getBaseX();
-        int baseY = position.getY() - map.getBaseY();
-        boolean samePlane = position.getZ() == map.getPlane();
-
-        return samePlane && (baseX >= MIN_LOCAL_COORD && baseX <= MAX_LOCAL_COORD &&
-                baseY >= MIN_LOCAL_COORD && baseY <= MAX_LOCAL_COORD);
     }
 
 }
