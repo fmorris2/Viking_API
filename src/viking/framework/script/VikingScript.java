@@ -193,7 +193,12 @@ public abstract class VikingScript extends Script
 			
 			BANK_CACHE.clear();
 			for(Item i : items)
+			{
+				if(i == null)
+					continue;
+				
 				BANK_CACHE.put(i.getId(), i.getAmount());
+			}
 		}
 	}
 	

@@ -48,7 +48,7 @@ public class ItemManagementTracker
 			//determine amount we have of the specific item to sell
 			long invAmt = m.inventory.getAmount(id);
 			long bankAmt = SCRIPT.BANK_CACHE.getOrDefault(id, 0);
-			SCRIPT.log(this, false, "Amount for item id " + id + ": inv- " + invAmt + ", bank - " + bankAmt);
+			//SCRIPT.log(this, false, "Amount for item id " + id + ": inv- " + invAmt + ", bank - " + bankAmt);
 			
 			//determine value of how many of this item we have to sell
 			Integer price = PRICE_CACHE.get(id);
