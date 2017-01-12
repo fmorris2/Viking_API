@@ -26,6 +26,7 @@ public abstract class EntityInteraction<T extends Entity>
 	protected String action;
 	protected int searchDistance;
 	protected VMethodProvider vmp;
+	protected boolean needsToReach = true;
 	private Filter<T> findFilter;
 		
 	public EntityInteraction(VMethodProvider vmp, int searchDistance)
@@ -85,12 +86,12 @@ public abstract class EntityInteraction<T extends Entity>
 		if(!target.isVisible())
 			vmp.camera.toEntity(target);
 		
-		if(!vmp.map.canReach(target) || !target.isVisible() || vmp.myPosition().distance(target) > DIST_THRESH)
+		if((needsToReach && !vmp.map.canReach(target)) || !target.isVisible() || vmp.myPosition().distance(target) > DIST_THRESH)
 			vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target).and(vmp.conditions.canReach(target)), null, 100, 100);
 		
 		if(!target.isVisible())
 			vmp.camera.toEntity(target);
 		
-		return target.isVisible();
+		return (!needsToReach || vmp.map.canReach(target)) && target.isVisible();
 	}
 }
