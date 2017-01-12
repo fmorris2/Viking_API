@@ -13,6 +13,7 @@ import viking.api.object.ObjectUtils;
 import viking.api.position.PosUtils;
 import viking.api.pricechecking.PriceChecking;
 import viking.api.skills.fishing.Fishing;
+import viking.api.skills.mining.Mining;
 import viking.api.skills.woodcutting.Woodcutting;
 import viking.api.stats.Stats;
 import viking.api.travel.WalkingUtils;
@@ -32,6 +33,7 @@ public class ScriptUtils {
     public VFilters filters;
     public Averager averager;
     public Woodcutting woodcutting;
+    public Mining mining;
     public Fishing fishing;
     public VLogin login;
     public VInteractionFactory iFact;
@@ -51,6 +53,7 @@ public class ScriptUtils {
         filters = new VFilters();
         averager = new Averager();
         woodcutting = new Woodcutting();
+        mining = new Mining();
         fishing = new Fishing();
         login = new VLogin(script);
         iFact = new VInteractionFactory();
@@ -68,6 +71,7 @@ public class ScriptUtils {
         filters.exchangeContext(script);
         averager.exchangeContext(script);
         woodcutting.exchangeContext(script);
+        mining.exchangeContext(script);
         login.exchangeContext(script);
         iFact.exchangeContext(script);
         item_managment.exchangeContext(script);

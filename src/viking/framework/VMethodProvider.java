@@ -14,6 +14,7 @@ import viking.api.object.ObjectUtils;
 import viking.api.position.PosUtils;
 import viking.api.pricechecking.PriceChecking;
 import viking.api.skills.fishing.Fishing;
+import viking.api.skills.mining.Mining;
 import viking.api.skills.woodcutting.Woodcutting;
 import viking.api.stats.Stats;
 import viking.api.travel.WalkingUtils;
@@ -38,6 +39,7 @@ public class VMethodProvider extends MethodProvider {
     public VFilters filters;
     public Averager avg;
     public Woodcutting woodcutting;
+    public Mining mining;
     public Fishing fishing;
     public VLogin login;
     public VInteractionFactory iFact;
@@ -59,6 +61,7 @@ public class VMethodProvider extends MethodProvider {
         filters = script.getUtils().filters;
         avg = script.getUtils().averager;
         woodcutting = script.getUtils().woodcutting;
+        mining = script.getUtils().mining;
         fishing = script.getUtils().fishing;
         login = script.getUtils().login;
         item_managment = script.getUtils().item_managment;
