@@ -4,6 +4,7 @@ import org.osbot.rs07.api.EntityAPI;
 import org.osbot.rs07.api.filter.AreaFilter;
 import org.osbot.rs07.api.filter.Filter;
 import org.osbot.rs07.api.map.Area;
+import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.api.model.Entity;
 
 import viking.api.filter.VFilters;
@@ -21,6 +22,7 @@ public abstract class EntityInteraction<T extends Entity>
 	private final static int DIST_THRESH = 7;
 	
 	protected T target;
+	protected Position fallBackPos; //Pos to walk to if web walking can't find a path to object tile bc object is on it
 	protected EntityAPI<T> api;
 	protected String name;
 	protected String action;
@@ -87,11 +89,20 @@ public abstract class EntityInteraction<T extends Entity>
 			vmp.camera.toEntity(target);
 		
 		if((needsToReach && !vmp.map.canReach(target)) || !target.isVisible() || vmp.myPosition().distance(target) > DIST_THRESH)
-			vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target).and(vmp.conditions.canReach(target)), null, 100, 100);
+		{
+			if(!vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target).and(vmp.conditions.canReach(target)), null, 100, 100)
+					&& fallBackPos != null)
+				vmp.walkUtils.walkTo(fallBackPos, vmp.conditions.onScreenCondition(target).and(vmp.conditions.canReach(target)), null, 100, 100);
+		}
 		
 		if(!target.isVisible())
 			vmp.camera.toEntity(target);
 		
 		return (!needsToReach || vmp.map.canReach(target)) && target.isVisible();
+	}
+	
+	public void setFallBackPos(Position p)
+	{
+		fallBackPos = p;
 	}
 }
