@@ -108,4 +108,9 @@ public abstract class EntityInteraction<T extends Entity>
 	{
 		fallBackPos = p;
 	}
+	
+	public void setNeedsToReach(boolean b)
+	{
+		needsToReach = b;
+	}
 }
