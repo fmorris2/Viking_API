@@ -92,7 +92,10 @@ public abstract class EntityInteraction<T extends Entity>
 		{
 			if(!vmp.walkUtils.walkTo(target.getPosition(), vmp.conditions.onScreenCondition(target).and(vmp.conditions.canReach(target)), null, 100, 100)
 					&& fallBackPos != null)
+			{
+				vmp.log("[EntityInteraction] Attempting to walk to fall back position");
 				vmp.walkUtils.walkTo(fallBackPos, vmp.conditions.onScreenCondition(target).and(vmp.conditions.canReach(target)), null, 100, 100);
+			}
 		}
 		
 		if(!target.isVisible())
