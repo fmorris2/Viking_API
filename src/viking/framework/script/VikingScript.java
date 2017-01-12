@@ -7,9 +7,12 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import org.osbot.rs07.api.model.Item;
 import org.osbot.rs07.api.ui.Message;
 import org.osbot.rs07.script.Script;
 
+import viking.framework.item_management.ItemManagement;
+import viking.framework.item_management.ItemManagementTracker;
 import viking.framework.mission.Mission;
 import viking.framework.mission.MissionHandler;
 import viking.framework.paint.VikingPaint;
@@ -28,11 +31,14 @@ public abstract class VikingScript extends Script
 	private static final String PRODUCTION_SITE = "http://vikingscripts.io";
 	
 	public final Map<String, String> PARAMS = new HashMap<>();
+	public final Map<Integer, Integer> BANK_CACHE = new HashMap<>();
 	
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
 	private MissionHandler missionHandler; //Handles / drives the missions for the script
 	private ScriptUtils utils; //Holds the various script utilities for each Viking Script
 	private BlockingQueue<Message> messageQueue = new ArrayBlockingQueue<>(100);
+	private ItemManagementTracker imTracker;
+	
 	
 	/**
 	 * This method will be provided by the script implementation.
@@ -121,6 +127,11 @@ public abstract class VikingScript extends Script
 			//send message updates to missions
 			sendMessageUpdates();
 			
+			updateBankCache();
+			
+			//check for item management system
+			itemManagement();
+			
 			return missionHandler.execute();
 		}
 		catch(Exception e)
@@ -146,6 +157,34 @@ public abstract class VikingScript extends Script
 		parseParams();
 		missionHandler = new MissionHandler(this, generateMissions());
 		vikingPaint = getVikingPaint();
+	}
+	
+	private void itemManagement()
+	{
+		Mission current = missionHandler.getCurrent();
+		if(current instanceof ItemManagement)
+		{
+			//apply tracker if necessary
+			if(imTracker == null || imTracker.IM != current)
+				imTracker = new ItemManagementTracker(this, (ItemManagement)current);
+			
+			//update tracker info
+			imTracker.update();
+		}
+	}
+	
+	private void updateBankCache()
+	{
+		if(bank.isOpen())
+		{
+			Item[] items = bank.getItems();
+			if(items == null)
+				return;
+			
+			BANK_CACHE.clear();
+			for(Item i : items)
+				BANK_CACHE.put(i.getId(), i.getAmount());
+		}
 	}
 	
 	private void parseParams()

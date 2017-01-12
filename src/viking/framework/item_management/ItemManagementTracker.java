@@ -1,0 +1,72 @@
+package viking.framework.item_management;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import viking.api.pricechecking.PriceChecking;
+import viking.framework.mission.Mission;
+import viking.framework.script.VikingScript;
+
+public class ItemManagementTracker
+{
+	private static final Map<Integer, Integer> PRICE_CACHE = new HashMap<>();
+	
+	private static final int GOLD_ID = 995;
+	private static final double SELL_PRICE_MOD = 0.7;
+	
+	public final VikingScript SCRIPT;
+	public final ItemManagement IM;
+	
+	private long totalGp;
+	private long totalSellableItemValue;
+	
+	public ItemManagementTracker(VikingScript s, ItemManagement im)
+	{
+		SCRIPT = s;
+		IM = im;
+	}
+	
+	public void update()
+	{
+		Mission m = SCRIPT.getMissionHandler().getCurrent();
+		
+		//update gold amount
+		long invGp = m.inventory.getAmount(GOLD_ID);
+		long bankGp = SCRIPT.BANK_CACHE.get(GOLD_ID);
+		SCRIPT.log(this, false, "invGp: " + invGp + ", bankGp: " + bankGp + ", totalGp: " + (invGp + bankGp));
+		totalGp = invGp + bankGp;
+		
+		//update total sellable item value
+		totalSellableItemValue = 0;
+		
+		for(int id : IM.itemsToSell())
+		{
+			//determine amount we have of the specific item to sell
+			long invAmt = m.inventory.getAmount(id);
+			long bankAmt = SCRIPT.BANK_CACHE.get(id);
+			SCRIPT.log(this, false, "Amount for item id " + id + ": inv- " + invAmt + ", bank - " + bankAmt);
+			
+			//determine value of how many of this item we have to sell
+			Integer price = PRICE_CACHE.get(id);
+			if(price == null)
+			{
+				price = PriceChecking.getGEPrice(id);
+				PRICE_CACHE.put(id, price);
+			}
+			
+			totalSellableItemValue += (invAmt + bankAmt) * (price * SELL_PRICE_MOD);
+		}
+		
+		SCRIPT.log(this, false, "Total sellable item value: " + totalSellableItemValue);
+	}
+	
+	public long getTotalGp()
+	{
+		return totalGp;
+	}
+	
+	public long getTotalValue()
+	{
+		return totalGp + totalSellableItemValue;
+	}
+}
