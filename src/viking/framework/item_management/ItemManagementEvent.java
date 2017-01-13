@@ -53,7 +53,9 @@ public class ItemManagementEvent
 	private void handleBuying()
 	{
 		SCRIPT.log(this, false, "handleBuying()");
-		if(API.bank.isOpen())
+		if(API.inventory.contains(TO_BUY.ID))
+			isFinished = true;
+		else if(API.bank.isOpen())
 			API.bank.close();
 		else if(!API.grandExchange.isOpen())
 		{
