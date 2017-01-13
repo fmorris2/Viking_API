@@ -25,6 +25,16 @@ public class IMEntry
 		GOALS = new GoalList(goals);
 	}
 	
+	public IMEntry(Mission m, int id, int amt, int price, String searchTerm, Goal... goals)
+	{
+		mission = m;
+		ID = id;
+		AMT = amt;
+		SEARCH_TERM = searchTerm;
+		PRICE = price;
+		GOALS = new GoalList(goals);
+	}
+	
 	public boolean shouldBuy(long totalValue)
 	{
 		return totalValue >= PRICE && !playerHasEntry() && GOALS.hasReachedGoals();

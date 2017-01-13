@@ -1,6 +1,8 @@
 package viking.framework.item_management;
 
 import org.osbot.rs07.api.Bank.BankMode;
+import org.osbot.rs07.api.GrandExchange.Box;
+import org.osbot.rs07.api.GrandExchange.Status;
 
 import viking.api.Timing;
 import viking.api.banking.enums.BankLocation;
@@ -15,8 +17,8 @@ public class ItemManagementEvent
 	private final ItemManagementTracker TRACKER;
 	private final int[] TO_SELL;
 	
-	private boolean isFinished;
-	private boolean hasWithdrawnSellables;
+	private boolean isFinished, hasWithdrawnSellables, hasPutInOffer;
+	private Box box;
 	
 	public ItemManagementEvent(VikingScript script, VMethodProvider api, IMEntry toBuy, ItemManagementTracker tracker)
 	{
@@ -58,14 +60,40 @@ public class ItemManagementEvent
 			if(API.iFact.clickObject("Exchange", "Grand Exchange booth", 15).execute())
 				Timing.waitCondition(() -> API.grandExchange.isOpen(), 3500);
 		}
-		else //GE is open
+		else if(!hasPutInOffer) //GE is open & hasn't put in offer
 		{
 			SCRIPT.log(this, false, "Buy item");
-			if(API.grandExchange.buyItem(TO_BUY.ID, TO_BUY.SEARCH_TERM, TO_BUY.PRICE, TO_BUY.AMT))
+			if((box = getBox(TO_BUY.ID)) != null) //if there is already an existing offer in for the item
+				hasPutInOffer = true;
+			else if(API.grandExchange.buyItem(TO_BUY.ID, TO_BUY.SEARCH_TERM, TO_BUY.PRICE, TO_BUY.AMT))
 			{
-				SCRIPT.log(this, false, "Successfully bought item");
+				SCRIPT.log(this, false, "Successfully put in offer");
+				hasPutInOffer = true;
+				box = getBox(TO_BUY.ID);
 			}
 		}
+		else //GE is open & has put in offer
+		{
+			SCRIPT.log(this, false, "Waiting for buy offer to complete");
+			if(API.grandExchange.getStatus(box) == Status.FINISHED_BUY)
+			{
+				SCRIPT.log(this, false, "Offer completed, collecting...");
+				if(API.grandExchange.collect())
+				{
+					SCRIPT.log(this, false, "Successfully collected item");
+					isFinished = true;
+				}
+			}
+		}
+	}
+	
+	private Box getBox(int id)
+	{
+		for(Box box : Box.values())
+			if(API.grandExchange.getItemId(box) == id)
+				return box;
+		
+		return null;
 	}
 	
 	private void withdrawGold()
