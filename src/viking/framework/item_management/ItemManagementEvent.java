@@ -174,7 +174,6 @@ public class ItemManagementEvent
 						{
 							if(invItem.interact() 
 									&& API.grandExchange.setOfferPrice((int)(ItemManagementTracker.PRICE_CACHE.get(modifiedId - idMod) * ItemManagementTracker.SELL_PRICE_MOD))
-									&& API.grandExchange.setOfferQuantity(invItem.getAmount())
 									&& API.grandExchange.confirm())
 							{
 								SCRIPT.log(this, false, "Successfully put in sell offer for item");
