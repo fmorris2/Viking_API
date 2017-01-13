@@ -194,7 +194,7 @@ public abstract class VikingScript extends Script
 		return null;
 	}
 	
-	private void updateBankCache()
+	public void updateBankCache()
 	{
 		if(bank.isOpen())
 		{

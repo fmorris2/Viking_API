@@ -73,6 +73,8 @@ public class ItemManagementEvent
 				hasPutInOffer = true;
 				box = getBox(TO_BUY.ID);
 			}
+			else
+				API.grandExchange.close();
 		}
 		else //GE is open & has put in offer
 		{
@@ -192,6 +194,8 @@ public class ItemManagementEvent
 	{
 		if(API.bank.isOpen() && API.bank.enableMode(BankMode.WITHDRAW_NOTE) & API.bank.depositAllExcept(995))
 		{
+			SCRIPT.updateBankCache();
+			
 			if(API.bank.contains(995) && !API.bank.withdrawAll(995)) //make sure to withdraw any gold if we have it
 				return false;
 			
