@@ -75,7 +75,7 @@ public class ItemManagementEvent
 		else //GE is open & has put in offer
 		{
 			SCRIPT.log(this, false, "Waiting for buy offer to complete");
-			if(API.grandExchange.getStatus(box) == Status.FINISHED_BUY)
+			if(box != null && API.grandExchange.getStatus(box) == Status.FINISHED_BUY)
 			{
 				SCRIPT.log(this, false, "Offer completed, collecting...");
 				if(API.grandExchange.collect())
