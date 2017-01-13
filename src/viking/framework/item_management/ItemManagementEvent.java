@@ -32,7 +32,7 @@ public class ItemManagementEvent
 	public void execute()
 	{
 		if(!API.client.isLoggedIn())
-			API.login.login(API.client.getUsername(), SCRIPT.PARAMS.get("pass"));
+			API.login.login(API.bot.getUsername(), SCRIPT.PARAMS.get("pass"));
 		else if(!isAtGE()) //first, we have to go to the GE
 			goToGE();
 		else //at GE, commence the selling / buying process
