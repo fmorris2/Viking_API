@@ -3,6 +3,7 @@ package viking.framework.item_management;
 import org.osbot.rs07.api.Bank.BankMode;
 import org.osbot.rs07.api.GrandExchange.Box;
 import org.osbot.rs07.api.GrandExchange.Status;
+import org.osbot.rs07.api.model.Item;
 
 import viking.api.Timing;
 import viking.api.banking.enums.BankLocation;
@@ -57,8 +58,7 @@ public class ItemManagementEvent
 		else if(!API.grandExchange.isOpen())
 		{
 			SCRIPT.log(this, false, "Open GE");
-			if(API.iFact.clickObject("Exchange", "Grand Exchange booth", 15).execute())
-				Timing.waitCondition(() -> API.grandExchange.isOpen(), 3500);
+			openGe();
 		}
 		else if(!hasPutInOffer) //GE is open & hasn't put in offer
 		{
@@ -96,11 +96,35 @@ public class ItemManagementEvent
 		return null;
 	}
 	
+	private boolean canCollect()
+	{
+		for(Box box : Box.values())
+			if(box != null && API.grandExchange.getStatus(box) == Status.FINISHED_SALE)
+				return true;
+		
+		return false;
+	}
+	
+	private Box getFreeBox()
+	{
+		for(Box box : Box.values())
+			if(box != null && API.grandExchange.getStatus(box) == Status.EMPTY)
+				return box;
+		
+		return null;
+	}
+	
 	private void withdrawGold()
 	{
 		SCRIPT.log(this, false, "withdrawGold()");
 		
 		withdraw(995);
+	}
+	
+	private void openGe()
+	{
+		if(API.iFact.clickObject("Exchange", "Grand Exchange booth", 15).execute())
+			Timing.waitCondition(() -> API.grandExchange.isOpen(), 3500);
 	}
 	
 	private void handleSelling()
@@ -112,9 +136,51 @@ public class ItemManagementEvent
 			SCRIPT.log(this, false, "Withdrawing sellables");
 			hasWithdrawnSellables = withdraw(TO_SELL);
 		}
-		else
+		else //has withdrawn sellables
 		{
 			SCRIPT.log(this, false, "Has withdrawn sellables.... Time to sell them");
+			if(!API.grandExchange.isOpen())
+				openGe();
+			else //ge is open
+				offerItems();
+		}
+	}
+	
+	private void offerItems()
+	{
+		while(API.inventory.getAmount(995) < TO_BUY.PRICE)
+		{
+			if(canCollect())
+				API.grandExchange.collect();
+			
+			for(int i : TO_SELL)
+			{
+				for(int idMod = 0; idMod < 2; idMod++) //to deal with noted items
+				{
+					int modifiedId = (i + idMod);
+					Item invItem = API.inventory.getItem(modifiedId);
+					
+					if(invItem == null) //not in inv.... skip this item
+						continue;
+					else //attempt to offer item
+					{
+						Box sellBox = getFreeBox();
+						if(sellBox != null && (API.grandExchange.isOfferScreenOpen() || API.grandExchange.sellItems(sellBox)))
+						{
+							if(invItem.interact() 
+									&& API.grandExchange.setOfferPrice(ItemManagementTracker.PRICE_CACHE.get(modifiedId - idMod))
+									&& API.grandExchange.setOfferQuantity(invItem.getAmount())
+									&& API.grandExchange.confirm())
+							{
+								SCRIPT.log(this, false, "Successfully put in sell offer for item");
+							}
+						}
+					}
+						
+				}
+			}
+			
+			API.waitMs(600);
 		}
 	}
 	

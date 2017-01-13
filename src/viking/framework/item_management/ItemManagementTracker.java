@@ -9,7 +9,7 @@ import viking.framework.script.VikingScript;
 
 public class ItemManagementTracker
 {
-	private static final Map<Integer, Integer> PRICE_CACHE = new HashMap<>();
+	public static final Map<Integer, Integer> PRICE_CACHE = new HashMap<>();
 	
 	private static final int GOLD_ID = 995;
 	private static final double SELL_PRICE_MOD = 0.7;
