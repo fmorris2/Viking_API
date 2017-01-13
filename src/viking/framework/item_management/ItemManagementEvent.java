@@ -2,6 +2,7 @@ package viking.framework.item_management;
 
 import org.osbot.rs07.api.Bank.BankMode;
 
+import viking.api.Timing;
 import viking.api.banking.enums.BankLocation;
 import viking.framework.VMethodProvider;
 import viking.framework.script.VikingScript;
@@ -51,6 +52,20 @@ public class ItemManagementEvent
 		SCRIPT.log(this, false, "handleBuying()");
 		if(API.bank.isOpen())
 			API.bank.close();
+		else if(!API.grandExchange.isOpen())
+		{
+			SCRIPT.log(this, false, "Open GE");
+			if(API.iFact.clickObject("Exchange", "Grand Exchange booth", 15).execute())
+				Timing.waitCondition(() -> API.grandExchange.isOpen(), 3500);
+		}
+		else //GE is open
+		{
+			SCRIPT.log(this, false, "Buy item");
+			if(API.grandExchange.buyItem(TO_BUY.ID, TO_BUY.SEARCH_TERM, TO_BUY.PRICE, TO_BUY.AMT))
+			{
+				SCRIPT.log(this, false, "Successfully bought item");
+			}
+		}
 	}
 	
 	private void withdrawGold()
