@@ -168,7 +168,7 @@ public class ItemManagementEvent
 						if(sellBox != null && (API.grandExchange.isOfferScreenOpen() || API.grandExchange.sellItems(sellBox)))
 						{
 							if(invItem.interact() 
-									&& API.grandExchange.setOfferPrice(ItemManagementTracker.PRICE_CACHE.get(modifiedId - idMod))
+									&& API.grandExchange.setOfferPrice((int)(ItemManagementTracker.PRICE_CACHE.get(modifiedId - idMod) * ItemManagementTracker.SELL_PRICE_MOD))
 									&& API.grandExchange.setOfferQuantity(invItem.getAmount())
 									&& API.grandExchange.confirm())
 							{

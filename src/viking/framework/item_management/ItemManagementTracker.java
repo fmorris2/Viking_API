@@ -10,9 +10,9 @@ import viking.framework.script.VikingScript;
 public class ItemManagementTracker
 {
 	public static final Map<Integer, Integer> PRICE_CACHE = new HashMap<>();
+	public static final double SELL_PRICE_MOD = 0.7;
 	
 	private static final int GOLD_ID = 995;
-	private static final double SELL_PRICE_MOD = 0.7;
 	
 	public final VikingScript SCRIPT;
 	public final ItemManagement IM;
@@ -37,7 +37,7 @@ public class ItemManagementTracker
 		//update gold amount
 		long invGp = m.inventory.getAmount(GOLD_ID);
 		long bankGp = SCRIPT.BANK_CACHE.getOrDefault(GOLD_ID, 0);
-		SCRIPT.log(this, false, "invGp: " + invGp + ", bankGp: " + bankGp + ", totalGp: " + (invGp + bankGp));
+		//SCRIPT.log(this, false, "invGp: " + invGp + ", bankGp: " + bankGp + ", totalGp: " + (invGp + bankGp));
 		totalGp = invGp + bankGp;
 		
 		//update total sellable item value
@@ -61,8 +61,8 @@ public class ItemManagementTracker
 			totalSellableItemValue += (invAmt + bankAmt) * (price * SELL_PRICE_MOD);
 		}
 		
-		SCRIPT.log(this, false, "Total sellable item value: " + totalSellableItemValue);
-		SCRIPT.log(this, false, "Total Vaue: " + getTotalValue() + " gp");
+		//SCRIPT.log(this, false, "Total sellable item value: " + totalSellableItemValue);
+		//SCRIPT.log(this, false, "Total Vaue: " + getTotalValue() + " gp");
 	}
 	
 	public IMEntry needsToBuy()

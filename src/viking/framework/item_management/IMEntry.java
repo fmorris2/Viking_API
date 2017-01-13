@@ -7,7 +7,7 @@ import viking.framework.mission.Mission;
 
 public class IMEntry
 {
-	private static final double BUY_PRICE_MOD = 1.3;
+	private static final double BUY_PRICE_MOD = 1.5;
 	
 	public final int ID, AMT, PRICE;
 	public final String SEARCH_TERM;
