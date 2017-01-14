@@ -54,4 +54,9 @@ public class MuleOrderEvent
 	{
 		mulePos = p;
 	}
+	
+	public MuleOrder getOrder()
+	{
+		return order;
+	}
 }
