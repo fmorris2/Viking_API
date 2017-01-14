@@ -33,8 +33,8 @@ public abstract class VikingScript extends Script
 	private static final String PRODUCTION_SITE = "http://vikingscripts.io";
 	
 	public final Map<String, String> PARAMS = new HashMap<>();
-	public final BankCache BANK_CACHE = new BankCache(this);
 	
+	public BankCache BANK_CACHE;
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
 	private MissionHandler missionHandler; //Handles / drives the missions for the script
 	private ScriptUtils utils; //Holds the various script utilities for each Viking Script
@@ -159,6 +159,7 @@ public abstract class VikingScript extends Script
 		parseParams();
 		missionHandler = new MissionHandler(this, generateMissions());
 		vikingPaint = getVikingPaint();
+		BANK_CACHE = new BankCache(this);
 		BANK_CACHE.start();
 	}
 	
