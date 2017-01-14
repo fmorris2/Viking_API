@@ -84,4 +84,17 @@ public class VFilters extends VMethodProvider
 			}
 		};
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public static <T> Filter not(Filter<T> one, Filter<T> two)
+	{	
+		return new Filter<T>()
+		{
+			@Override
+			public boolean match(T t)
+			{
+				return !(one.match(t) && two.match(t));
+			}
+		};
+	}
 }

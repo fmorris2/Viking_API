@@ -67,12 +67,14 @@ public class ItemManagementEvent
 			SCRIPT.log(this, false, "Buy item");
 			if((box = getBox(TO_BUY.ID)) != null) //if there is already an existing offer in for the item
 				hasPutInOffer = true;
-			else if(API.grandExchange.buyItem(TO_BUY.ID, TO_BUY.SEARCH_TERM, TO_BUY.PRICE, TO_BUY.AMT))
+			else if(API.grandExchange.buyItem(TO_BUY.ID, TO_BUY.SEARCH_TERM, TO_BUY.PRICE, TO_BUY.AMT)
+					&& Timing.waitCondition(() -> (box = getBox(TO_BUY.ID)) != null, 6000))
 			{
 				SCRIPT.log(this, false, "Successfully put in offer");
 				hasPutInOffer = true;
-				box = getBox(TO_BUY.ID);
 			}
+			else
+				API.grandExchange.close();
 		}
 		else //GE is open & has put in offer
 		{
@@ -192,6 +194,8 @@ public class ItemManagementEvent
 	{
 		if(API.bank.isOpen() && API.bank.enableMode(BankMode.WITHDRAW_NOTE) & API.bank.depositAllExcept(995))
 		{
+			SCRIPT.updateBankCache();
+			
 			if(API.bank.contains(995) && !API.bank.withdrawAll(995)) //make sure to withdraw any gold if we have it
 				return false;
 			

@@ -49,4 +49,9 @@ public abstract class WorkerManager<T extends Mission> extends MethodProvider
 		mission.getScript().assertion(current != null, "Current worker is null)"); //Current worker should NEVER be null
 		current.work();
 	}
+	
+	public Worker<T> getCurrent()
+	{
+		return current;
+	}
 }

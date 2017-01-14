@@ -37,7 +37,8 @@ public class IMEntry
 	
 	public boolean shouldBuy(long totalValue)
 	{
-		return totalValue >= PRICE && !playerHasEntry() && GOALS.hasReachedGoals();
+		return !mission.getScript().BANK_CACHE.isEmpty() && 
+				totalValue >= PRICE && !playerHasEntry() && GOALS.hasReachedGoals();
 	}
 	
 	private boolean playerHasEntry()
