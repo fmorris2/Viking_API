@@ -27,7 +27,7 @@ public enum LogType {
         return ITEM_ID;
     }
     
-    public int[] getItemIDs()
+    public static int[] getItemIDs()
     {
     	return Arrays.stream(LogType.values()).mapToInt(LogType::getItemID).toArray();
     }
