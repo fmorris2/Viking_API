@@ -1,5 +1,7 @@
 package viking.api.skills.woodcutting.enums;
 
+import java.util.Arrays;
+
 /**
  * Created by Sphiinx on 12/27/2016.
  */
@@ -23,6 +25,11 @@ public enum LogType {
 
     public int getItemID() {
         return ITEM_ID;
+    }
+    
+    public int[] getItemIDs()
+    {
+    	return Arrays.stream(LogType.values()).mapToInt(LogType::getItemID).toArray();
     }
 
 }
