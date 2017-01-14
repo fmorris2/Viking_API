@@ -27,11 +27,10 @@ public class BankCache extends Thread
 	
 	public void run()
 	{
-		while(script != null)
+		while(script.bot.getScriptExecutor().isRunning() || script.bot.getScriptExecutor().isPaused())
 		{
 			try
 			{
-				script.log(this, false, "Bank cache thread cycle");
 				if(script.client.isLoggedIn())
 				{
 					if(script.bank.isOpen())
