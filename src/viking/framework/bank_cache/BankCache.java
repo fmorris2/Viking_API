@@ -31,18 +31,19 @@ public class BankCache extends Thread
 		{
 			try
 			{
-				script.log(this, false, "Bank cache thread cycle");
-				
-				if(script.bank.isOpen())
-					updateBank();
-				else if(script.depositBox.isOpen())
-					prepareDepositBoxUpdate();
-				else if(!beforeDepositBox.isEmpty()) //just got done using deposit box
-					depositBoxUpdate();
+				if(script.client.isLoggedIn())
+					{
+					if(script.bank.isOpen())
+						updateBank();
+					else if(script.depositBox.isOpen())
+						prepareDepositBoxUpdate();
+					else if(!beforeDepositBox.isEmpty()) //just got done using deposit box
+						depositBoxUpdate();
+				}
 					
 				sleep(CYCLE_TIME);
 			}
-			catch(InterruptedException e)
+			catch(Exception e)
 			{
 				e.printStackTrace();
 			}
