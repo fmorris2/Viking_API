@@ -27,20 +27,23 @@ public class BankCache extends Thread
 	
 	public void run()
 	{
-		try
+		while(script.bot.getScriptExecutor().isRunning() || script.bot.getScriptExecutor().isPaused())
 		{
-			if(script.bank.isOpen())
-				updateBank();
-			else if(script.depositBox.isOpen())
-				prepareDepositBoxUpdate();
-			else if(!beforeDepositBox.isEmpty()) //just got done using deposit box
-				depositBoxUpdate();
-				
-			sleep(CYCLE_TIME);
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
+			try
+			{
+				if(script.bank.isOpen())
+					updateBank();
+				else if(script.depositBox.isOpen())
+					prepareDepositBoxUpdate();
+				else if(!beforeDepositBox.isEmpty()) //just got done using deposit box
+					depositBoxUpdate();
+					
+				sleep(CYCLE_TIME);
+			}
+			catch(InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 	

@@ -159,6 +159,7 @@ public abstract class VikingScript extends Script
 		parseParams();
 		missionHandler = new MissionHandler(this, generateMissions());
 		vikingPaint = getVikingPaint();
+		BANK_CACHE.start();
 	}
 	
 	private void handleImEvent(IMEntry toBuy)
