@@ -41,7 +41,7 @@ public class ItemManagementEvent
 			SCRIPT.log(this, false, "At GE");
 			//check if we have enough gold in inventory
 			long invGold = API.inventory.getAmount(995);
-			if(invGold >= TO_BUY.PRICE)
+			if(hasPutInOffer || invGold >= TO_BUY.PRICE)
 				handleBuying();
 			else if(TRACKER.getTotalGp() >= TO_BUY.PRICE) //we have enough gold total, but there is some left in the bank
 				withdrawGold();
@@ -53,7 +53,14 @@ public class ItemManagementEvent
 	private void handleBuying()
 	{
 		SCRIPT.log(this, false, "handleBuying()");
-		if(API.inventory.contains(TO_BUY.ID))
+		if(API.inventory.isFull())
+		{
+			if(API.bank.isOpen())
+				API.bank.depositAllExcept(995);
+			else
+				API.bankUtils.open();
+		}
+		else if(API.inventory.contains(TO_BUY.ID))
 			isFinished = true;
 		else if(API.bank.isOpen())
 			API.bank.close();
@@ -193,9 +200,7 @@ public class ItemManagementEvent
 	private boolean withdraw(int... ids)
 	{
 		if(API.bank.isOpen() && API.bank.enableMode(BankMode.WITHDRAW_NOTE) & API.bank.depositAllExcept(995))
-		{
-			SCRIPT.updateBankCache();
-			
+		{			
 			if(API.bank.contains(995) && !API.bank.withdrawAll(995)) //make sure to withdraw any gold if we have it
 				return false;
 			

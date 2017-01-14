@@ -7,10 +7,10 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import org.osbot.rs07.api.model.Item;
 import org.osbot.rs07.api.ui.Message;
 import org.osbot.rs07.script.Script;
 
+import viking.framework.bank_cache.BankCache;
 import viking.framework.item_management.IMEntry;
 import viking.framework.item_management.ItemManagement;
 import viking.framework.item_management.ItemManagementEvent;
@@ -33,7 +33,7 @@ public abstract class VikingScript extends Script
 	private static final String PRODUCTION_SITE = "http://vikingscripts.io";
 	
 	public final Map<String, String> PARAMS = new HashMap<>();
-	public final Map<Integer, Integer> BANK_CACHE = new HashMap<>();
+	public final BankCache BANK_CACHE = new BankCache(this);
 	
 	private VikingPaint<?> vikingPaint; //VikingPaint system that will handle all of the painting
 	private MissionHandler missionHandler; //Handles / drives the missions for the script
@@ -129,8 +129,6 @@ public abstract class VikingScript extends Script
 			//send message updates to missions
 			sendMessageUpdates();
 			
-			updateBankCache();
-			
 			//check for item management system
 			IMEntry toBuy = needsItemManagement();
 			if(toBuy != null)
@@ -192,25 +190,6 @@ public abstract class VikingScript extends Script
 		}
 		
 		return null;
-	}
-	
-	public void updateBankCache()
-	{
-		if(bank.isOpen())
-		{
-			Item[] items = bank.getItems();
-			if(items == null)
-				return;
-			
-			BANK_CACHE.clear();
-			for(Item i : items)
-			{
-				if(i == null)
-					continue;
-				
-				BANK_CACHE.put(i.getId(), i.getAmount());
-			}
-		}
 	}
 	
 	private void parseParams()

@@ -37,7 +37,7 @@ public class IMEntry
 	
 	public boolean shouldBuy(long totalValue)
 	{
-		return !mission.getScript().BANK_CACHE.isEmpty() && 
+		return !mission.getScript().BANK_CACHE.get().isEmpty() && 
 				totalValue >= PRICE && !playerHasEntry() && GOALS.hasReachedGoals();
 	}
 	
@@ -48,7 +48,7 @@ public class IMEntry
 		
 		boolean inInv = mission.inventory.contains(ID, ID+1);
 		boolean inEquip = mission.equipment.contains(ID);
-		boolean inBank = mission.getScript().BANK_CACHE.containsKey(ID);
+		boolean inBank = mission.getScript().BANK_CACHE.get().containsKey(ID);
 		
 		return inInv || inEquip || inBank;
 	}
