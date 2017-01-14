@@ -27,10 +27,12 @@ public class BankCache extends Thread
 	
 	public void run()
 	{
-		while(script.bot.getScriptExecutor().isRunning() || script.bot.getScriptExecutor().isPaused())
+		while(script != null)
 		{
 			try
 			{
+				script.log(this, false, "Bank cache thread cycle");
+				
 				if(script.bank.isOpen())
 					updateBank();
 				else if(script.depositBox.isOpen())
@@ -76,6 +78,7 @@ public class BankCache extends Thread
 	
 	private void updateBank()
 	{
+		script.log(this, false, "Update Bank");
 		Item[] items = script.bank.getItems();
 		if(items == null)
 			return;
