@@ -86,8 +86,7 @@ public class MuleOrderEvent
 					boolean firstWindow = script.trade.isFirstInterfaceOpen();
 					if(script.trade.acceptTrade())
 					{
-						if(!firstWindow && Timing.waitCondition(() -> script.widgets.containingText("Accept") == null && 
-								(script.inventory.getEmptySlotCount() != toTrade.size() || toTrade.isEmpty()), 6000))
+						if(!firstWindow)
 						{
 							script.log(this, false, "Successfully traded mule. Order complete.");
 							hasFinished = true;
