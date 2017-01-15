@@ -87,11 +87,11 @@ public class MuleOrderEvent
 		boolean success = true;
 		for(int i : order.ITEMS)
 		{
-			int notedId = i + 1;
-			if(script.inventory.contains(i, notedId))
+			for(int id = i; i < id + 2; i++)
+			if(script.inventory.contains(id))
 			{
 				script.log(this, false, "Inventory contains order item");
-				if(!script.trade.offerAll(i, notedId))
+				if(!script.trade.offer(id, 0))
 				{
 					script.log(this, false, "Failed to offer item");
 					success = false;
