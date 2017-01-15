@@ -10,7 +10,6 @@ import viking.framework.script.VikingScript;
 public class MuleOrderEvent
 {
 	private static final int MULE_DIST_THRESH = 10;
-	
 	private VikingScript script;
 	private MuleOrder order;
 	private Position mulePos;
@@ -58,7 +57,8 @@ public class MuleOrderEvent
 			if(script.bank.isOpen())
 				script.bank.close();
 			
-			if(mule.interact("Trade with") && Timing.waitCondition(() -> script.trade.isCurrentlyTrading(), 5000))
+			if(script.trade.isCurrentlyTrading() ||
+					(mule.interact("Trade with") && Timing.waitCondition(() -> script.trade.isCurrentlyTrading(), 5000)))
 			{
 				script.log(this, false, "Currently in trade with mule...");
 				if(!script.trade.getOtherPlayer().equals(muleName))
@@ -88,8 +88,17 @@ public class MuleOrderEvent
 		for(int i : order.ITEMS)
 		{
 			int notedId = i + 1;
-			if(script.inventory.contains(i, notedId) && !script.trade.offerAll(i, notedId))
-				success = false;
+			if(script.inventory.contains(i, notedId))
+			{
+				script.log(this, false, "Inventory contains order item");
+				if(!script.trade.offerAll(i, notedId))
+				{
+					script.log(this, false, "Failed to offer item");
+					success = false;
+				}
+				else
+					script.log(this, false, "Successfully offered item");
+			}
 		}
 		
 		return success;	
