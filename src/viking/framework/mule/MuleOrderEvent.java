@@ -2,6 +2,7 @@ package viking.framework.mule;
 
 import org.osbot.rs07.api.Bank.BankMode;
 import org.osbot.rs07.api.map.Position;
+import org.osbot.rs07.api.model.Player;
 
 import viking.api.Timing;
 import viking.framework.script.VikingScript;
@@ -50,10 +51,50 @@ public class MuleOrderEvent
 	private void tradeMule()
 	{
 		script.log(this, false , "trade mule");
+		Player mule = script.players.closest(muleName);
+		if(mule != null)
+		{
+			script.log(this, false, "Mule found. Attempting to trade...");
+			if(mule.interact("Trade with") && Timing.waitCondition(() -> script.trade.isCurrentlyTrading(), 5000))
+			{
+				script.log(this, false, "Currently in trade with mule...");
+				if(!script.trade.getOtherPlayer().equals(muleName))
+				{
+					script.log(this, false, "In trade with wrong player.... closing");
+					script.trade.declineTrade();
+				}
+				
+				if(offerItems())
+				{
+					script.log(this, false, "Order offered... Accepting through trade");
+					if(script.trade.acceptTrade() && Timing.waitCondition(() -> !script.trade.isCurrentlyTrading(), 3000))
+					{
+						script.log(this, false, "Successfully traded mule. Order complete.");
+					}
+				}
+			}
+		}
+		else
+			script.log(this, false, "Waiting for mule to login...");
+	}
+	
+	private boolean offerItems()
+	{
+		script.log(this, false, "Offer Items");
+		boolean success = true;
+		for(int i : order.ITEMS)
+		{
+			int notedId = i + 1;
+			if(script.inventory.contains(i, notedId) && !script.trade.offerAll(i, notedId))
+				success = false;
+		}
+		
+		return success;	
 	}
 	
 	private boolean walkToMule()
 	{
+		script.log(this, false, "Walk to mule");
 		if(script.myPosition().distance(mulePos) <= MULE_DIST_THRESH)
 			return true;
 		
@@ -63,6 +104,8 @@ public class MuleOrderEvent
 	
 	private void withdrawOrder()
 	{
+		script.log(this, false, "withdrawOrder()");
+		
 		if(!script.getUtils().bank.isInBank())
 			script.getWalking().webWalk(script.getUtils().bank.getAllBanks(false, false));
 		else if(!script.getBank().isOpen())
