@@ -2,6 +2,7 @@ package viking.framework.mule;
 
 import org.osbot.rs07.api.Bank.BankMode;
 import org.osbot.rs07.api.map.Position;
+import org.osbot.rs07.api.model.Item;
 import org.osbot.rs07.api.model.Player;
 
 import viking.api.Timing;
@@ -15,6 +16,7 @@ public class MuleOrderEvent
 	private Position mulePos;
 	private String muleName;
 	private boolean hasFinished, hasWalkedToMule, hasWithdrawnOrder, hasDepositedAll;
+	private int invCache;
 	
 	public MuleOrderEvent(VikingScript s, MuleOrder o)
 	{
@@ -56,7 +58,9 @@ public class MuleOrderEvent
 			script.log(this, false, "Mule found. Attempting to trade...");
 			if(script.bank.isOpen())
 				script.bank.close();
-			
+			if(!script.trade.isCurrentlyTrading())
+				invCache = 28 - script.inventory.getEmptySlotCount();
+				
 			if(script.trade.isCurrentlyTrading() ||
 					(mule.interact("Trade with") && Timing.waitCondition(() -> script.trade.isCurrentlyTrading(), 5000)))
 			{
@@ -73,6 +77,7 @@ public class MuleOrderEvent
 					if(script.trade.acceptTrade() && Timing.waitCondition(() -> !script.trade.isCurrentlyTrading(), 3000))
 					{
 						script.log(this, false, "Successfully traded mule. Order complete.");
+						hasFinished = true;
 					}
 				}
 			}
@@ -84,29 +89,17 @@ public class MuleOrderEvent
 	private boolean offerItems()
 	{
 		script.log(this, false, "Offer Items");
-		boolean success = true;
-		script.log(this, false, "Order length: " + order.ITEMS.length);
 		for(int i : order.ITEMS)
-		{
-			script.log(this, false, "Checking order item " + i);
-			
-			for(int id = i; i < id + 2; i++)
-			{
-				if(script.inventory.contains(id))
-				{
-					script.log(this, false, "Inventory contains order item");
-					if(!script.trade.offer(id, 0))
-					{
-						script.log(this, false, "Failed to offer item");
-						success = false;
-					}
-					else
-						script.log(this, false, "Successfully offered item");
-				}
-			}
-		}
+			script.trade.offerAll(i, i + 1);
 		
-		return success;	
+		Item[] offer = script.trade.getOurOffers().getItems();
+		int count = 0;
+		for(Item i : offer)
+			if(i != null)
+				count++;
+		
+		script.log(this, false, "invCache: " + invCache + ", trade count: " + count);
+		return count == invCache;
 	}
 	
 	private boolean walkToMule()
