@@ -85,6 +85,7 @@ public class MuleOrderEvent
 	{
 		script.log(this, false, "Offer Items");
 		boolean success = true;
+		script.log(this, false, "Order length: " + order.ITEMS.length);
 		for(int i : order.ITEMS)
 		{
 			script.log(this, false, "Checking order item " + i);
