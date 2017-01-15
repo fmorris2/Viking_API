@@ -1,5 +1,8 @@
 package viking.framework.mule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.osbot.rs07.api.Bank.BankMode;
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.api.model.Item;
@@ -16,7 +19,7 @@ public class MuleOrderEvent
 	private Position mulePos;
 	private String muleName;
 	private boolean hasFinished, hasWalkedToMule, hasWithdrawnOrder, hasDepositedAll;
-	private int invCache;
+	private List<Item> toTrade = new ArrayList<>();
 	
 	public MuleOrderEvent(VikingScript s, MuleOrder o)
 	{
@@ -59,7 +62,12 @@ public class MuleOrderEvent
 			if(script.bank.isOpen())
 				script.bank.close();
 			if(!script.trade.isCurrentlyTrading())
-				invCache = 28 - script.inventory.getEmptySlotCount();
+			{
+				toTrade.clear();
+				for(Item i : script.getInventory().getItems())
+					if(i != null)
+						toTrade.add(i);
+			}
 				
 			if(script.trade.isCurrentlyTrading() ||
 					(mule.interact("Trade with") && Timing.waitCondition(() -> script.trade.isCurrentlyTrading(), 5000)))
@@ -89,8 +97,8 @@ public class MuleOrderEvent
 	private boolean offerItems()
 	{
 		script.log(this, false, "Offer Items");
-		for(int i : order.ITEMS)
-			script.trade.offerAll(i, i + 1);
+		for(Item i : toTrade)
+			script.trade.offer(i.getId(), 0);
 		
 		Item[] offer = script.trade.getOurOffers().getItems();
 		int count = 0;
@@ -98,8 +106,7 @@ public class MuleOrderEvent
 			if(i != null)
 				count++;
 		
-		script.log(this, false, "invCache: " + invCache + ", trade count: " + count);
-		return count == invCache;
+		return count == toTrade.size();
 	}
 	
 	private boolean walkToMule()
