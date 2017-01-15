@@ -31,8 +31,8 @@ public class MuleOrder
 	private void updateNetWorth()
 	{
 		currentNetWorth = 0;
-		for(int i : ITEMS)
-			currentNetWorth += script.BANK_CACHE.get().getOrDefault(i, 0);
+		for(int i = 0; i < ITEMS.length; i++)
+			currentNetWorth += (script.BANK_CACHE.get().getOrDefault(ITEMS[i], 0) * PRICES[i]);
 	}
 	
 	private void getPrices()
