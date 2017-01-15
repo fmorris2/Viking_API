@@ -83,13 +83,15 @@ public class MuleOrderEvent
 				{
 					script.log(this, false, "Order offered... Accepting through trade");
 					
-					if(script.trade.acceptTrade() 
-							&& Timing.waitCondition(() -> 
-									!script.trade.isCurrentlyTrading() && 
-									(script.inventory.getEmptySlotCount() != toTrade.size() || toTrade.isEmpty()), 6000))
+					boolean firstWindow = script.trade.isFirstInterfaceOpen();
+					if(script.trade.acceptTrade())
 					{
-						script.log(this, false, "Successfully traded mule. Order complete.");
-						hasFinished = true;
+						if(!firstWindow && Timing.waitCondition(() -> script.widgets.containingText("Accept") == null && 
+								(script.inventory.getEmptySlotCount() != toTrade.size() || toTrade.isEmpty()), 6000))
+						{
+							script.log(this, false, "Successfully traded mule. Order complete.");
+							hasFinished = true;
+						}
 					}
 				}
 			}
