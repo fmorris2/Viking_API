@@ -14,7 +14,7 @@ public class MuleOrderEvent
 	private MuleOrder order;
 	private Position mulePos;
 	private String muleName;
-	private boolean hasFinished, hasWalkedToMule, hasWithdrawnOrder;
+	private boolean hasFinished, hasWalkedToMule, hasWithdrawnOrder, hasDepositedAll;
 	
 	public MuleOrderEvent(VikingScript s, MuleOrder o)
 	{
@@ -69,11 +69,20 @@ public class MuleOrderEvent
 			script.getUtils().bank.open();
 		else if(script.bank.enableMode(BankMode.WITHDRAW_NOTE))
 		{
-			for(int i : order.ITEMS)
-				if(script.bank.contains(i) && !script.bank.withdrawAll(i))
-					break;
-			
-			hasWithdrawnOrder = true;
+			if(!hasDepositedAll && script.bank.depositAll())
+				hasDepositedAll = true;
+			else
+			{
+				boolean success = true;
+				for(int i : order.ITEMS)
+					if(script.bank.contains(i) && !script.bank.withdrawAll(i))
+					{
+						success = false;
+						break;
+					}
+				
+				hasWithdrawnOrder = success;
+			}
 		}
 	}
 	
