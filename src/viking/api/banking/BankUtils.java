@@ -59,7 +59,6 @@ public class BankUtils extends VMethodProvider
 	public Area getClosest()
 	{
 		Collections.sort(BANK_LOCATIONS, bankComparator); //Sort cached banks list using comparator
-		script.log(this, true, "Closest BANK: " + BANK_LOCATIONS.get(0));
 		return BANK_LOCATIONS.get(0).getArea();
 	}
 	
