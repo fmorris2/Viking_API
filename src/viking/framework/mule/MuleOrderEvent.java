@@ -79,7 +79,7 @@ public class MuleOrderEvent
 					script.trade.declineTrade();
 				}
 				
-				if(offerItems())
+				if(offerItems() || script.trade.isSecondInterfaceOpen())
 				{
 					script.log(this, false, "Order offered... Accepting through trade");
 					
