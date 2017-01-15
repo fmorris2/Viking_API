@@ -20,19 +20,14 @@ public class MuleOrderEvent
 	
 	public void execute()
 	{
-		while(!hasFinished)
+		script.log(this, false, "MuleOrderEvent execute");
+		
+		if(muleName != null && mulePos != null)	
 		{
-			script.log(this, false, "MuleOrderEvent execute");
-			
-			if(muleName != null && mulePos != null)	
-			{
-				script.log(this, false, "Has mule info...");
-			}
-			else
-				script.log(this, false, "Mule info has not been provided yet...");
-			
-			script.getUtils().bank.waitMs(400);
+			script.log(this, false, "Has mule info...");
 		}
+		else
+			script.log(this, false, "Mule info has not been provided yet...");
 	}
 	
 	public boolean shouldExecute()
