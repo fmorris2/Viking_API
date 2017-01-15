@@ -83,7 +83,10 @@ public class MuleOrderEvent
 				{
 					script.log(this, false, "Order offered... Accepting through trade");
 					
-					if(script.trade.acceptTrade() && Timing.waitCondition(() -> script.inventory.getEmptySlotCount() != toTrade.size() || toTrade.isEmpty(), 6000))
+					if(script.trade.acceptTrade() 
+							&& Timing.waitCondition(() -> 
+									!script.trade.isCurrentlyTrading() && 
+									(script.inventory.getEmptySlotCount() != toTrade.size() || toTrade.isEmpty()), 6000))
 					{
 						script.log(this, false, "Successfully traded mule. Order complete.");
 						hasFinished = true;
