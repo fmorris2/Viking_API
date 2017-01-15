@@ -55,6 +55,9 @@ public class MuleOrderEvent
 		if(mule != null)
 		{
 			script.log(this, false, "Mule found. Attempting to trade...");
+			if(script.bank.isOpen())
+				script.bank.close();
+			
 			if(mule.interact("Trade with") && Timing.waitCondition(() -> script.trade.isCurrentlyTrading(), 5000))
 			{
 				script.log(this, false, "Currently in trade with mule...");

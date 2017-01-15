@@ -16,6 +16,7 @@ import viking.api.skills.mining.Mining;
 import viking.api.skills.woodcutting.Woodcutting;
 import viking.api.stats.Stats;
 import viking.api.travel.WalkingUtils;
+import viking.api.world.VHopper;
 import viking.framework.averager.Averager;
 
 /**
@@ -42,6 +43,7 @@ public class ScriptUtils {
     public ObjectUtils objectUtils;
     public LocalPathFinder localPathFinder;
     public PosUtils posUtils;
+    public VHopper hopper;
 
     public void init(VikingScript script) {
     	
@@ -61,6 +63,7 @@ public class ScriptUtils {
         objectUtils = new ObjectUtils();
         localPathFinder = new LocalPathFinder(script.bot);
         posUtils = new PosUtils();
+        hopper = new VHopper();
 
         bank.exchangeContext(script);
         walk.exchangeContext(script);
@@ -76,6 +79,7 @@ public class ScriptUtils {
         itemUtils.exchangeContext(script);
         objectUtils.exchangeContext(script);
         posUtils.exchangeContext(script);
+        hopper.exchangeContext(script);
 
     }
 

@@ -17,6 +17,7 @@ import viking.api.skills.mining.Mining;
 import viking.api.skills.woodcutting.Woodcutting;
 import viking.api.stats.Stats;
 import viking.api.travel.WalkingUtils;
+import viking.api.world.VHopper;
 import viking.framework.averager.Averager;
 import viking.framework.script.VikingScript;
 
@@ -48,6 +49,7 @@ public class VMethodProvider extends MethodProvider {
     public ObjectUtils objectUtils;
     public LocalPathFinder localPathFinder;
     public PosUtils posUtils;
+    public VHopper hopper;
     
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
@@ -69,6 +71,7 @@ public class VMethodProvider extends MethodProvider {
         objectUtils = script.getUtils().objectUtils;
         localPathFinder = script.getUtils().localPathFinder;
         posUtils = script.getUtils().posUtils;
+        hopper = script.getUtils().hopper;
     }
 
     public void waitMs(long ms) {
