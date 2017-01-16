@@ -89,6 +89,9 @@ public class MuleOrderEvent
 						if(!firstWindow)
 						{
 							script.log(this, false, "Successfully traded mule. Order complete.");
+							hasWalkedToMule = false;
+							hasWithdrawnOrder = false;
+							hasDepositedAll = false;
 							hasFinished = true;
 						}
 					}
@@ -159,6 +162,11 @@ public class MuleOrderEvent
 	public boolean hasFinished()
 	{
 		return hasFinished;
+	}
+	
+	public void setHasFinished(boolean b)
+	{
+		hasFinished = b;
 	}
 	
 	public void setMuleName(String n)
