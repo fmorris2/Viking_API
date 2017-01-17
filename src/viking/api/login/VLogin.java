@@ -43,6 +43,9 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		
 		if(isOnMainLoginScreen() || getToMainLoginScreen())
 		{
+			if(client.getLoginUIState() == 1)
+				clearCredentials();
+			
 			if(enterUserDetails(username, password) && clickLoginButton()
 					&& Timing.waitCondition(() -> (client.getLoginState() != LoginState.LOADING), 5000))
 			{
@@ -87,6 +90,9 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 	
 	private boolean clearCredentials()
 	{
+		if(client.getLoginUIState() != 1)
+			Timing.waitCondition(() -> client.getLoginUIState() == 1, 2000);
+		
 		if(clickCancelLoginButton() && Timing.waitCondition(() -> client.getLoginUIState() == 2, 2000))
 			return clickExistingUserButton();
 		
