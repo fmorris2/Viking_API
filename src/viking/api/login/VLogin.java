@@ -44,6 +44,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		{
 			script.log(this, false, "Is invalid");
 			mouse.click(new RectangleDestination(bot, INVALID_TRY_AGAIN));
+			getToMainLoginScreen();
 			isInvalid = false;
 		}
 		else if(isBanned || isLocked)
