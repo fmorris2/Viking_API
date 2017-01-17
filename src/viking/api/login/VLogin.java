@@ -1,6 +1,7 @@
 package viking.api.login;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 
 import org.osbot.rs07.api.Client.LoginState;
 import org.osbot.rs07.api.ui.RS2Widget;
@@ -14,6 +15,8 @@ import viking.framework.script.VikingScript;
 public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 {
 	public static final int BANNED_CODE = 4, UPDATED_CODE = 6, INVALID_CODE = 3;
+	
+	private static final Rectangle INVALID_TRY_AGAIN = new Rectangle(316, 262, 135, 27);
 	
 	private boolean isInvalid, isBanned, isLocked, isUpdated;
 	private String username, password;
@@ -37,9 +40,15 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 			isLocked = false;
 		}
 			
-		if(isInvalid || isBanned || isLocked)
+		if(isInvalid)
 		{
-			script.log(this, false, "isInvalid, isBanned, or isLocked");
+			script.log(this, false, "Is invalid");
+			mouse.click(new RectangleDestination(bot, INVALID_TRY_AGAIN));
+			isInvalid = false;
+		}
+		else if(isBanned || isLocked)
+		{
+			script.log(this, false, "isBanned, or isLocked");
 			return false;
 		}
 		
