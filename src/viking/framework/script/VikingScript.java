@@ -199,10 +199,10 @@ public abstract class VikingScript extends Script
 		if(getParameters() != null)
 		{
 			log(this, false, "Parsing parameters from String " + getParameters());
-			String[] parts = getParameters().split("\\.");
+			String[] parts = getParameters().split("\\,");
 			for(String part : parts)
 			{
-				String[] keyVal = part.split(",");
+				String[] keyVal = part.split("=");
 				log(this, false, "Params now contains key " + keyVal[0] + " with val " + keyVal[1]);
 				PARAMS.put(keyVal[0], keyVal[1]);
 			}
