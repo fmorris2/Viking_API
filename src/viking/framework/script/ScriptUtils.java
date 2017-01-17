@@ -5,6 +5,7 @@ import org.osbot.rs07.api.util.LocalPathFinder;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
+import viking.api.grand_exchange.VGrandExchange;
 import viking.api.interaction.VInteractionFactory;
 import viking.api.item.ItemUtils;
 import viking.api.login.VLogin;
@@ -44,6 +45,7 @@ public class ScriptUtils {
     public LocalPathFinder localPathFinder;
     public PosUtils posUtils;
     public VHopper hopper;
+    public VGrandExchange vGe;
 
     public void init(VikingScript script) {
     	
@@ -64,6 +66,7 @@ public class ScriptUtils {
         localPathFinder = new LocalPathFinder(script.bot);
         posUtils = new PosUtils();
         hopper = new VHopper();
+        vGe = new VGrandExchange();
 
         bank.exchangeContext(script);
         walk.exchangeContext(script);
@@ -80,6 +83,7 @@ public class ScriptUtils {
         objectUtils.exchangeContext(script);
         posUtils.exchangeContext(script);
         hopper.exchangeContext(script);
+        vGe.exchangeContext(script);
 
     }
 

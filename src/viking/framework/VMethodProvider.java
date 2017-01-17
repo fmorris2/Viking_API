@@ -6,6 +6,7 @@ import org.osbot.rs07.script.MethodProvider;
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
 import viking.api.filter.VFilters;
+import viking.api.grand_exchange.VGrandExchange;
 import viking.api.interaction.VInteractionFactory;
 import viking.api.item.ItemUtils;
 import viking.api.login.VLogin;
@@ -50,6 +51,7 @@ public class VMethodProvider extends MethodProvider {
     public LocalPathFinder localPathFinder;
     public PosUtils posUtils;
     public VHopper hopper;
+    public VGrandExchange vGe;
     
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
@@ -72,6 +74,7 @@ public class VMethodProvider extends MethodProvider {
         localPathFinder = script.getUtils().localPathFinder;
         posUtils = script.getUtils().posUtils;
         hopper = script.getUtils().hopper;
+        vGe = script.getUtils().vGe;
     }
 
     public void waitMs(long ms) {
