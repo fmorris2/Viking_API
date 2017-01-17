@@ -43,7 +43,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		
 		if(isOnMainLoginScreen() || getToMainLoginScreen())
 		{
-			if(client.getLoginUIState() == 1)
+			if(areCredentialsTyped())
 				clearCredentials();
 			
 			if(enterUserDetails(username, password) && clickLoginButton()
@@ -73,7 +73,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 			return cancelWorldSelection() && clickExistingUserButton();
 		if(UI_STATE == 0) //on initial screen
 			return clickExistingUserButton();
-		if(UI_STATE == 1) //there are already credentials typed in
+		if(UI_STATE == 1 || areCredentialsTyped()) //there are already credentials typed in
 			return clearCredentials();
 		if(UI_STATE == 3) //we need to click try again
 			return clickTryAgainButton() && clearCredentials();
@@ -90,10 +90,10 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 	
 	private boolean clearCredentials()
 	{
-		if(client.getLoginUIState() != 1)
-			Timing.waitCondition(() -> client.getLoginUIState() == 1, 2000);
+		if(client.getLoginUIState() != 2)
+			Timing.waitCondition(() -> client.getLoginUIState() == 2, 2000);
 		
-		if(clickCancelLoginButton() && Timing.waitCondition(() -> client.getLoginUIState() == 2, 2000))
+		if(clickCancelLoginButton() && Timing.waitCondition(() -> client.getLoginUIState() == 0, 2000))
 			return clickExistingUserButton();
 		
 		return false;
@@ -104,6 +104,11 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		return getColorPicker().isColorAt(50, 50, Color.BLACK);
 	}
 
+	private boolean areCredentialsTyped()
+	{
+		return getColorPicker().isColorAt(349, 274, Color.WHITE);
+	}
+	
 	private boolean cancelWorldSelection()
 	{
 		if (getMouse().click(new RectangleDestination(getBot(), 712, 8, 42, 8)))
