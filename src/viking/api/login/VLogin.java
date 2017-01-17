@@ -1,7 +1,6 @@
 package viking.api.login;
 
 import java.awt.Color;
-import java.awt.Rectangle;
 
 import org.osbot.rs07.api.Client.LoginState;
 import org.osbot.rs07.api.ui.RS2Widget;
@@ -16,9 +15,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 {
 	public static final int BANNED_CODE = 4, UPDATED_CODE = 6, INVALID_CODE = 3;
 	
-	private static final Rectangle INVALID_TRY_AGAIN = new Rectangle(316, 262, 135, 27);
-	
-	private boolean isInvalid, isBanned, isLocked, isUpdated;
+	private boolean isBanned, isLocked, isUpdated;
 	private String username, password;
 	
 	public VLogin(VikingScript script)
@@ -35,19 +32,8 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 			script.log(this, false, "We're trying to login with different credentials... Resetting");
 			this.username = username;
 			this.password = password;
-			isInvalid = false;
 			isBanned = false;
 			isLocked = false;
-		}
-			
-		if(isInvalid)
-		{
-			script.log(this, false, "Is invalid");
-			mouse.click(new RectangleDestination(bot, INVALID_TRY_AGAIN));
-			Timing.waitCondition(() -> getClient().getLoginUIState() == 1, 1500);
-			script.log(this, false, "Clear credentials!");
-			clearCredentials();
-			isInvalid = false;
 		}
 		else if(isBanned || isLocked)
 		{
@@ -170,14 +156,9 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		else if(code == UPDATED_CODE)
 			isUpdated = true;
 		else if(code == INVALID_CODE)
-			isInvalid = true;
+			script.log(this, false, "Invalid user / pass!");
 			
 		
-	}
-	
-	public boolean isInvalid()
-	{
-		return isInvalid;
 	}
 	
 	public boolean isBanned()
