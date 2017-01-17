@@ -20,6 +20,7 @@ public class VConditions extends VMethodProvider {
     public final VCondition IN_COMBAT = inCombat();
     public final VCondition BANK_OPEN = isBankOpen();
     public final VCondition LOGGED_IN = isLoggedIn();
+    public final VCondition NOT_LOGGED_IN = notLoggedIn();
 
     public VCondition canReach(Entity e)
     {
@@ -86,6 +87,18 @@ public class VConditions extends VMethodProvider {
     		public boolean evaluate()
     		{
     			return client.isLoggedIn();
+    		}
+		};
+    }
+    
+    private VCondition notLoggedIn()
+    {
+    	return new VCondition()
+		{
+    		@Override
+    		public boolean evaluate()
+    		{
+    			return !client.isLoggedIn();
     		}
 		};
     }
