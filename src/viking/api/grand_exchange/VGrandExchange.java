@@ -64,9 +64,9 @@ public class VGrandExchange extends VMethodProvider
 				script.log(this, false, "Open box found");
 				
 				RS2Widget buy = getCreateBuyButton(open);
-				if(buy != null && buy.interact() && Timing.waitCondition(() -> grandExchange.isBuyOfferOpen(), 3000)
-						&& Timing.waitCondition(() -> widgets.get(SEARCH_MASTER, SEARCH_CHILD) != null, 3000))
+				if(buy != null && buy.interact() && Timing.waitCondition(() -> grandExchange.isBuyOfferOpen(), 3000))
 				{
+					waitMs(random(1200, 2400));
 					script.log(this, false, "Typing search term...");
 					if(keyboard.typeString(searchTerm) && Timing.waitCondition(() -> getSearchResult(itemId) != null, 3500))
 					{
