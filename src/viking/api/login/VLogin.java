@@ -88,8 +88,15 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 			return clearCredentials();
 		if(UI_STATE == 3) //we need to click try again
 			return clickTryAgainButton() && clearCredentials();
+		if(UI_STATE == 5) //forgotten your password?
+			return escapeForgotten() && clearCredentials();
 		
 		return false;
+	}
+	
+	private boolean escapeForgotten()
+	{
+		return mouse.click(new RectangleDestination(bot, 400, 308, 126, 26));
 	}
 	
 	private boolean clearCredentials()
