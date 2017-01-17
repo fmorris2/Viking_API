@@ -56,10 +56,24 @@ public class BankUtils extends VMethodProvider
 	 *
 	 * @return the closest valid BANK to the player
 	 */
-	public Area getClosest()
+	public Area getClosest(boolean depositBox)
 	{
 		Collections.sort(BANK_LOCATIONS, bankComparator); //Sort cached banks list using comparator
-		return BANK_LOCATIONS.get(0).getArea();
+		for(BankLocation l : BANK_LOCATIONS)
+		{
+			if(l.isDepositBox() && !depositBox)
+				continue;
+			
+			return l.getArea();
+		}
+		
+		return null;
+	}
+	
+	
+	public boolean isInBank()
+	{
+		return getClosest(true).contains(myPlayer());
 	}
 	
 	/**
@@ -69,9 +83,9 @@ public class BankUtils extends VMethodProvider
 	 * 
 	 * @return true if the player is in the BANK, false otherwise
 	 */
-	public boolean isInBank()
+	public boolean isInBank(boolean depositBox)
 	{
-		return getClosest().contains(myPlayer());
+		return getClosest(depositBox).contains(myPlayer());
 	}
 	
 	/**
