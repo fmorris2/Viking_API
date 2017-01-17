@@ -163,14 +163,14 @@ public abstract class VikingScript extends Script
 		BANK_CACHE.start();
 	}
 	
-	private void handleImEvent(IMEntry toBuy)
+	private void handleImEvent(IMEntry toBuy) throws InterruptedException
 	{
 		log(this, false, "Item Management needs to buy " + toBuy);
 		ItemManagementEvent imEvent = new ItemManagementEvent(this, missionHandler.getCurrent(), toBuy, imTracker);
 		while(!imEvent.isFinished())
 		{
 			imEvent.execute();
-			missionHandler.getCurrent().waitMs(400);
+			sleep(600);
 		}
 		
 	}
