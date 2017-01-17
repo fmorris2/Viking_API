@@ -132,7 +132,7 @@ public abstract class VikingScript extends Script
 			
 			//check for item management system
 			IMEntry toBuy = needsItemManagement();
-			if(toBuy != null)
+			if(toBuy != null || imEvent != null)
 			{
 				if(imEvent == null)
 					imEvent = new ItemManagementEvent(this, missionHandler.getCurrent(), toBuy, imTracker);
