@@ -40,6 +40,7 @@ public abstract class VikingScript extends Script
 	private ScriptUtils utils; //Holds the various script utilities for each Viking Script
 	private BlockingQueue<Message> messageQueue = new ArrayBlockingQueue<>(100);
 	private ItemManagementTracker imTracker;
+	private ItemManagementEvent imEvent;
 	
 	
 	/**
@@ -132,7 +133,15 @@ public abstract class VikingScript extends Script
 			//check for item management system
 			IMEntry toBuy = needsItemManagement();
 			if(toBuy != null)
-				handleImEvent(toBuy);
+			{
+				if(imEvent == null)
+					imEvent = new ItemManagementEvent(this, missionHandler.getCurrent(), toBuy, imTracker);
+				
+				if(!imEvent.isFinished())
+					imEvent.execute();
+				else
+					imEvent = null;
+			}
 			else
 				return missionHandler.execute();
 		}
@@ -161,18 +170,6 @@ public abstract class VikingScript extends Script
 		vikingPaint = getVikingPaint();
 		BANK_CACHE = new BankCache(this);
 		BANK_CACHE.start();
-	}
-	
-	private void handleImEvent(IMEntry toBuy) throws InterruptedException
-	{
-		log(this, false, "Item Management needs to buy " + toBuy);
-		ItemManagementEvent imEvent = new ItemManagementEvent(this, missionHandler.getCurrent(), toBuy, imTracker);
-		while(!imEvent.isFinished())
-		{
-			imEvent.execute();
-			sleep(600);
-		}
-		
 	}
 	
 	private IMEntry needsItemManagement()
