@@ -6,10 +6,10 @@ import viking.api.pricechecking.PriceChecking;
 import viking.framework.script.VikingScript;
 
 public class MuleOrder
-{
+{	
 	public final int[] ITEMS;
 	
-	private final int[] PRICES;
+	private int[] prices;
 	
 	public int muleAt;
 	private int currentNetWorth;
@@ -20,12 +20,16 @@ public class MuleOrder
 	{
 		script = s;
 		ITEMS = items;
-		PRICES = new int[items.length];
-		getPrices();
 	}
 	
 	public boolean isReady()
 	{
+		if(prices == null)
+		{
+			prices = new int[ITEMS.length];
+			getPrices();
+		}
+		
 		updateNetWorth();
 		return currentNetWorth >= muleAt;
 	}
@@ -34,7 +38,7 @@ public class MuleOrder
 	{
 		currentNetWorth = 0;
 		for(int i = 0; i < ITEMS.length; i++)
-			currentNetWorth += (script.BANK_CACHE.get().getOrDefault(ITEMS[i], 0) * PRICES[i]);
+			currentNetWorth += (script.BANK_CACHE.get().getOrDefault(ITEMS[i], 0) * prices[i]);
 	}
 	
 	private void getPrices()
@@ -43,7 +47,7 @@ public class MuleOrder
 		for(int i = 0; i < ITEMS.length; i++)
 		{
 			int price = PriceChecking.getGEPrice(ITEMS[i]);
-			PRICES[i] = price == -1 ? PriceChecking.getOSBuddyPrice(ITEMS[i]) : price;
+			prices[i] = price == -1 ? PriceChecking.getOSBuddyPrice(ITEMS[i]) : price;
 		}
 	}
 
