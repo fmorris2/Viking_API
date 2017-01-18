@@ -64,25 +64,25 @@ public class VGrandExchange extends VMethodProvider
 				script.log(this, false, "Open box found");
 				
 				RS2Widget buy = getCreateBuyButton(open);
-				if(buy != null && buy.interact() && Timing.waitCondition(() -> grandExchange.isBuyOfferOpen(), 3000))
+				if(buy != null && buy.interact() && Timing.waitCondition(() -> grandExchange.isBuyOfferOpen(), 4000))
 				{
 					waitMs(random(1200, 2400));
 					script.log(this, false, "Typing search term...");
-					if(keyboard.typeString(searchTerm) && Timing.waitCondition(() -> getSearchResult(itemId) != null, 3500))
+					if(keyboard.typeString(searchTerm) && Timing.waitCondition(() -> getSearchResult(itemId) != null, 5500))
 					{
 						script.log(this, false, "Search result found");
 						RS2Widget searchRes = getSearchResult(itemId);
-						if(searchRes.interact() && Timing.waitCondition(() -> grandExchange.getOfferPrice() > 0, 3000))
+						if(searchRes.interact() && Timing.waitCondition(() -> grandExchange.getOfferPrice() > 0, 5000))
 						{
 							script.log(this, false, "Successfully clicked search result");
 							if(grandExchange.setOfferPrice(price) && (quantity == 1 || grandExchange.setOfferQuantity(quantity)))
 							{
 								if(Timing.waitCondition(() -> {return (grandExchange.getOfferPrice() == price 
-										&& grandExchange.getOfferQuantity() == quantity);}, 3500))
+										&& grandExchange.getOfferQuantity() == quantity);}, 4500))
 								{
 									script.log(this, false, "Price & quantity verified...");
 									return grandExchange.confirm() 
-											&& Timing.waitCondition(() -> grandExchange.getStatus(open) != Status.EMPTY, 3000);
+											&& Timing.waitCondition(() -> grandExchange.getStatus(open) != Status.EMPTY, 5000);
 								}
 										
 							}
