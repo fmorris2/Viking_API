@@ -47,11 +47,11 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 				clearCredentials();
 			
 			if(enterUserDetails(username, password) && clickLoginButton()
-					&& Timing.waitCondition(() -> (client.getLoginState() != LoginState.LOADING), 5000))
+					&& Timing.waitCondition(() -> (client.getLoginState() != LoginState.LOADING), 10000))
 			{
 				script.log(this, false, "Done loading.... checking for lobby button");
-				return Timing.waitCondition(() -> getLobbyButton() != null, 6500) && clickLobbyButton()
-						&& Timing.waitCondition(() -> myPlayer().isVisible(), 4000);
+				return Timing.waitCondition(() -> getLobbyButton() != null, 10000) && clickLobbyButton()
+						&& Timing.waitCondition(() -> myPlayer().isVisible(), 8000);
 			}
 		}
 		
@@ -91,9 +91,9 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 	private boolean clearCredentials()
 	{
 		if(client.getLoginUIState() != 2)
-			Timing.waitCondition(() -> client.getLoginUIState() == 2, 2000);
+			Timing.waitCondition(() -> client.getLoginUIState() == 2, 3500);
 		
-		if(clickCancelLoginButton() && Timing.waitCondition(() -> client.getLoginUIState() == 0, 2000))
+		if(clickCancelLoginButton() && Timing.waitCondition(() -> client.getLoginUIState() == 0, 3500))
 			return clickExistingUserButton();
 		
 		return false;
