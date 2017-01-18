@@ -17,7 +17,7 @@ import org.osbot.rs07.api.model.Entity;
 public abstract class Location
 {
 	protected Area area; //The area that applies to this location
-	protected Position depositBoxTile;
+	protected Position depositBoxTile, centerTile;
 	
 	/**
 	 * Primary Location constructor. Abstract method from the implementing
@@ -28,6 +28,7 @@ public abstract class Location
 	{
 		area = constructArea();
 		depositBoxTile = constructDepositBoxTile();
+		centerTile = getCenterTile();
 	}
 	
 	/**
@@ -36,6 +37,8 @@ public abstract class Location
 	 * @return Area object which defines the bounds of this Location
 	 */
 	public abstract Area constructArea();
+	
+	public abstract Position getCenterTile();
 	
 	/**
 	 * Constructs the Position which defines where the deposit box for this Location
