@@ -70,6 +70,11 @@ public class BankUtils extends VMethodProvider
 		return null;
 	}
 	
+	public Area getClosest()
+	{
+		return getClosest(true);
+	}
+	
 	
 	public boolean isInBank()
 	{
