@@ -23,7 +23,11 @@ public class PriceChecking extends VMethodProvider {
      */
     public static int getGEPrice(int id) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL("http://services.runescape.com/m=itemdb_oldschool/api/catalogue/detail.json?item=" + id).openStream()))) {
-            Matcher matcher = Pattern.compile(".*\"price\":\"?(\\d+\\,?\\.?\\d*)([k|m]?)\"?},\"today\".*").matcher(reader.readLine());
+        	String line = reader.readLine();
+        	if(line == null)
+        		return -1;
+        	
+        	Matcher matcher = Pattern.compile(".*\"price\":\"?(\\d+\\,?\\.?\\d*)([k|m]?)\"?},\"today\".*").matcher(line);
             reader.close();
             if (matcher.matches()) {
                 final double price = Double.parseDouble(matcher.group(1).replace(",", ""));

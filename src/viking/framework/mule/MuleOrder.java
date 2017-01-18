@@ -1,5 +1,7 @@
 package viking.framework.mule;
 
+import java.util.Arrays;
+
 import viking.api.pricechecking.PriceChecking;
 import viking.framework.script.VikingScript;
 
@@ -39,11 +41,35 @@ public class MuleOrder
 	{
 		script.log(this, false, "Get prices");
 		for(int i = 0; i < ITEMS.length; i++)
-			PRICES[i] = PriceChecking.getGEPrice(ITEMS[i]);
+		{
+			int price = PriceChecking.getGEPrice(ITEMS[i]);
+			PRICES[i] = price == -1 ? PriceChecking.getOSBuddyPrice(ITEMS[i]) : price;
+		}
+	}
+
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(ITEMS);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MuleOrder other = (MuleOrder) obj;
+		if (!Arrays.equals(ITEMS, other.ITEMS))
+			return false;
+		return true;
 	}
 	
-	private int getNetWorth()
-	{
-		return currentNetWorth;
-	}
+	
 }
