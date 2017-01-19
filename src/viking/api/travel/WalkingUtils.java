@@ -1,5 +1,7 @@
 package viking.api.travel;
 
+import java.util.List;
+
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.event.Event;
@@ -17,6 +19,9 @@ import viking.framework.VMethodProvider;
  * @author The Viking
  */
 public class WalkingUtils extends VMethodProvider {
+	
+	private int failures;
+	
     /**
      * The general walking method in the WalkingUtils class.
      * This method will intelligently determine which walking system
@@ -31,20 +36,52 @@ public class WalkingUtils extends VMethodProvider {
      * @return true if we've successfully walked to the position, false otherwise
      * @throws InterruptedException
      */
-    public boolean walkTo(Position pos, VCondition breakCondition, VCondition waitCondition, int cycleTime, int timeout) {
+    public boolean walkTo(Position pos, VCondition breakCondition, VCondition waitCondition, int cycleTime, int timeout, boolean useDax) {
     	script.log(this, false, "Walk to " + pos);
+ 
+    	boolean daxSuccess = false;
     	
-    	widgets.closeOpenInterface();
+    	if(useDax)
+    	{
+	    	//try dax walker
+	    	List<Position> dax = daxPath.getPath(pos);
+	    	
+	    	if(dax.size() > 0)
+	    	{
+	    		script.log(this, false, "Walking dax path to " + pos.toString());
+	    		if(walking.walkPath(dax))
+	    			daxSuccess = true;
+	    		else
+	    			failures++;
+	    	}
+    	}
     	
-    	WebWalkEvent walkEvent = new WebWalkEvent(pos);
-        walkEvent.setBreakCondition(breakCondition == null ? conditions.NOT_LOGGED_IN : breakCondition.or(conditions.NOT_LOGGED_IN));
-        
-        Event event = execute(walkEvent);
-
-        //execute the WALK event
-        return event.hasFinished()
-                && waitCondition == null ? true : Timing.waitCondition(waitCondition, cycleTime, timeout);
+    	if(failures > 2 || !daxSuccess || !map.canReach(pos))
+    	{
+    		script.log(this, false, "Using OSBot web to walk to " + pos.toString());
+	    	widgets.closeOpenInterface();
+	    	
+	    	WebWalkEvent walkEvent = new WebWalkEvent(pos);
+	        walkEvent.setBreakCondition(breakCondition == null ? conditions.NOT_LOGGED_IN : breakCondition.or(conditions.NOT_LOGGED_IN));
+	        
+	        Event event = execute(walkEvent);
+	        
+	        if(!event.hasFailed())
+	        	failures = 0;
+	
+	        //execute the WALK event
+	        return event.hasFinished()
+	                && waitCondition == null ? true : Timing.waitCondition(waitCondition, cycleTime, timeout);
+    	}
+    	
+    	failures = 0;
+    	return true;
     }
+    
+    public boolean walkTo(Position pos, VCondition breakCondition, VCondition waitCondition, int cycleTime, int timeout)
+    {
+    	return walkTo(pos, breakCondition, waitCondition, cycleTime, timeout, true);	
+   	}
 
     /**
      * This method is the most basic WALK method in this class. It calls upon
@@ -56,7 +93,11 @@ public class WalkingUtils extends VMethodProvider {
      * @throws InterruptedException
      */
     public boolean walkTo(Position pos) {
-        return walkTo(pos, null, null, -1, -1);
+        return walkTo(pos, null, null, -1, -1, true);
+    }
+    
+    public boolean walkTo(Position pos, boolean useDax) {
+        return walkTo(pos, null, null, -1, -1, useDax);
     }
 
     /**
@@ -69,7 +110,12 @@ public class WalkingUtils extends VMethodProvider {
      */
     public boolean walkToArea(Area a) {
         final VCondition IN_AREA = conditions.inAreaCondition(a);
-        return walkTo(a.getRandomPosition(), IN_AREA, IN_AREA, 600, 3500);
+        return walkTo(a.getRandomPosition(), IN_AREA, IN_AREA, 600, 3500, true);
+    }
+    
+    public boolean walkToArea(Area a, boolean useDax) {
+        final VCondition IN_AREA = conditions.inAreaCondition(a);
+        return walkTo(a.getRandomPosition(), IN_AREA, IN_AREA, 600, 3500, useDax);
     }
 
     /**
@@ -95,7 +141,7 @@ public class WalkingUtils extends VMethodProvider {
                 return wait_condition.evaluate();
             }
         };
-        return walkTo(a.getRandomPosition(), b_condition, w_condition, 600, 3500);
+        return walkTo(a.getRandomPosition(), b_condition, w_condition, 600, 3500, false);
     }
 
     public boolean walkToArea(Area a, LCondition break_condition) {
