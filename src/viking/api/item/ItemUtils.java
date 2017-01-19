@@ -36,4 +36,19 @@ public class ItemUtils extends VMethodProvider
 		
 		return false;
 	}
+	
+	public boolean wield(int id)
+	{
+		if(!tabs.open(Tab.INVENTORY))
+			return false;
+		
+		if(equipment.contains(id))
+			return true;
+		
+		Item i = inventory.getItem(id);
+		if(i != null)
+			return i.interact("Wield", "Wear") && Timing.waitCondition(() -> equipment.contains(id), 700);
+		
+		return false;
+	}
 }
