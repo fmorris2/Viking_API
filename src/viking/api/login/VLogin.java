@@ -15,7 +15,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 {
 	public static final int BANNED_CODE = 4, UPDATED_CODE = 6, INVALID_CODE = 3;
 	
-	private boolean isBanned, isLocked, isUpdated;
+	private boolean isBanned, isLocked, isUpdated, isInvalid;
 	private String username, password;
 	
 	public VLogin(VikingScript script)
@@ -26,6 +26,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 	public boolean login(String username, String password)
 	{
 		script.log(this, false, "Attempting to login " + username + ":" + password);
+		isInvalid = false;
 		
 		if(this.username == null || !this.username.equals(username) || this.password == null || !this.password.equals(password))
 		{
@@ -167,7 +168,7 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 		else if(code == UPDATED_CODE)
 			isUpdated = true;
 		else if(code == INVALID_CODE)
-			script.log(this, false, "Invalid user / pass!");
+			isInvalid = true;
 			
 		
 	}
@@ -180,6 +181,11 @@ public class VLogin extends VMethodProvider implements LoginResponseCodeListener
 	public boolean isLocked()
 	{
 		return isLocked;
+	}
+	
+	public boolean isInvalid()
+	{
+		return isInvalid;
 	}
 	
 	public boolean isRSUpdate()
