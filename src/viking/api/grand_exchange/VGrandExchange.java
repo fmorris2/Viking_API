@@ -27,9 +27,10 @@ public class VGrandExchange extends VMethodProvider
 	private boolean getToMainScreen()
 	{
 		if(grandExchange.isBuyOfferOpen() || grandExchange.isSellOfferOpen())
-			return grandExchange.goBack();
+			return grandExchange.goBack() 
+					&& Timing.waitCondition(() -> !grandExchange.isBuyOfferOpen() && !grandExchange.isSellOfferOpen(), 3500);
 		
-		return grandExchange.isOpen() && !grandExchange.isBuyOfferOpen() && !grandExchange.isSellOfferOpen(); 
+		return grandExchange.isOpen(); 
 	}
 	private Box getOpenBox()
 	{
@@ -68,22 +69,22 @@ public class VGrandExchange extends VMethodProvider
 				{
 					waitMs(random(1200, 2400));
 					script.log(this, false, "Typing search term...");
-					if(keyboard.typeString(searchTerm) && Timing.waitCondition(() -> getSearchResult(itemId) != null, 5500))
+					if(keyboard.typeString(searchTerm) && Timing.waitCondition(() -> getSearchResult(itemId) != null, 10000))
 					{
 						waitMs(random(1200, 2400));
 						script.log(this, false, "Search result found");
 						RS2Widget searchRes = getSearchResult(itemId);
-						if(searchRes.interact() && Timing.waitCondition(() -> grandExchange.getOfferPrice() > 0, 5000))
+						if(searchRes.interact() && Timing.waitCondition(() -> grandExchange.getOfferPrice() > 0, 10000))
 						{
 							script.log(this, false, "Successfully clicked search result");
 							if(grandExchange.setOfferPrice(price) && (quantity == 1 || grandExchange.setOfferQuantity(quantity)))
 							{
 								if(Timing.waitCondition(() -> {return (grandExchange.getOfferPrice() == price 
-										&& grandExchange.getOfferQuantity() == quantity);}, 4500))
+										&& grandExchange.getOfferQuantity() == quantity);}, 10000))
 								{
 									script.log(this, false, "Price & quantity verified...");
 									return grandExchange.confirm() 
-											&& Timing.waitCondition(() -> grandExchange.getStatus(open) != Status.EMPTY, 5000);
+											&& Timing.waitCondition(() -> grandExchange.getStatus(open) != Status.EMPTY, 10000);
 								}
 										
 							}
