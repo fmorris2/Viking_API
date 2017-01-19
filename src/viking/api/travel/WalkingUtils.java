@@ -41,7 +41,7 @@ public class WalkingUtils extends VMethodProvider {
  
     	boolean daxSuccess = false;
     	
-    	if(useDax)
+    	if(useDax && pos.getZ() == myPosition().getZ())
     	{
 	    	//try dax walker
 	    	List<Position> dax = daxPath.getPath(pos);
