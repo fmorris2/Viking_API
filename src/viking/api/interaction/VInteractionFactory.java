@@ -2,9 +2,11 @@ package viking.api.interaction;
 
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
+import org.osbot.rs07.api.model.GroundItem;
 import org.osbot.rs07.api.model.NPC;
 import org.osbot.rs07.api.model.RS2Object;
 
+import viking.api.interaction.impl.ground_item.ClickGroundItem;
 import viking.api.interaction.impl.npc.ClickNpc;
 import viking.api.interaction.impl.npc.NpcDialogue;
 import viking.api.interaction.impl.object.ClickObject;
@@ -13,6 +15,17 @@ import viking.framework.VMethodProvider;
 
 public class VInteractionFactory extends VMethodProvider
 {
+	//Ground item
+	public ClickGroundItem clickGroundItem(String action, String name, int searchDistance)
+	{
+		return new ClickGroundItem(this, action, name, searchDistance);
+	}
+	
+	public ClickGroundItem clickGroundItem(String action, GroundItem i)
+	{
+		return new ClickGroundItem(this, action, i);
+	}
+	
 	//Item on object
 	public ItemOnObject itemOnObj(String item, String object, int searchDistance)
 	{
