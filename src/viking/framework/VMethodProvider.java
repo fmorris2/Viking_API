@@ -5,6 +5,7 @@ import org.osbot.rs07.script.MethodProvider;
 
 import viking.api.banking.BankUtils;
 import viking.api.condition.VConditions;
+import viking.api.dax_webwalker.DaxPath;
 import viking.api.filter.VFilters;
 import viking.api.grand_exchange.VGrandExchange;
 import viking.api.interaction.VInteractionFactory;
@@ -52,6 +53,7 @@ public class VMethodProvider extends MethodProvider {
     public PosUtils posUtils;
     public VHopper hopper;
     public VGrandExchange vGe;
+    public DaxPath daxPath;
     
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
@@ -75,6 +77,7 @@ public class VMethodProvider extends MethodProvider {
         posUtils = script.getUtils().posUtils;
         hopper = script.getUtils().hopper;
         vGe = script.getUtils().vGe;
+        daxPath = script.getUtils().daxPath;
     }
 
     public void waitMs(long ms) {
