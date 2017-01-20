@@ -50,7 +50,7 @@ public class WalkingUtils extends VMethodProvider {
 	    	if(dax.size() > 0)
 	    	{
 	    		script.log(this, false, "Walking dax path to " + pos.toString());
-	    		if(walking.walkPath(dax))
+	    		if(walkPath(dax))
 	    			daxSuccess = true;
 	    		else
 	    			failures++;
