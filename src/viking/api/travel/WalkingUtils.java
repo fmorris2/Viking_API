@@ -6,6 +6,7 @@ import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
 import org.osbot.rs07.event.Event;
 import org.osbot.rs07.event.WebWalkEvent;
+import org.osbot.rs07.input.mouse.MiniMapTileDestination;
 
 import viking.api.Timing;
 import viking.api.condition.LCondition;
@@ -146,6 +147,47 @@ public class WalkingUtils extends VMethodProvider {
 
     public boolean walkToArea(Area a, LCondition break_condition) {
         return walkToArea(a, break_condition, null);
+    }
+    
+    public boolean walkPath(List<Position> positions)
+    {
+    	for(int i = 0; i < positions.size(); i++)
+    	{
+    		Position targetPos = positions.get(i);
+    		MiniMapTileDestination miniMap = new MiniMapTileDestination(bot, targetPos);
+    		if(miniMap.isVisible())
+    		{
+    			if(mouse.click(miniMap) && Timing.waitCondition(() -> myPlayer().isMoving(), 2500))
+    			{
+    				if(i == positions.size() - 1)
+    					return true;
+    				
+    				Timing.waitCondition(miniMapIsVisible(positions.get(i + 1)), 7500);
+    			}
+    			else if(!map.canReach(targetPos)) //player didn't start moving after clicked next tile... check if we can reach
+    			{
+    				script.log(this, false, "Can't reach target pos!");
+    				return false;
+    			}
+    		}    			
+    	}
+    	
+    	return false;
+    }
+    
+    private VCondition miniMapIsVisible(Position pos)
+    {
+    	return new VCondition()
+		{
+
+			@Override
+			public boolean evaluate()
+			{
+				MiniMapTileDestination map = new MiniMapTileDestination(bot, pos);
+				return map != null && map.isVisible();
+			}
+    		
+		};
     }
 
 }
