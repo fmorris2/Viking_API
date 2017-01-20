@@ -96,6 +96,8 @@ public class ItemManagementEvent
 				{
 					SCRIPT.log(this, false, "Successfully collected item");
 					isFinished = true;
+					if(API.grandExchange.close())
+						Timing.waitCondition(() -> !API.inventory.isEmpty(), 3500);
 				}
 			}
 		}
