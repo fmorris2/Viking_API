@@ -162,7 +162,7 @@ public class ItemManagementEvent
 	
 	private void offerItems()
 	{
-		while(API.inventory.getAmount(995) < TO_BUY.PRICE)
+		while(API.inventory.getAmount(995) < TO_BUY.VALUE_NEEDED)
 		{
 			if(canCollect())
 				API.grandExchange.collect();
