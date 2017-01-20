@@ -9,7 +9,7 @@ public class IMEntry
 {
 	private static final double BUY_PRICE_MOD = 1.5;
 	
-	public final int ID, AMT, PRICE;
+	public final int ID, AMT, PRICE, VALUE_NEEDED;
 	public final String SEARCH_TERM;
 	public final GoalList GOALS;
 	
@@ -20,7 +20,8 @@ public class IMEntry
 		mission = m;
 		ID = id;
 		AMT = amt;
-		PRICE = (int)(PriceChecking.getGEPrice(ID) * BUY_PRICE_MOD) * AMT;
+		PRICE = (int)(PriceChecking.getGEPrice(ID) * BUY_PRICE_MOD);
+		VALUE_NEEDED = PRICE * AMT;
 		SEARCH_TERM = searchTerm;
 		GOALS = new GoalList(goals);
 	}
@@ -31,14 +32,15 @@ public class IMEntry
 		ID = id;
 		AMT = amt;
 		SEARCH_TERM = searchTerm;
-		PRICE = price * AMT;
+		PRICE = price;
+		VALUE_NEEDED = PRICE * AMT;
 		GOALS = new GoalList(goals);
 	}
 	
 	public boolean shouldBuy(long totalValue)
 	{
 		return !mission.getScript().BANK_CACHE.get().isEmpty() && 
-				totalValue >= PRICE && !playerHasEntry() && GOALS.hasReachedGoals();
+				totalValue >= VALUE_NEEDED && !playerHasEntry() && GOALS.hasReachedGoals();
 	}
 	
 	private boolean playerHasEntry()
