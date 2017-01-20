@@ -15,13 +15,19 @@ public class VGrandExchange extends VMethodProvider
 	
 	private static final int SEARCH_MASTER = 162;
 	private static final int SEARCH_CHILD = 38;
-	private static final int SEARCH_COMPONENT = 2;
+	private static final int[] SEARCH_COMPONENT = {2, 5, 8, 11, 14, 17};
 
 	//private methods
 	private RS2Widget getSearchResult(int id)
 	{
-		RS2Widget w = widgets.get(SEARCH_MASTER, SEARCH_CHILD, SEARCH_COMPONENT);
-		return (w != null && w.getItemId() == id) ? w : null;
+		for(int c : SEARCH_COMPONENT)
+		{
+			RS2Widget w = widgets.get(SEARCH_MASTER, SEARCH_CHILD, c);
+			if(w != null && w.getItemId() == id)
+				return w;
+		}
+		
+		return null;
 	}
 	
 	private boolean getToMainScreen()
