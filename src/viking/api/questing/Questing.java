@@ -20,8 +20,8 @@ public class Questing extends VMethodProvider {
     public boolean closeQuestCompletion() {
         final RS2Widget QUEST_CLOSE_BUTTON = widgets.get(QUEST_COMPLETION_INTERFACE, QUEST_COMPLETION_CLOSE_INTERFACE);
 
-        if (QUEST_CLOSE_BUTTON == null || !QUEST_CLOSE_BUTTON.isVisible())
-            return false;
+        if (QUEST_CLOSE_BUTTON == null)
+            return true;
 
         if (QUEST_CLOSE_BUTTON.interact())
             return Timing.waitCondition(() -> widgets.get(QUEST_COMPLETION_INTERFACE, QUEST_COMPLETION_CLOSE_INTERFACE) == null, 150, random(2000, 2500));
