@@ -14,6 +14,7 @@ import viking.api.login.VLogin;
 import viking.api.object.ObjectUtils;
 import viking.api.position.PosUtils;
 import viking.api.pricechecking.PriceChecking;
+import viking.api.questing.Questing;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.mining.Mining;
 import viking.api.skills.woodcutting.Woodcutting;
@@ -54,7 +55,8 @@ public class VMethodProvider extends MethodProvider {
     public VHopper hopper;
     public VGrandExchange vGe;
     public DaxPath daxPath;
-    
+    public Questing questing;
+
     @SuppressWarnings("deprecation")
     public void exchangeContext(VikingScript script) {
         super.exchangeContext(script.bot);
@@ -78,6 +80,7 @@ public class VMethodProvider extends MethodProvider {
         hopper = script.getUtils().hopper;
         vGe = script.getUtils().vGe;
         daxPath = script.getUtils().daxPath;
+        questing = script.getUtils().questing;
     }
 
     public void waitMs(long ms) {

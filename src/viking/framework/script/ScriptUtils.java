@@ -13,6 +13,7 @@ import viking.api.login.VLogin;
 import viking.api.object.ObjectUtils;
 import viking.api.position.PosUtils;
 import viking.api.pricechecking.PriceChecking;
+import viking.api.questing.Questing;
 import viking.api.skills.fishing.Fishing;
 import viking.api.skills.mining.Mining;
 import viking.api.skills.woodcutting.Woodcutting;
@@ -48,6 +49,7 @@ public class ScriptUtils {
     public VHopper hopper;
     public VGrandExchange vGe;
     public DaxPath daxPath;
+    public Questing questing;
 
     public void init(VikingScript script) {
     	
@@ -70,6 +72,7 @@ public class ScriptUtils {
         hopper = new VHopper();
         vGe = new VGrandExchange();
         daxPath = new DaxPath();
+        questing = new Questing();
 
         bank.exchangeContext(script);
         walk.exchangeContext(script);
@@ -88,6 +91,7 @@ public class ScriptUtils {
         hopper.exchangeContext(script);
         vGe.exchangeContext(script);
         daxPath.exchangeContext(script);
+        questing.exchangeContext(script);
 
     }
 
