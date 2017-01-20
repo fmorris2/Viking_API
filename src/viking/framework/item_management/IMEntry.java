@@ -31,7 +31,7 @@ public class IMEntry
 		ID = id;
 		AMT = amt;
 		SEARCH_TERM = searchTerm;
-		PRICE = price;
+		PRICE = price * AMT;
 		GOALS = new GoalList(goals);
 	}
 	
