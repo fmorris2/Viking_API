@@ -155,6 +155,18 @@ public class WalkingUtils extends VMethodProvider {
     	{
     		Position targetPos = positions.get(i);
     		MiniMapTileDestination miniMap = new MiniMapTileDestination(bot, targetPos);
+    		for(int z = i; z < positions.size(); z++)
+    		{
+    			MiniMapTileDestination further = new MiniMapTileDestination(bot, positions.get(z));
+    			if(further.isVisible())
+    			{
+    				miniMap = further;
+    				i = z;
+    			}
+    			else
+    				break;
+    		}
+    		
     		if(miniMap.isVisible())
     		{
     			if(mouse.click(miniMap) && Timing.waitCondition(() -> myPlayer().isMoving(), 2500))
