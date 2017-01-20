@@ -20,7 +20,7 @@ public class IMEntry
 		mission = m;
 		ID = id;
 		AMT = amt;
-		PRICE = (int)(PriceChecking.getGEPrice(ID) * BUY_PRICE_MOD);
+		PRICE = (int)(PriceChecking.getGEPrice(ID) * BUY_PRICE_MOD) * AMT;
 		SEARCH_TERM = searchTerm;
 		GOALS = new GoalList(goals);
 	}
