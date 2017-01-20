@@ -41,9 +41,9 @@ public class ItemManagementEvent
 			SCRIPT.log(this, false, "At GE");
 			//check if we have enough gold in inventory
 			long invGold = API.inventory.getAmount(995);
-			if(hasPutInOffer || invGold >= TO_BUY.PRICE)
+			if(hasPutInOffer || invGold >= TO_BUY.VALUE_NEEDED)
 				handleBuying();
-			else if(TRACKER.getTotalGp() >= TO_BUY.PRICE) //we have enough gold total, but there is some left in the bank
+			else if(TRACKER.getTotalGp() >= TO_BUY.VALUE_NEEDED) //we have enough gold total, but there is some left in the bank
 				withdrawGold();
 			else //we need to sell some things in order to have enough gold
 				handleSelling();
