@@ -12,8 +12,10 @@ public interface ItemManagement
 		FishType.SHRIMP.getItemID(), FishType.SARDINE.getItemID(), FishType.HERRING.getItemID(),
 		FishType.ANCHOVIES.getItemID(), FishType.TROUT.getItemID(), FishType.PIKE.getItemID(),
 		FishType.SALMON.getItemID(), OreType.RUNE_ESSENCE.getItemID(), OreType.CLAY.getItemID(),
-		OreType.COPPER_ORE.getItemID(), OreType.TIN_ORE.getItemID(), OreType.IRON_ORE.getItemID()
+		OreType.COPPER_ORE.getItemID(), OreType.TIN_ORE.getItemID(), OreType.IRON_ORE.getItemID(),
+		526, 1739, 314
 	};
+	//bones, cowhide, feather
 	
 	public IMEntry[] itemsToBuy();
 	public int[] itemsToSell();

@@ -1,7 +1,9 @@
 package viking.framework.mission;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
+import viking.framework.script.CapitalScript;
 import viking.framework.script.VikingScript;
 
 /**
@@ -54,6 +56,14 @@ public class MissionHandler
 			current.setStarted(true);
 		}
 		
+		if(current instanceof CapitalMission && ((CapitalMission)current).needsCapital()
+				&& script instanceof CapitalScript)
+		{
+			script.log(this, false, "Mission needs capital!");
+			gainCapital();
+			return 600;
+		}
+		
 		//if the current mission is over, move on to the next one
 		if(current.canEnd())
 		{
@@ -64,6 +74,17 @@ public class MissionHandler
 		}
 		else //execute the current mission
 			return current.execute();
+	}
+	
+	private void gainCapital()
+	{
+		//first, we generate the appropriate money making mission
+		Mission m = ((CapitalScript)script).generateMoneyMakingMission();
+		
+		script.log(this, false, "Added money making mission to gain capital: " + m.getMissionName());
+		
+		//now, we gracefull set the current mission to the money making mission
+		((LinkedList<Mission>)(missions)).addFirst(m);
 	}
 
 	//Getters & Setters
