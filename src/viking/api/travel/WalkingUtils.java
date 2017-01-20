@@ -153,6 +153,9 @@ public class WalkingUtils extends VMethodProvider {
     {
     	for(int i = 0; i < positions.size(); i++)
     	{
+    		if(!settings.isRunning() && settings.getRunEnergy() > 20 && settings.open())
+    			settings.setRunning(true);
+    		
     		Position targetPos = positions.get(i);
     		MiniMapTileDestination miniMap = new MiniMapTileDestination(bot, targetPos);
     		for(int z = i; z < positions.size(); z++)
