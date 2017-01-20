@@ -169,6 +169,7 @@ public class WalkingUtils extends VMethodProvider {
     		
     		if(miniMap.isVisible())
     		{
+    			waitMs(random(20, 70));
     			if(mouse.click(miniMap) && Timing.waitCondition(() -> myPlayer().isMoving(), 2500))
     			{
     				if(i == positions.size() - 1)
