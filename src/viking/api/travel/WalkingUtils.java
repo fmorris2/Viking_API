@@ -142,7 +142,7 @@ public class WalkingUtils extends VMethodProvider {
                 return wait_condition.evaluate();
             }
         };
-        return walkTo(a.getRandomPosition(), b_condition, w_condition, 600, 3500, false);
+        return walkTo(a.getRandomPosition(), b_condition, w_condition, 600, 3500, true);
     }
 
     public boolean walkToArea(Area a, LCondition break_condition) {
