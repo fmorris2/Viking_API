@@ -50,6 +50,11 @@ public class MuleOrder
 			prices[i] = price == -1 ? PriceChecking.getOSBuddyPrice(ITEMS[i]) : price;
 		}
 	}
+	
+	public int getNetWorth()
+	{
+		return currentNetWorth;
+	}
 
 	@Override
 	public int hashCode()
