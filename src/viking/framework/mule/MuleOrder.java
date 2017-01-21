@@ -45,6 +45,7 @@ public class MuleOrder
 		}
 		
 		script.log(this, false, "Current Net Worth: " + currentNetWorth);
+		script.log(this, false, "Mule at: " + muleAt);
 	}
 	
 	private void getPrices()
