@@ -52,15 +52,19 @@ public class VFilters extends VMethodProvider
 	 * @param o the other VFilter object to combine with this one
 	 * @return the new, combined VFilter object
 	 */
-	@SuppressWarnings("rawtypes")
-	public static <T> Filter and(Filter<T> one, Filter<T> two)
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> Filter and(Filter<T>... filters)
 	{	
 		return new Filter<T>()
 		{
 			@Override
 			public boolean match(T t)
 			{
-				return one.match(t) && two.match(t);
+				for(Filter<T> filter : filters)
+					if(!filter.match(t))
+						return false;
+				
+				return true;
 			}
 		};
 	}
@@ -72,28 +76,32 @@ public class VFilters extends VMethodProvider
 	 * @param o the other VFilter object to combine with this one
 	 * @return the new, combined VFilter object
 	 */
-	@SuppressWarnings("rawtypes")
-	public static <T> Filter or(Filter<T> one, Filter<T> two)
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> Filter or(Filter<T>... filters)
 	{	
 		return new Filter<T>()
 		{
 			@Override
 			public boolean match(T t)
 			{
-				return one.match(t) || two.match(t);
+				for(Filter<T> filter : filters)
+					if(filter.match(t))
+						return true;
+				
+				return false;
 			}
 		};
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public static <T> Filter not(Filter<T> one, Filter<T> two)
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> Filter not(Filter<T>... filters)
 	{	
 		return new Filter<T>()
 		{
 			@Override
 			public boolean match(T t)
 			{
-				return !(one.match(t) && two.match(t));
+				return !(or(filters).match(t));
 			}
 		};
 	}

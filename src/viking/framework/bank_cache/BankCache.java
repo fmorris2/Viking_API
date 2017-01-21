@@ -79,7 +79,6 @@ public class BankCache extends Thread
 	
 	private void updateBank()
 	{
-		script.log(this, false, "Update Bank");
 		Item[] items = script.bank.getItems();
 		if(items == null)
 			return;
