@@ -38,7 +38,13 @@ public class MuleOrder
 	{
 		currentNetWorth = 0;
 		for(int i = 0; i < ITEMS.length; i++)
-			currentNetWorth += (script.BANK_CACHE.get().getOrDefault(ITEMS[i], 0) * prices[i]);
+		{
+			script.log(this, false, "Price for item " + ITEMS[i] + ": " + prices[i]);
+			script.log(this, false, "Amount of item " + ITEMS[i] + " in bank: " + script.BANK_CACHE.get().getOrDefault(ITEMS[i], 0));
+			currentNetWorth += script.BANK_CACHE.get().getOrDefault(ITEMS[i], 0) * prices[i];
+		}
+		
+		script.log(this, false, "Current Net Worth: " + currentNetWorth);
 	}
 	
 	private void getPrices()
