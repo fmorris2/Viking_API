@@ -1,10 +1,10 @@
 package viking.api;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import org.osbot.rs07.utility.ConditionalSleep;
 
-import viking.api.condition.LCondition;
 import viking.api.condition.VCondition;
 
 /**
@@ -98,14 +98,23 @@ public class Timing
 	 * @param timeout the maximum time to wait for the condition to be true
 	 * @return true if the condition was met within the threshold, or false if the timeout was exceeded
 	 */
-	public static boolean waitCondition(LCondition condition, int cycleTime, int timeout)
+	public static boolean waitCondition(Callable<Boolean> condition, int cycleTime, int timeout)
 	{
 		return new ConditionalSleep(timeout, cycleTime)
 		{
 			@Override
-			public boolean condition() throws InterruptedException
+			public boolean condition()
 			{
-				return condition.evaluate();
+				try
+				{
+					return condition.call();
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+				
+				return false;
 			}
 			
 		}.sleep();
@@ -119,7 +128,7 @@ public class Timing
 	 * @param timeout the maximum time to wait for the condition to be true
 	 * @return true if the condition was met within the threshold, or false if the timeout was exceeded
 	 */
-	public static boolean waitCondition(LCondition condition, int timeout)
+	public static boolean waitCondition(Callable<Boolean> condition, int timeout)
 	{
 		return waitCondition(condition, 20, timeout);
 	}
