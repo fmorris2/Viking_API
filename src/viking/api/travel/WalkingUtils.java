@@ -1,6 +1,7 @@
 package viking.api.travel;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.osbot.rs07.api.map.Area;
 import org.osbot.rs07.api.map.Position;
@@ -9,7 +10,6 @@ import org.osbot.rs07.event.WebWalkEvent;
 import org.osbot.rs07.input.mouse.MiniMapTileDestination;
 
 import viking.api.Timing;
-import viking.api.condition.LCondition;
 import viking.api.condition.VCondition;
 import viking.framework.VMethodProvider;
 
@@ -129,23 +129,25 @@ public class WalkingUtils extends VMethodProvider {
      * @param wait_condition The waiting condition
      * @return true if the player successfully walked to the area, false otherwise
      */
-    public boolean walkToArea(Area a, LCondition break_condition, LCondition wait_condition) {
+    public boolean walkToArea(Area a, Callable<Boolean> break_condition, Callable<Boolean> wait_condition) {
         VCondition b_condition = new VCondition() {
             @Override
             public boolean evaluate() {
-                return break_condition.evaluate();
+            	try {return break_condition.call();}catch(Exception e){e.printStackTrace();}
+            	return false;
             }
         };
         VCondition w_condition = new VCondition() {
             @Override
             public boolean evaluate() {
-                return wait_condition.evaluate();
+            	try {return wait_condition.call();}catch(Exception e){e.printStackTrace();}
+            	return false;
             }
         };
         return walkTo(a.getRandomPosition(), b_condition, w_condition, 600, 3500, true);
     }
 
-    public boolean walkToArea(Area a, LCondition break_condition) {
+    public boolean walkToArea(Area a, Callable<Boolean> break_condition) {
         return walkToArea(a, break_condition, null);
     }
     
