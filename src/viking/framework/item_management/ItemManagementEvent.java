@@ -201,7 +201,9 @@ public class ItemManagementEvent
 	
 	private boolean withdraw(int... ids)
 	{
-		if(API.bank.isOpen() && API.bank.enableMode(BankMode.WITHDRAW_NOTE) & API.bank.depositAllExcept(995))
+		if(API.bank.isOpen() 
+				&& (API.bank.getWithdrawMode() == BankMode.WITHDRAW_NOTE || API.bank.enableMode(BankMode.WITHDRAW_NOTE)) 
+				&& API.bank.depositAllExcept(995))
 		{			
 			if(API.bank.contains(995) && !API.bank.withdrawAll(995)) //make sure to withdraw any gold if we have it
 				return false;
