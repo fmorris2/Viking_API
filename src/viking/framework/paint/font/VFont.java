@@ -50,6 +50,6 @@ public class VFont
 			e.printStackTrace();
 		}
 		
-		return new Font("Verdana", Font.PLAIN, DEFAULT_SIZE);
+		return new Font("Arial", Font.PLAIN, DEFAULT_SIZE);
 	}
 }

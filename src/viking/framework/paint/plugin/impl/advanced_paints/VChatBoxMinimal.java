@@ -1,5 +1,6 @@
 package viking.framework.paint.plugin.impl.advanced_paints;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import viking.framework.paint.VikingPaint;
@@ -11,9 +12,10 @@ public abstract class VChatBoxMinimal extends VikingPaintPlugin
 {
 	public static final int CONTAINER_X = 300;
 	public static final int CONTAINER_Y = 345;
+	public static final Color DEFAULT_COLOR = new Color(254, 254, 254); //almost white w/ gray tint
+	
 	private static final int LOGO_X = 264; 
 	private static final int LOGO_Y = 268;
-	
 	private static final String CONTAINER_URL = "/script/paint/_default/main_container_bg.png";
 	
 	protected VTabBar tabs;

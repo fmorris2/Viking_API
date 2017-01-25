@@ -209,7 +209,7 @@ public class ItemManagementEvent
 				return false;
 			
 			for(int id : ids)
-				if(API.bank.contains(id) && !API.bank.withdrawAll(id))
+				if(API.bank.contains(id) && !API.bank.withdrawAll(id) && !Timing.waitCondition(() -> !API.bank.contains(id), 2500))
 					return false;
 			
 			return API.bank.close();

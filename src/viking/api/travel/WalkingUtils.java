@@ -45,7 +45,9 @@ public class WalkingUtils extends VMethodProvider {
     	if(useDax && pos.getZ() == myPosition().getZ())
     	{
 	    	//try dax walker
+    		script.log(this, false, "Getting dax path...");
 	    	List<Position> dax = daxPath.getPath(pos);
+	    	script.log(this, false, "Dax path received");
 	    	
 	    	if(dax.size() > 0)
 	    	{
@@ -159,20 +161,28 @@ public class WalkingUtils extends VMethodProvider {
     			settings.setRunning(true);
     		
     		Position targetPos = positions.get(i);
-    		MiniMapTileDestination miniMap = new MiniMapTileDestination(bot, targetPos);
-    		for(int z = i; z < positions.size(); z++)
+    		MiniMapTileDestination miniMap = null;
+    		try
     		{
-    			MiniMapTileDestination further = new MiniMapTileDestination(bot, positions.get(z));
-    			if(further.isVisible())
-    			{
-    				miniMap = further;
-    				i = z;
-    			}
-    			else
-    				break;
+	    		miniMap = new MiniMapTileDestination(bot, targetPos);
+	    		for(int z = i; z < positions.size(); z++)
+	    		{
+	    			MiniMapTileDestination further = new MiniMapTileDestination(bot, positions.get(z));
+	    			if(further.isVisible())
+	    			{
+	    				miniMap = further;
+	    				i = z;
+	    			}
+	    			else
+	    				break;
+	    		}
+    		}
+    		catch(Exception e)
+    		{
+    			script.log(this, false, "Error getting mini map tile destination");
     		}
     		
-    		if(miniMap.isVisible())
+    		if(miniMap != null && miniMap.isVisible())
     		{
     			waitMs(random(20, 70));
     			if(mouse.click(miniMap) && Timing.waitCondition(() -> myPlayer().isMoving(), 2500))
