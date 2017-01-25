@@ -70,7 +70,7 @@ public class MuleOrderEvent
 			}
 				
 			if(script.trade.isCurrentlyTrading() ||
-					(mule.interact("Trade with") && Timing.waitCondition(() -> script.trade.isCurrentlyTrading(), 5000)))
+					(mule.interact("Trade with") && Timing.waitCondition(() -> script.trade.isCurrentlyTrading(), 9000)))
 			{
 				script.log(this, false, "Currently in trade with mule...");
 				if(!script.trade.getOtherPlayer().equals(muleName))
