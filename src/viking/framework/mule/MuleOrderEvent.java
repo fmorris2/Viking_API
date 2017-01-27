@@ -135,7 +135,7 @@ public class MuleOrderEvent
 			script.getWalking().webWalk(script.getUtils().bank.getAllBanks(false, false));
 		else if(!script.getBank().isOpen())
 			script.getUtils().bank.open();
-		else if(script.bank.enableMode(BankMode.WITHDRAW_NOTE))
+		else if(script.bank.enableMode(BankMode.WITHDRAW_NOTE) && Timing.waitCondition(() -> script.bank.getInsertMode() == BankMode.WITHDRAW_NOTE, 3500))
 		{
 			if(!hasDepositedAll && script.bank.depositAll())
 				hasDepositedAll = true;
