@@ -21,6 +21,8 @@ import viking.framework.VMethodProvider;
  */
 public class WalkingUtils extends VMethodProvider {
 	
+	private static final int RUN_TOGGLE = random(60, 90);
+	
 	private int failures;
 	
     /**
@@ -157,7 +159,7 @@ public class WalkingUtils extends VMethodProvider {
     {
     	for(int i = 0; i < positions.size(); i++)
     	{
-    		if(!settings.isRunning() && settings.getRunEnergy() > 20 && settings.open())
+    		if(!settings.isRunning() && settings.getRunEnergy() > RUN_TOGGLE && settings.open())
     			settings.setRunning(true);
     		
     		Position targetPos = positions.get(i);
