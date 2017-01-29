@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.osbot.rs07.api.map.Area;
 
+import viking.api.Timing;
 import viking.api.banking.enums.BankLocation;
 import viking.framework.VMethodProvider;
 
@@ -19,6 +20,8 @@ import viking.framework.VMethodProvider;
  */
 public class BankUtils extends VMethodProvider
 {
+	private static final int NOTE_SETTING = 115;
+	
 	//Our BANK cache, so we don't have to continue to load up the VikingBank value array
 	private static final List<BankLocation> BANK_LOCATIONS = new ArrayList<>(Arrays.asList(BankLocation.values()));
 		
@@ -79,6 +82,16 @@ public class BankUtils extends VMethodProvider
 	public boolean isInBank()
 	{
 		return getClosest(true).contains(myPlayer());
+	}
+	
+	public boolean isNoteOn()
+	{
+		return configs.get(NOTE_SETTING) == 1;
+	}
+	
+	public boolean waitForNote()
+	{
+		return Timing.waitCondition(() -> isNoteOn(), 2500);
 	}
 	
 	/**
