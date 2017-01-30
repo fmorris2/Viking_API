@@ -200,6 +200,9 @@ public abstract class VikingScript extends Script
 			for(String part : parts)
 			{
 				String[] keyVal = part.split("=");
+				if(keyVal.length < 2)
+					continue;
+				
 				log(this, false, "Params now contains key " + keyVal[0] + " with val " + keyVal[1]);
 				PARAMS.put(keyVal[0], keyVal[1]);
 			}

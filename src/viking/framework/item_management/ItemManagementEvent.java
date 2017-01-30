@@ -155,7 +155,9 @@ public class ItemManagementEvent
 		else //has withdrawn sellables
 		{
 			SCRIPT.log(this, false, "Has withdrawn sellables.... Time to sell them");
-			if(!API.grandExchange.isOpen())
+			if(!API.client.isLoggedIn())
+				SCRIPT.log(this, false, "Not logged in...");
+			else if(!API.grandExchange.isOpen())
 				openGe();
 			else //ge is open
 				offerItems();
@@ -164,7 +166,7 @@ public class ItemManagementEvent
 	
 	private void offerItems()
 	{
-		while(API.inventory.getAmount(995) < TO_BUY.VALUE_NEEDED)
+		while(API.inventory.getAmount(995) < TO_BUY.VALUE_NEEDED && API.client.isLoggedIn())
 		{
 			if(canCollect())
 				API.grandExchange.collect();
@@ -201,21 +203,29 @@ public class ItemManagementEvent
 	
 	private boolean withdraw(int... ids)
 	{
-		if(API.bank.isOpen() 
-				&& (API.bank.getWithdrawMode() == BankMode.WITHDRAW_NOTE || API.bank.enableMode(BankMode.WITHDRAW_NOTE)) 
-				&& API.bank.depositAllExcept(995))
-		{			
-			if(API.bank.contains(995) && !API.bank.withdrawAll(995)) //make sure to withdraw any gold if we have it
-				return false;
-			
-			for(int id : ids)
-				if(API.bank.contains(id) && !API.bank.withdrawAll(id) && !Timing.waitCondition(() -> !API.bank.contains(id), 2500))
+		try
+		{
+			if(API.bank.isOpen() 
+					&& (API.bankUtils.isNoteOn() || API.bank.enableMode(BankMode.WITHDRAW_NOTE)) 
+					&& API.bank.depositAllExcept(995))
+			{			
+				if(API.bank.contains(995) && !API.bank.withdrawAll(995)) //make sure to withdraw any gold if we have it
 					return false;
-			
-			return API.bank.close();
+				
+				for(int id : ids)
+					if(API.bank.contains(id) && !API.bank.withdrawAll(id) && !Timing.waitCondition(() -> !API.bank.contains(id), 2500))
+						return false;
+				
+				return API.bank.close();
+			}
+			else
+				API.bankUtils.open();
 		}
-		else
-			API.bankUtils.open();
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			e.printStackTrace();
+			SCRIPT.log(this, false, "There was an array index out of bounds exception in the OSBot API");
+		}
 		
 		return false;
 	}

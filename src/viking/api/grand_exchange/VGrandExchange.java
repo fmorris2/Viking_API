@@ -80,7 +80,7 @@ public class VGrandExchange extends VMethodProvider
 						waitMs(random(1200, 2400));
 						script.log(this, false, "Search result found");
 						RS2Widget searchRes = getSearchResult(itemId);
-						if(searchRes.interact() && Timing.waitCondition(() -> grandExchange.getOfferPrice() > 0, 10000))
+						if(searchRes != null && searchRes.interact() && Timing.waitCondition(() -> grandExchange.getOfferPrice() > 0, 10000))
 						{
 							script.log(this, false, "Successfully clicked search result");
 							if(grandExchange.setOfferPrice(price) && (quantity == 1 || grandExchange.setOfferQuantity(quantity)))
