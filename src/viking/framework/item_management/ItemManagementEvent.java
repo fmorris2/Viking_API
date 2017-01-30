@@ -151,6 +151,11 @@ public class ItemManagementEvent
 		{
 			SCRIPT.log(this, false, "Withdrawing sellables");
 			hasWithdrawnSellables = withdraw(TO_SELL);
+			if(hasWithdrawnSellables && API.inventory.onlyContains(995))
+			{
+				SCRIPT.log(this, false, "Did not have any sellables to withdraw... Ending this event");
+				isFinished = true;
+			}
 		}
 		else //has withdrawn sellables
 		{
