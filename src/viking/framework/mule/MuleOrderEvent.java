@@ -65,7 +65,7 @@ public class MuleOrderEvent
 			{
 				toTrade.clear();
 				for(Item i : script.getInventory().getItems())
-					if(i != null)
+					if(i != null && (i.isNote() || i.getNotedId() == -1)) //if item is noted or stackable
 						toTrade.add(i);
 			}
 				

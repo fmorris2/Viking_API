@@ -130,6 +130,18 @@ public class ItemManagementEvent
 		return null;
 	}
 	
+	private boolean hasSellOffer()
+	{
+		for(Box box : Box.values())
+		{
+			Status s = API.grandExchange.getStatus(box);
+			if(box != null && s.name().contains("SALE"))
+				return true;
+		}
+		
+		return false;
+	}
+	
 	private void withdrawGold()
 	{
 		SCRIPT.log(this, false, "withdrawGold()");
@@ -173,6 +185,13 @@ public class ItemManagementEvent
 	{
 		while(API.inventory.getAmount(995) < TO_BUY.VALUE_NEEDED && API.client.isLoggedIn())
 		{
+			if(!hasSellOffer() && API.inventory.onlyContains(995))
+			{
+				SCRIPT.log(this, false, "Only has gold (not enough for order) and no items to sell... ending event");
+				isFinished = true;
+				break;
+			}
+			
 			if(canCollect())
 				API.grandExchange.collect();
 			
