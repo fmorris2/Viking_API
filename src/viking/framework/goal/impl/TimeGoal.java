@@ -13,18 +13,20 @@ import viking.framework.goal.Goal;
  */
 public class TimeGoal implements Goal
 {
-	private long startTime;
+	private long startTime = -1;
 	private long timeAmount;
 	
 	public TimeGoal(long timeAmount)
 	{
-		this.startTime = Timing.currentMs();
 		this.timeAmount = timeAmount;
 	}
 
 	@Override
 	public boolean hasReached()
 	{
+		if(startTime == -1)
+			startTime = Timing.currentMs();
+		
 		return Timing.timeFromMark(startTime) >= timeAmount;
 	}
 
