@@ -5,27 +5,35 @@ import viking.api.Timing;
 public class ReactionEntry
 {
 	private long reactionStart, reactionEnd;
-	private boolean hasStarted;
+	private boolean hasStartedEvent, hasStartedReaction;
 	
 	public void startDoing()
 	{
-		hasStarted = true;
+		hasStartedEvent = true;
+		hasStartedReaction = false;
 	}
 	
 	public void stopDoing()
 	{
 		reactionStart = Timing.currentMs();
+		hasStartedReaction = true;
 	}
 	
 	public void end()
 	{
 		reactionEnd = Timing.currentMs();
-		hasStarted = false;
+		hasStartedReaction = false;
+		hasStartedEvent = false;
 	}
 	
-	public boolean hasStarted()
+	public boolean hasStartedEvent()
 	{
-		return hasStarted;
+		return hasStartedEvent;
+	}
+	
+	public boolean hasStartedReaction()
+	{
+		return hasStartedReaction;
 	}
 	
 	public long getLength()
