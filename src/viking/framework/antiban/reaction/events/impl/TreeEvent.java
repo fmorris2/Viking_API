@@ -13,7 +13,7 @@ public class TreeEvent extends ReactionEvent
 	@Override
 	public boolean isDoing()
 	{
-		return api.myPlayer().getAnimation() != -1;
+		return api.myPlayer().getAnimation() != -1 && !api.myPlayer().isMoving();
 	}
 
 	@Override
