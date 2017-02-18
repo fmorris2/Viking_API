@@ -28,20 +28,15 @@ public abstract class ReactionEvent
 	
 	public void log(ReactionEntry entry)
 	{
+		api.log("Trying to write to: " + LOG_FILE_PATH);
 		try(
 			FileWriter fw = new FileWriter(LOG_FILE_PATH, true);
-			FileWriter f2 = new FileWriter(LOG_FILE_PATH.replace("bin", "src"), true);
 			BufferedWriter bw = new BufferedWriter(fw);
-			BufferedWriter b2 = new BufferedWriter(f2);
 		)
 		{
 			bw.write(""+entry.getLength());
 			bw.newLine();
 			bw.flush();
-			
-			b2.write(""+entry.getLength());
-			b2.newLine();
-			b2.flush();
 		}
 		catch(IOException e)
 		{
