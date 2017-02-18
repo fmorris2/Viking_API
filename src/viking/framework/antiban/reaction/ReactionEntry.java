@@ -7,9 +7,13 @@ public class ReactionEntry
 	private long reactionStart, reactionEnd;
 	private boolean hasStarted;
 	
-	public void start()
+	public void startDoing()
 	{
 		hasStarted = true;
+	}
+	
+	public void stopDoing()
+	{
 		reactionStart = Timing.currentMs();
 	}
 	
