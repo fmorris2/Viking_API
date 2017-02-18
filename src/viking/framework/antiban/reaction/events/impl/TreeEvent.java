@@ -5,9 +5,9 @@ import viking.framework.antiban.reaction.ReactionEvent;
 
 public class TreeEvent extends ReactionEvent
 {
-	public TreeEvent(VMethodProvider api)
+	public TreeEvent(VMethodProvider api, String treeName)
 	{
-		super(api);
+		super(api, treeName);
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class TreeEvent extends ReactionEvent
 	@Override
 	protected String getEntityName()
 	{
-		return "Tree";
+		return null;
 	}
 
 }

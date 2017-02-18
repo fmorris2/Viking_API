@@ -26,6 +26,22 @@ public abstract class ReactionEvent
 		System.out.println(LOG_FILE_PATH);
 	}
 	
+	public ReactionEvent(VMethodProvider api, String entityName)
+	{
+		this.api = api;
+		this.entityName = entityName;
+		LOG_FILE_PATH = entityName == null ? ID_LOG_PATH + entityID : NAME_LOG_PATH + entityName;
+		System.out.println(LOG_FILE_PATH);
+	}
+	
+	public ReactionEvent(VMethodProvider api, int entityID)
+	{
+		this.api = api;
+		this.entityID = entityID;
+		LOG_FILE_PATH = entityName == null ? ID_LOG_PATH + entityID : NAME_LOG_PATH + entityName;
+		System.out.println(LOG_FILE_PATH);
+	}
+	
 	public void log(ReactionEntry entry)
 	{
 		api.log("Trying to write to: " + LOG_FILE_PATH);
