@@ -9,6 +9,11 @@ public class TreeEvent extends ReactionEvent
 	{
 		super(api, treeName);
 	}
+	
+	public TreeEvent(String treeName)
+	{
+		super(null, treeName);
+	}
 
 	@Override
 	public boolean isDoing()

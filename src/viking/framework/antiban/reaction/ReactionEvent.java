@@ -1,8 +1,15 @@
 package viking.framework.antiban.reaction;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import viking.framework.VMethodProvider;
 
@@ -16,6 +23,8 @@ public abstract class ReactionEvent
 	protected String entityName;
 	protected int entityID;
 	protected VMethodProvider api;
+	
+	private Queue<Integer> reactionTimes = new LinkedList<>();
 
 	public ReactionEvent(VMethodProvider api)
 	{
@@ -42,10 +51,45 @@ public abstract class ReactionEvent
 		System.out.println(LOG_FILE_PATH);
 	}
 	
+	private void loadTimes()
+	{
+		try
+		(
+			FileReader fr = new FileReader(LOG_FILE_PATH);
+			BufferedReader br = new BufferedReader(fr);
+		)
+		{
+			List<Integer> times = new ArrayList<>();
+			String line;
+			while((line = br.readLine()) != null)
+				times.add(Integer.parseInt(line));
+			
+			System.out.println("Loaded " + times.size() + " reaction times");
+			Collections.shuffle(times);
+			reactionTimes.addAll(times);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public int getReactionTime()
+	{
+		if(reactionTimes.isEmpty())
+			loadTimes();
+		
+		int time = reactionTimes.poll();
+		reactionTimes.add(time);
+		
+		return time;
+	}
+	
 	public void log(ReactionEntry entry)
 	{
 		api.log("Trying to write to: " + LOG_FILE_PATH);
-		try(
+		try
+		(
 			FileWriter fw = new FileWriter(LOG_FILE_PATH, true);
 			BufferedWriter bw = new BufferedWriter(fw);
 		)
