@@ -16,7 +16,7 @@ public enum ReactionEvents
 		EVENT = e;
 	}
 	
-	public int getReactionTime(int id)
+	public static int getReactionTime(int id)
 	{
 		Integer i = new Integer(id);
 		for(ReactionEvents e : values())
@@ -26,7 +26,7 @@ public enum ReactionEvents
 		return 0;
 	}
 	
-	public int getReactionTime(String name)
+	public static int getReactionTime(String name)
 	{
 		for(ReactionEvents e : values())
 			if(e.EVENT.isValid(name))
