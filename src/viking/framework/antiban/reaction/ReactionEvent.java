@@ -5,20 +5,34 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.GeneralSecurityException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import com.sun.net.ssl.HttpsURLConnection;
+import com.sun.net.ssl.SSLContext;
+import com.sun.net.ssl.TrustManager;
+import com.sun.net.ssl.X509TrustManager;
+
 import viking.framework.VMethodProvider;
 
 public abstract class ReactionEvent
 {
+	@SuppressWarnings("deprecation")
+	private static final TrustManager[] TRUST_MANAGER = getTrustManager();
+	
 	//private final String ID_LOG_PATH = System.getProperty("user.home") + "/OSBot/Data/reaction/times/id/";
 	//private final String NAME_LOG_PATH = System.getProperty("user.home") + "/OSBot/Data/reaction/times/name/";
-	private final String ID_LOG_PATH = getClass().getResource("/viking/framework/antiban/reaction/times/id/").getFile();
-	private final String NAME_LOG_PATH = getClass().getResource("/viking/framework/antiban/reaction/times/name/").getFile();
+	private final String ID_LOG_PATH = "vikingscripts.io/orion/downloads/reaction/times/id/";
+	private final String NAME_LOG_PATH = "vikingscripts.io/orion/downloads/reaction/times/name/";
 	private final String LOG_FILE_PATH;
 	
 	protected String entityName;
@@ -54,9 +68,25 @@ public abstract class ReactionEvent
 	
 	private void loadTimes()
 	{
+		HttpURLConnection urlConnection = null;
+		
+		try
+		{
+			URL url = new URL(LOG_FILE_PATH);
+			urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setRequestProperty("User-Agent", "mUUgbWKTFeQW2W9BgcRzAbThTPc4YrEDAqdWJFnHXPygAufe");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		if(urlConnection == null)
+			return;
+			
 		try
 		(
-			FileReader fr = new FileReader(LOG_FILE_PATH);
+			InputStreamReader fr = new InputStreamReader(urlConnection.getInputStream());
 			BufferedReader br = new BufferedReader(fr);
 		)
 		{
@@ -122,4 +152,53 @@ public abstract class ReactionEvent
 	
 	protected abstract int getEntityID();
 	protected abstract String getEntityName();
+	
+	
+	
+	public static void installTrustManager()
+	{
+		try 
+		{
+		    SSLContext sc = SSLContext.getInstance("SSL"); 
+		    sc.init(null, TRUST_MANAGER, new java.security.SecureRandom()); 
+		    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+		} 
+		catch (GeneralSecurityException e) 
+		{
+			e.printStackTrace();
+		} 
+	}
+	
+	private static TrustManager[] getTrustManager()
+	{
+		// Create a trust manager that does not validate certificate chains
+		return new TrustManager[] 
+		{ 
+			new X509TrustManager()
+			{
+				public java.security.cert.X509Certificate[] getAcceptedIssuers()
+				{
+					return new X509Certificate[0];
+				}
+	
+				public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
+				{}
+	
+				public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
+				{}
+
+				@Override
+				public boolean isClientTrusted(X509Certificate[] arg0)
+				{
+					return false;
+				}
+
+				@Override
+				public boolean isServerTrusted(X509Certificate[] arg0)
+				{
+					return false;
+				}
+			} 
+		};
+	}
 }
