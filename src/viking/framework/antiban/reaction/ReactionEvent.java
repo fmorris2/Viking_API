@@ -2,10 +2,8 @@ package viking.framework.antiban.reaction;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,15 +22,15 @@ import com.sun.net.ssl.X509TrustManager;
 
 import viking.framework.VMethodProvider;
 
+@SuppressWarnings("deprecation")
 public abstract class ReactionEvent
 {
-	@SuppressWarnings("deprecation")
 	private static final TrustManager[] TRUST_MANAGER = getTrustManager();
 	
 	//private final String ID_LOG_PATH = System.getProperty("user.home") + "/OSBot/Data/reaction/times/id/";
 	//private final String NAME_LOG_PATH = System.getProperty("user.home") + "/OSBot/Data/reaction/times/name/";
-	private final String ID_LOG_PATH = "vikingscripts.io/orion/downloads/reaction/times/id/";
-	private final String NAME_LOG_PATH = "vikingscripts.io/orion/downloads/reaction/times/name/";
+	private final String ID_LOG_PATH = "https://vikingscripts.io/orion/downloads/reaction/times/id/";
+	private final String NAME_LOG_PATH = "https://vikingscripts.io/orion/downloads/reaction/times/name/";
 	private final String LOG_FILE_PATH;
 	
 	protected String entityName;
@@ -75,6 +73,9 @@ public abstract class ReactionEvent
 			URL url = new URL(LOG_FILE_PATH);
 			urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestProperty("User-Agent", "mUUgbWKTFeQW2W9BgcRzAbThTPc4YrEDAqdWJFnHXPygAufe");
+			urlConnection.setRequestMethod("GET");
+			urlConnection.setDoOutput(true);
+			urlConnection.connect();
 		}
 		catch(Exception e)
 		{
@@ -181,12 +182,6 @@ public abstract class ReactionEvent
 					return new X509Certificate[0];
 				}
 	
-				public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
-				{}
-	
-				public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
-				{}
-
 				@Override
 				public boolean isClientTrusted(X509Certificate[] arg0)
 				{
