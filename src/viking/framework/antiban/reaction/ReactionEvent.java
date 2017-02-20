@@ -15,9 +15,10 @@ import viking.framework.VMethodProvider;
 
 public abstract class ReactionEvent
 {
-	private final String ID_LOG_PATH = System.getProperty("user.home") + "/OSBot/Data/reaction/times/id/";
-	private final String NAME_LOG_PATH = System.getProperty("user.home") + "/OSBot/Data/reaction/times/name/";
-	//private final String ID_LOG_PATH = getClass().getResource("/viking/framework/antiban/reaction/times/id/").getFile();
+	//private final String ID_LOG_PATH = System.getProperty("user.home") + "/OSBot/Data/reaction/times/id/";
+	//private final String NAME_LOG_PATH = System.getProperty("user.home") + "/OSBot/Data/reaction/times/name/";
+	private final String ID_LOG_PATH = getClass().getResource("/viking/framework/antiban/reaction/times/id/").getFile();
+	private final String NAME_LOG_PATH = getClass().getResource("/viking/framework/antiban/reaction/times/name/").getFile();
 	private final String LOG_FILE_PATH;
 	
 	protected String entityName;
